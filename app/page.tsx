@@ -125,12 +125,19 @@ export default function Home() {
             <Zap className="w-4 h-4 text-yellow-400" />
             <span className="text-sm font-bold text-white">{xp} XP</span>
           </div>
-          <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-            <Diamond className="w-4 h-4 text-pink-400" />
+          <div 
+            onClick={() => setIsPaywallOpen(true)}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md cursor-pointer hover:bg-white/10 hover:border-pink-500/50 transition-all group"
+            title="Refill Insights"
+          >
+            <Diamond className="w-4 h-4 text-pink-400 group-hover:scale-110 transition-transform" />
             <span className="font-bold text-white text-lg drop-shadow-md">
               {/* @ts-ignore */}
               {session?.user?.role === 'ADMIN' ? '∞' : insights !== null ? insights : '...'}
             </span>
+            <div className="ml-1 w-5 h-5 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400 group-hover:bg-pink-500 group-hover:text-white transition-colors">
+              <span className="text-sm font-bold leading-none mb-0.5">+</span>
+            </div>
           </div>
 
           {/* @ts-ignore */}

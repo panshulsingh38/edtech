@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { generateObject } from 'ai';
+import { generateObject, generateText } from 'ai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 
 export const questionSetSchema = z.object({
@@ -146,10 +146,6 @@ export async function chatWithDocument(sourceText: string, chatHistory: { role: 
     await new Promise(resolve => setTimeout(resolve, 1000));
     return "This is a mocked response from the AI tutor since no API key is provided.";
   }
-
-  // We use generateObject here with a simple string schema just to stay consistent with the existing import,
-  // or we could import generateText from 'ai'. Let's just import generateText dynamically or use object.
-  const { generateText } = await import('ai');
 
   const systemPrompt = `You are a helpful AI Tutor assisting a student. 
 Use the provided Source Document as your sole source of truth.
