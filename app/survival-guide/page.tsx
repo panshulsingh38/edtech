@@ -16,9 +16,9 @@ export default function SurvivalGuide() {
   const [file, setFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const { completion: guide, isLoading: loading, complete, error } = useCompletion({
-    api: '/api/survival-guide'
-  });
+  const [guide, setGuide] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
 
   if (status === "unauthenticated") {
     router.push("/auth/signin");
@@ -39,10 +39,45 @@ export default function SurvivalGuide() {
   const handleSubmit = async () => {
     if (!file) return;
 
+    setLoading(true);
+    setGuide("");
+    setError(null);
+
     const formData = new FormData();
     formData.append("file", file);
     
-    await complete('', { body: formData as any });
+    try {
+      const res = await fetch("/api/survival-guide", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || "Failed to generate guide");
+      }
+
+      const reader = res.body?.getReader();
+      if (!reader) throw new Error("Failed to read response stream");
+
+      const decoder = new TextDecoder();
+      let done = false;
+      let currentText = "";
+
+      while (!done) {
+        const { value, done: doneReading } = await reader.read();
+        done = doneReading;
+        if (value) {
+          currentText += decoder.decode(value, { stream: true });
+          setGuide(currentText);
+        }
+      }
+    } catch (err: any) {
+      console.error(err);
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
