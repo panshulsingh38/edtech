@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Loader2, Sparkles } from 'lucide-react';
-import { cn } from '@/lib/utils'; // wait, do we have cn in utils? The other components define it inline. Let's define it inline just in case.
+
 
 import { twMerge } from 'tailwind-merge';
 import { clsx, type ClassValue } from 'clsx';
