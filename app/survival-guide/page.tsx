@@ -124,7 +124,7 @@ export default function SurvivalGuide() {
             {error && (
               <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex items-start gap-3 text-red-400">
                 <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
-                <p className="text-sm leading-relaxed">{error}</p>
+                <p className="text-sm leading-relaxed">{error.message}</p>
               </div>
             )}
           </div>
