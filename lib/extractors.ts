@@ -1,3 +1,4 @@
+// @ts-ignore
 import pdfParse from 'pdf-parse';
 import Tesseract from 'tesseract.js';
 
