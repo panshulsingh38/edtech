@@ -20,6 +20,13 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ packId })
       });
+      
+      if (res.status === 401) {
+        alert("You must be signed in to purchase more insights! Redirecting to login...");
+        window.location.href = "/api/auth/signin?callbackUrl=/";
+        return;
+      }
+      
       const data = await res.json();
       if (data.url) {
         window.location.href = data.url;
