@@ -97,7 +97,7 @@ Make it highly structured and readable using Markdown. Use bolding and lists to 
       }
     });
 
-    return result.toDataStreamResponse();
+    return result.toTextStreamResponse();
   } catch (error: any) {
     console.error("Survival Guide Error:", error);
     return new Response(JSON.stringify({ error: error.message || "Failed to generate guide." }), { status: 500 });
