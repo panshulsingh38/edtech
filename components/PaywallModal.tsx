@@ -15,7 +15,8 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
   const handleCheckout = async (packId: string) => {
     try {
       setLoadingId(packId);
-      const res = await fetch('/api/checkout', {
+      
+      const res = await fetch('/api/razorpay/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ packId })
@@ -27,13 +28,55 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
         return;
       }
       
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        alert(data.error || "Checkout failed");
+      const orderData = await res.json();
+      
+      if (orderData.error) {
+        alert(orderData.error || "Failed to create order");
         setLoadingId(null);
+        return;
       }
+
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "",
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: "EdTech Insights",
+        description: "AI Insight Recharge",
+        order_id: orderData.id,
+        handler: async function (response: any) {
+          try {
+            const verifyRes = await fetch('/api/razorpay/verify', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature,
+                insightsToAdd: orderData.insightsToAdd,
+              })
+            });
+            const verifyData = await verifyRes.json();
+            if (verifyData.success) {
+              alert("Payment successful! Your insights have been added.");
+              window.location.reload();
+            } else {
+              alert("Payment verification failed. Please contact support.");
+            }
+          } catch (e) {
+            console.error(e);
+            alert("Verification error.");
+          }
+        },
+        theme: {
+          color: "#6366f1"
+        }
+      };
+
+      // @ts-ignore
+      const rzp1 = new window.Razorpay(options);
+      rzp1.open();
+      setLoadingId(null);
+      
     } catch (err) {
       console.error(err);
       alert("Something went wrong");
@@ -45,6 +88,9 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
     <AnimatePresence>
       {isOpen && (
         <>
+          {/* Load Razorpay Script */}
+          <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -94,7 +140,7 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
                       <p className="text-sm text-gray-400">50 AI Insights</p>
                     </div>
                     <div className="flex items-center gap-4">
-                      <span className="text-xl font-bold text-white">$3</span>
+                      <span className="text-xl font-bold text-white">₹249</span>
                       {loadingId === 'starter' ? <Loader2 className="w-5 h-5 animate-spin" /> : <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center group-hover:bg-indigo-500 transition-colors"><CheckCircle2 className="w-4 h-4 text-white opacity-0 group-hover:opacity-100" /></div>}
                     </div>
                   </button>
@@ -114,7 +160,7 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
                       <p className="text-sm text-indigo-200">150 AI Insights</p>
                     </div>
                     <div className="flex items-center gap-4 mt-1">
-                      <span className="text-xl font-bold text-white">$7</span>
+                      <span className="text-xl font-bold text-white">₹599</span>
                       {loadingId === 'midterm' ? <Loader2 className="w-5 h-5 animate-spin" /> : <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center shadow-lg"><CheckCircle2 className="w-4 h-4 text-white" /></div>}
                     </div>
                   </button>
@@ -133,13 +179,13 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
                       <p className="text-sm text-gray-400">500 AI Insights</p>
                     </div>
                     <div className="flex items-center gap-4">
-                      <span className="text-xl font-bold text-white">$15</span>
+                      <span className="text-xl font-bold text-white">₹1249</span>
                       {loadingId === 'finals' ? <Loader2 className="w-5 h-5 animate-spin text-pink-500" /> : <div className="w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center group-hover:bg-pink-500 transition-colors"><CheckCircle2 className="w-4 h-4 text-white opacity-0 group-hover:opacity-100" /></div>}
                     </div>
                   </button>
                 </div>
                 
-                <p className="text-xs text-gray-500 mt-2">Payments are securely processed by Stripe.</p>
+                <p className="text-xs text-gray-500 mt-2">Payments are securely processed by Razorpay.</p>
               </div>
             </div>
           </motion.div>
