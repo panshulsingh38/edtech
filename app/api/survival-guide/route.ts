@@ -2,15 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
-import { GoogleAIFileManager } from "@google/generative-ai/server";
-import { writeFile, unlink } from "fs/promises";
-import { join } from "path";
-import { tmpdir } from "os";
 import { streamText } from "ai";
 import { google } from "@ai-sdk/google";
 
 const prisma = new PrismaClient();
-const fileManager = new GoogleAIFileManager(process.env.GEMINI_API_KEY || "");
+
+export const maxDuration = 60; // Allow up to 60 seconds for processing long PDFs
 
 export async function POST(req: NextRequest) {
   try {
@@ -42,19 +39,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
-    // Save the file temporarily to disk for the FileManager
-    const buffer = await file.arrayBuffer();
-    const tempFilePath = join(tmpdir(), `survival-guide-${Date.now()}-${file.name}`);
-    await writeFile(tempFilePath, Buffer.from(buffer));
-
-    // Upload the file to Google AI
-    const uploadResult = await fileManager.uploadFile(tempFilePath, {
-      mimeType: file.type,
-      displayName: file.name,
-    });
-
-    // Delete the local temp file to save space
-    await unlink(tempFilePath).catch(console.error);
+    // Send the file directly inline to Gemini
+    const buffer = Buffer.from(await file.arrayBuffer());
 
     const prompt = `You are a master exam prep tutor helping a panicked student the night before their exam.
 They have uploaded their textbook, syllabus, or notes.
@@ -66,14 +52,13 @@ Please include:
 Make it highly structured and readable using Markdown. Use bolding and lists to make it skimmable.`;
 
     const result = await streamText({
-      model: google('gemini-flash-latest'),
+      model: google('gemini-1.5-flash'),
       messages: [
         {
           role: 'user',
           content: [
             { type: 'text', text: prompt },
-            // @ts-ignore
-            { type: 'file', data: uploadResult.file.uri, mimeType: uploadResult.file.mimeType }
+            { type: 'file', data: buffer, mimeType: file.type }
           ]
         }
       ],
