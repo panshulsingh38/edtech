@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { processFileBuffer } from '@/lib/extractors';
 import { generateQuestionSet } from '@/lib/ai-engine';
 import { prisma } from '@/lib/db';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 // Define constraints
 const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB
@@ -16,6 +18,17 @@ export async function POST(req: NextRequest) {
 
     if (!file) {
       return NextResponse.json({ error: 'No file uploaded.' }, { status: 400 });
+    }
+
+    const session = await getServerSession(authOptions);
+    let user = null;
+    if (session?.user?.email) {
+      user = await prisma.user.findUnique({ where: { email: session.user.email } });
+      if (user && user.role !== 'ADMIN') {
+        if (user.insights < 3) {
+          return NextResponse.json({ error: "Insufficient Insights. You need at least 3 to generate a test." }, { status: 403 });
+        }
+      }
     }
 
     // 1. Validate File Size
@@ -75,6 +88,14 @@ export async function POST(req: NextRequest) {
         }
       }
     });
+
+    // Deduct 3 insights from the user's DB balance if they are logged in
+    if (user && user.role !== 'ADMIN') {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { insights: { decrement: 3 } }
+      });
+    }
 
     // 6. Return Success Response
     return NextResponse.json({

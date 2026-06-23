@@ -32,11 +32,11 @@ export default function Home() {
     if (session?.user?.role === 'ADMIN') return true;
 
     if (insights === null) return false;
-    if (insights <= 0) {
+    if (insights < 3) {
       setIsPaywallOpen(true);
       return false;
     }
-    const newCount = insights - 1;
+    const newCount = insights - 3;
     setInsights(newCount);
     
     // Only update localStorage if not logged in
