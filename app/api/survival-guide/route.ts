@@ -72,6 +72,7 @@ Make it highly structured and readable using Markdown. Use bolding and lists to 
           role: 'user',
           content: [
             { type: 'text', text: prompt },
+            // @ts-ignore
             { type: 'file', data: uploadResult.file.uri, mimeType: uploadResult.file.mimeType }
           ]
         }
