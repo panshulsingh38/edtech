@@ -41,7 +41,7 @@ export default function Flashcard({ id, question, answer, explanation, index }: 
   const toggleListening = (e: React.MouseEvent) => {
     e.stopPropagation();
     
-    const SpeechRecognition = window.SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognition) {
       alert("Speech Recognition is not supported in this browser. Try Chrome.");
       return;
