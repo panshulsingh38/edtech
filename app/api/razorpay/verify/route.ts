@@ -28,12 +28,42 @@ export async function POST(req: Request) {
     // @ts-ignore
     const userId = session.user.id;
     
-    await prisma.user.update({
-      where: { id: userId },
-      data: {
-        insights: { increment: parseInt(insightsToAdd) }
-      }
+    // Check if this order was already fulfilled by the webhook
+    const existingPayment = await prisma.payment.findUnique({
+      where: { razorpayOrderId: razorpay_order_id }
     });
+
+    if (existingPayment) {
+      // Already processed, just return success
+      return NextResponse.json({ success: true, insightsAdded: 0, message: "Already processed" });
+    }
+
+    try {
+      // Use a database transaction to ensure atomicity
+      await prisma.$transaction([
+        prisma.payment.create({
+          data: {
+            razorpayOrderId: razorpay_order_id,
+            razorpayPaymentId: razorpay_payment_id,
+            userId: userId,
+            insightsAdded: parseInt(insightsToAdd),
+            status: "SUCCESS"
+          }
+        }),
+        prisma.user.update({
+          where: { id: userId },
+          data: {
+            insights: { increment: parseInt(insightsToAdd) }
+          }
+        })
+      ]);
+    } catch (err: any) {
+      // P2002 is Prisma's error code for a Unique Constraint Violation (meaning the webhook literally just created it)
+      if (err.code === 'P2002') {
+        return NextResponse.json({ success: true, insightsAdded: 0, message: "Already processed concurrently" });
+      }
+      throw err; // Re-throw other errors
+    }
 
     return NextResponse.json({ success: true, insightsAdded: insightsToAdd });
   } catch (err: any) {
