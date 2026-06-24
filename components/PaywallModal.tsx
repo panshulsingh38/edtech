@@ -4,6 +4,16 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Sparkles, Zap, CheckCircle2, Loader2, BookOpen, GraduationCap } from 'lucide-react';
 
+function loadScript(src: string) {
+  return new Promise((resolve) => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+}
+
 interface PaywallModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -15,6 +25,13 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
   const handleCheckout = async (packId: string) => {
     try {
       setLoadingId(packId);
+
+      const isScriptLoaded = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
+      if (!isScriptLoaded) {
+        alert('Razorpay SDK failed to load. Please check your internet connection.');
+        setLoadingId(null);
+        return;
+      }
       
       const res = await fetch('/api/razorpay/create-order', {
         method: 'POST',
@@ -77,9 +94,9 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
       rzp1.open();
       setLoadingId(null);
       
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      alert("Something went wrong");
+      alert(err.message || "Something went wrong");
       setLoadingId(null);
     }
   };
@@ -88,9 +105,6 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Load Razorpay Script */}
-          <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
