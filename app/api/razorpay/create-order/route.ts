@@ -41,10 +41,8 @@ export async function POST(req: Request) {
     const orderOptions = {
       amount: priceInPaisa,
       currency: "INR",
-      // @ts-ignore
-      receipt: `receipt_${packId}_${session.user.id}`,
+      receipt: `rcpt_${Date.now().toString().slice(-8)}`,
       notes: {
-        // @ts-ignore
         userId: session.user.id,
         insightsToAdd: insights.toString(),
         packId,
