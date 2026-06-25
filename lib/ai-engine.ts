@@ -76,7 +76,7 @@ Do NOT include any conversational filler, markdown code blocks, or text outside 
 
   try {
     const { object } = await generateObject({
-      model: google('gemini-flash-latest'),
+      model: google('gemini-1.5-flash'),
       schema: questionSetSchema,
       system: systemPrompt,
       prompt: `Here is the source material to base the test on:\n\n${sourceText}`,
