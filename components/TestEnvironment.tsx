@@ -159,7 +159,7 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
         <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
           {testData.testTitle}
         </h2>
-        <div className="flex items-center gap-3 print:hidden">
+        <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 print:hidden w-full md:w-auto">
           <div className="flex items-center bg-[#1a1a24] rounded-full p-1 mr-4 border border-white/10">
             <button
               onClick={() => setMode('test')}
