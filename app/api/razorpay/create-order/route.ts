@@ -17,6 +17,10 @@ export async function POST(req: Request) {
     let insights = 0;
 
     switch (packId) {
+      case "mini":
+        priceInPaisa = 5000; // ₹50
+        insights = 25;
+        break;
       case "starter":
         priceInPaisa = 24900; // ₹249
         insights = 50;

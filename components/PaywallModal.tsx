@@ -140,6 +140,25 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
                 </p>
 
                 <div className="w-full flex flex-col gap-3 mb-6">
+                  {/* Mini Pack */}
+                  <button 
+                    onClick={() => handleCheckout('mini')}
+                    disabled={loadingId !== null}
+                    className="relative group w-full bg-emerald-500/10 border border-emerald-500/30 hover:border-emerald-500 hover:bg-emerald-500/20 rounded-2xl p-4 text-left transition-all flex items-center justify-between"
+                  >
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <Zap className="w-4 h-4 text-emerald-400" />
+                        <span className="font-bold text-white">Mini Pack</span>
+                      </div>
+                      <p className="text-sm text-emerald-200/70">25 AI Insights</p>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <span className="text-xl font-bold text-white">₹50</span>
+                      {loadingId === 'mini' ? <Loader2 className="w-5 h-5 animate-spin" /> : <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center group-hover:bg-emerald-500 transition-colors"><CheckCircle2 className="w-4 h-4 text-white opacity-0 group-hover:opacity-100" /></div>}
+                    </div>
+                  </button>
+
                   {/* Starter Pack */}
                   <button 
                     onClick={() => handleCheckout('starter')}
