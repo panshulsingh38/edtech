@@ -88,15 +88,17 @@ export default function FileUpload({ onTestGenerated, onConsumeInsight }: FileUp
         body: formData,
       });
 
-      const data = await response.json();
+      const data = await response.json().catch(() => null);
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Something went wrong during the upload.');
+      if (!response.ok || !data) {
+        throw new Error(data?.error || `Server returned ${response.status}. This usually means Vercel timed out or you hit a limit.`);
       }
 
       onTestGenerated(data.data, data.testId);
     } catch (err: any) {
-      setError(err.message);
+      console.error(err);
+      setError(err.message || "An unknown error occurred.");
+      alert("Error: " + (err.message || "An unknown error occurred."));
       setLoading(false);
     }
   };

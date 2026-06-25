@@ -5,6 +5,8 @@ import { prisma } from '@/lib/db';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
+export const maxDuration = 60; // Allow 60 seconds for Vercel Hobby tier
+
 // Define constraints
 const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB
 const ALLOWED_MIME_TYPES = ['application/pdf', 'text/plain', 'image/jpeg', 'image/png'];

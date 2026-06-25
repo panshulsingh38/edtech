@@ -31,7 +31,10 @@ export default function Home() {
     // @ts-ignore - custom property
     if (session?.user?.role === 'ADMIN') return true;
 
-    if (insights === null) return false;
+    if (insights === null) {
+      alert("Still loading your profile... Please try again in a few seconds.");
+      return false;
+    }
     if (insights < 3) {
       setIsPaywallOpen(true);
       return false;
