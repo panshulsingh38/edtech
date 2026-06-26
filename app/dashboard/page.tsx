@@ -11,37 +11,41 @@ import { authOptions } from '@/lib/auth';
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
   
-  if (!session || !session.user) {
-    return (
-      <div className="w-full max-w-6xl mx-auto p-6 pt-12 text-center text-white">
-        <h1 className="text-2xl font-bold mb-4">Please sign in</h1>
-        <Link href="/auth/signin" className="px-6 py-3 bg-indigo-600 rounded-xl hover:bg-indigo-500 transition">Sign In</Link>
-      </div>
-    );
-  }
+  let userProfile = null;
+  let tests = [];
 
-  const userProfile = await prisma.user.findUnique({
-    // @ts-ignore
-    where: { id: session.user.id }
-  });
-
-  const tests = await prisma.test.findMany({
-    where: {
+  if (session && session.user) {
+    userProfile = await prisma.user.findUnique({
       // @ts-ignore
-      userId: session.user.id
-    },
-    select: {
-      id: true,
-      title: true,
-      createdAt: true,
-      _count: {
-        select: { questions: true }
-      }
-    },
-    orderBy: {
-      createdAt: 'desc'
-    }
-  });
+      where: { id: session.user.id }
+    });
+
+    tests = await prisma.test.findMany({
+      where: {
+        // @ts-ignore
+        userId: session.user.id
+      },
+      select: {
+        id: true,
+        title: true,
+        createdAt: true,
+        _count: { select: { questions: true } }
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+  } else {
+    tests = await prisma.test.findMany({
+      where: { userId: null },
+      select: {
+        id: true,
+        title: true,
+        createdAt: true,
+        _count: { select: { questions: true } }
+      },
+      orderBy: { createdAt: 'desc' },
+      take: 12
+    });
+  }
 
   const examDate = userProfile?.examDate ? new Date(userProfile.examDate) : null;
   const daysUntilExam = examDate ? Math.ceil((examDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) : null;
