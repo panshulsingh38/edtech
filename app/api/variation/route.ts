@@ -32,7 +32,7 @@ The user failed the provided question. Your task is to generate a single new que
 Return a QuestionSet containing EXACTLY ONE question. Use the same schema provided.`;
 
     const { object } = await generateObject({
-      model: google('gemini-1.5-flash'),
+      model: google('gemini-3.5-flash'),
       schema: questionSetSchema,
       system: systemPrompt,
       prompt: `Failed Question:\n${JSON.stringify(failedQuestion, null, 2)}\n\nGenerate the variation:`,

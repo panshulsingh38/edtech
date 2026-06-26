@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
     const buffer = await image.arrayBuffer();
     const base64Image = Buffer.from(buffer).toString("base64");
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-3.5-pro" });
 
     const prompt = `You are a world-class tutor for Math, Physics, and Chemistry. 
 A student has uploaded a picture of a homework problem they are stuck on.
