@@ -44,6 +44,7 @@ export async function POST(req: NextRequest) {
 
     // 1-3. Validate and Extract Text from all files
     let sourceText = '';
+    const images: { data: string, mimeType: string }[] = [];
     
     for (const f of allFiles) {
       if (f.size > MAX_FILE_SIZE) {
@@ -57,20 +58,28 @@ export async function POST(req: NextRequest) {
       const buffer = Buffer.from(arrayBuffer);
       
       try {
-        const text = await processFileBuffer(buffer, f.type);
-        sourceText += `\n\n--- DOCUMENT: ${f.name} ---\n\n` + text;
+        if (f.type.startsWith('image/')) {
+          images.push({
+            data: buffer.toString('base64'),
+            mimeType: f.type
+          });
+          sourceText += `\n\n--- DOCUMENT: ${f.name} (Image attached) ---\n\n`;
+        } else {
+          const text = await processFileBuffer(buffer, f.type);
+          sourceText += `\n\n--- DOCUMENT: ${f.name} ---\n\n` + text;
+        }
       } catch (extractionError) {
         console.error(extractionError);
-        return NextResponse.json({ error: `Failed to extract text from ${f.name}.` }, { status: 422 });
+        return NextResponse.json({ error: `Failed to extract content from ${f.name}.` }, { status: 422 });
       }
     }
 
-    if (!sourceText.trim()) {
-      return NextResponse.json({ error: 'Extracted text is empty. Cannot generate a test.' }, { status: 422 });
+    if (!sourceText.trim() && images.length === 0) {
+      return NextResponse.json({ error: 'Extracted content is empty. Cannot generate a test.' }, { status: 422 });
     }
 
     // 4. Generate Question Set via LLM
-    const questionSet = await generateQuestionSet(sourceText, difficulty, tone, isSynthesis);
+    const questionSet = await generateQuestionSet(sourceText, difficulty, tone, isSynthesis, images);
 
     // 5. Save to PostgreSQL Database using Prisma
     // We use a transaction or single nested create to insert the Test and its Questions

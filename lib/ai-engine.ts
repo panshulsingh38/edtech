@@ -50,7 +50,13 @@ const google = createGoogleGenerativeAI({
  * Generates a structured question set from provided text using Gemini.
  * Falls back to a mock mode if the API key is missing.
  */
-export async function generateQuestionSet(sourceText: string, difficulty: string = 'College Level', tone: string = 'Professional', isSynthesis: boolean = false): Promise<QuestionSet> {
+export async function generateQuestionSet(
+  sourceText: string, 
+  difficulty: string = 'College Level', 
+  tone: string = 'Professional', 
+  isSynthesis: boolean = false,
+  images?: { data: string, mimeType: string }[]
+): Promise<QuestionSet> {
   const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 
   // Mock fallback if no API key is present
@@ -105,11 +111,24 @@ Do NOT include any conversational filler, markdown code blocks, or text outside 
   `.trim();
 
   try {
+    const messageContent: any[] = [
+      { type: 'text', text: `Here is the source material to base the test on:\n\n${sourceText}` }
+    ];
+
+    if (images && images.length > 0) {
+      images.forEach(img => {
+        messageContent.push({
+          type: 'image',
+          image: new URL(`data:${img.mimeType};base64,${img.data}`)
+        });
+      });
+    }
+
     const { object } = await generateObject({
-      model: google('gemini-1.5-flash'),
+      model: google('gemini-3.5-flash'),
       schema: questionSetSchema,
       system: systemPrompt,
-      prompt: `Here is the source material to base the test on:\n\n${sourceText}`,
+      messages: [{ role: 'user', content: messageContent }],
       temperature: 0.2, 
     });
 
@@ -160,7 +179,7 @@ export async function gradeAnswer(questionText: string, correctAnswer: string, u
 Provide personalized, encouraging feedback. Point out exactly what they missed if they didn't get a 10/10.`;
 
   const { object } = await generateObject({
-    model: google('gemini-1.5-flash'),
+    model: google('gemini-3.5-flash'),
     schema: gradingSchema,
     system: systemPrompt,
     prompt: `Question: ${questionText}\nCorrect Answer/Concept: ${correctAnswer}\nStudent's Answer: ${userAnswer}`,
@@ -203,7 +222,7 @@ If you are acting as the Transpiler, you may give direct transpilation results w
   ];
 
   const { text } = await generateText({
-    model: google('gemini-1.5-flash'),
+    model: google('gemini-3.5-flash'),
     system: systemPrompt,
     messages: messages as any,
     temperature: 0.7,
