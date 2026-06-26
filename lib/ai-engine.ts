@@ -76,7 +76,7 @@ Do NOT include any conversational filler, markdown code blocks, or text outside 
 
   try {
     const { object } = await generateObject({
-      model: google('gemini-1.5-pro'),
+      model: google('gemini-1.5-flash'),
       schema: questionSetSchema,
       system: systemPrompt,
       prompt: `Here is the source material to base the test on:\n\n${sourceText}`,
@@ -130,7 +130,7 @@ export async function gradeAnswer(questionText: string, correctAnswer: string, u
 Provide personalized, encouraging feedback. Point out exactly what they missed if they didn't get a 10/10.`;
 
   const { object } = await generateObject({
-    model: google('gemini-1.5-pro'),
+    model: google('gemini-1.5-flash'),
     schema: gradingSchema,
     system: systemPrompt,
     prompt: `Question: ${questionText}\nCorrect Answer/Concept: ${correctAnswer}\nStudent's Answer: ${userAnswer}`,
@@ -161,7 +161,7 @@ ${sourceText}
   ];
 
   const { text } = await generateText({
-    model: google('gemini-1.5-pro'),
+    model: google('gemini-1.5-flash'),
     system: systemPrompt,
     messages: messages as any,
     temperature: 0.3,
