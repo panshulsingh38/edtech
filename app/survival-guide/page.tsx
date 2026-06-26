@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { UploadCloud, FileText, Loader2, BookOpen, AlertCircle } from "lucide-react";
+import { UploadCloud, FileText, Loader2, BookOpen, AlertCircle, Zap } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
@@ -72,6 +72,28 @@ export default function SurvivalGuide() {
           setGuide(currentText);
         }
       }
+    } catch (err: any) {
+      console.error(err);
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGenerateCramSheet = async () => {
+    setLoading(true);
+    setGuide("");
+    setError(null);
+
+    try {
+      const res = await fetch("/api/cram-sheet", {
+        method: "POST",
+      });
+
+      if (!res.ok) throw new Error("Failed to generate cram sheet");
+
+      const data = await res.json();
+      setGuide(data.cheatSheet);
     } catch (err: any) {
       console.error(err);
       setError(err);
@@ -154,6 +176,21 @@ export default function SurvivalGuide() {
                   Generate Guide (5 Insights)
                 </>
               )}
+            </button>
+
+            <div className="relative flex items-center py-4">
+              <div className="flex-grow border-t border-zinc-700"></div>
+              <span className="flex-shrink-0 mx-4 text-zinc-500 text-sm font-bold tracking-widest uppercase">Or</span>
+              <div className="flex-grow border-t border-zinc-700"></div>
+            </div>
+
+            <button
+              onClick={handleGenerateCramSheet}
+              disabled={loading}
+              className="w-full py-4 px-6 bg-zinc-800 hover:bg-zinc-700 text-orange-400 rounded-xl font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed border border-orange-500/20"
+            >
+              <Zap className="w-5 h-5" />
+              Generate 24-Hour Cram Sheet (From Weak Topics)
             </button>
 
             {error && (

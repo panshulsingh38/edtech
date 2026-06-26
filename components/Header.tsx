@@ -2,10 +2,16 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Sparkles, LayoutDashboard } from 'lucide-react';
+import { Sparkles, LayoutDashboard, Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 export default function Header() {
   const pathname = usePathname();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   return (
     <header className="w-full border-b border-white/10 bg-[#13131a]/80 backdrop-blur-md sticky top-0 z-50 print:hidden">
@@ -35,6 +41,15 @@ export default function Header() {
             <LayoutDashboard className="w-4 h-4" />
             Dashboard
           </Link>
+
+          {mounted && (
+            <button
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className="p-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white transition-all ml-2"
+            >
+              {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+          )}
         </nav>
       </div>
     </header>

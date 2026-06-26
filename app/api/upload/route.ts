@@ -14,51 +14,55 @@ const ALLOWED_MIME_TYPES = ['application/pdf', 'text/plain', 'image/jpeg', 'imag
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
-    const file = formData.get('file') as File | null;
+    const files = formData.getAll('files') as File[];
+    const file = formData.get('file') as File | null; // For backwards compatibility
+    const allFiles = files.length > 0 ? files : (file ? [file] : []);
     const difficulty = formData.get('difficulty') as string || 'College Level';
     const tone = formData.get('tone') as string || 'Professional';
+    const isSynthesis = formData.get('isSynthesis') === 'true';
 
-    if (!file) {
-      return NextResponse.json({ error: 'No file uploaded.' }, { status: 400 });
+    if (allFiles.length === 0) {
+      return NextResponse.json({ error: 'No files uploaded.' }, { status: 400 });
     }
 
     const session = await getServerSession(authOptions);
     let user = null;
     if (session?.user?.email) {
-      user = await prisma.user.findUnique({ where: { email: session.user.email } });
+      user = await prisma.user.findUnique({ 
+        where: { email: session.user.email },
+        include: { _count: { select: { tests: true } } }
+      });
       if (user && user.role !== 'ADMIN') {
+        if (user._count.tests >= 3) {
+          return NextResponse.json({ error: "Freemium limit reached. You can only generate 3 tests for free. Please upgrade to Pro." }, { status: 403 });
+        }
         if (user.insights < 3) {
           return NextResponse.json({ error: "Insufficient Insights. You need at least 3 to generate a test." }, { status: 403 });
         }
       }
     }
 
-    // 1. Validate File Size
-    if (file.size > MAX_FILE_SIZE) {
-      return NextResponse.json(
-        { error: `File size exceeds the 15MB limit. Your file size is ${(file.size / 1024 / 1024).toFixed(2)}MB.` },
-        { status: 400 }
-      );
-    }
-
-    // 2. Validate Mime Type
-    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
-      return NextResponse.json(
-        { error: `Unsupported file type: ${file.type}. Allowed types are PDF, TXT, JPEG, and PNG.` },
-        { status: 400 }
-      );
-    }
-
-    // 3. Extract Text from File Buffer
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    
+    // 1-3. Validate and Extract Text from all files
     let sourceText = '';
-    try {
-      sourceText = await processFileBuffer(buffer, file.type);
-    } catch (extractionError) {
-      console.error(extractionError);
-      return NextResponse.json({ error: 'Failed to extract text from the provided file.' }, { status: 422 });
+    
+    for (const f of allFiles) {
+      if (f.size > MAX_FILE_SIZE) {
+        return NextResponse.json({ error: `File ${f.name} size exceeds the 15MB limit.` }, { status: 400 });
+      }
+      if (!ALLOWED_MIME_TYPES.includes(f.type)) {
+        return NextResponse.json({ error: `Unsupported file type: ${f.type}. Allowed types are PDF, TXT, JPEG, and PNG.` }, { status: 400 });
+      }
+      
+      const arrayBuffer = await f.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      
+      try {
+        const text = await processFileBuffer(buffer, f.type);
+        sourceText += `\n\n--- DOCUMENT: ${f.name} ---\n\n` + text;
+      } catch (extractionError) {
+        console.error(extractionError);
+        return NextResponse.json({ error: `Failed to extract text from ${f.name}.` }, { status: 422 });
+      }
     }
 
     if (!sourceText.trim()) {
@@ -66,7 +70,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 4. Generate Question Set via LLM
-    const questionSet = await generateQuestionSet(sourceText, difficulty, tone);
+    const questionSet = await generateQuestionSet(sourceText, difficulty, tone, isSynthesis);
 
     // 5. Save to PostgreSQL Database using Prisma
     // We use a transaction or single nested create to insert the Test and its Questions
@@ -85,6 +89,10 @@ export async function POST(req: NextRequest) {
               options: q.options ? JSON.stringify(q.options) : null,
               correctAnswer: q.correctAnswer,
               explanation: q.explanation,
+              steps: q.steps ? JSON.stringify(q.steps) : null,
+              flawIndex: q.flawIndex || null,
+              variables: q.variables ? JSON.stringify(q.variables) : null,
+              targetCoordinate: q.targetCoordinate ? JSON.stringify(q.targetCoordinate) : null,
             };
           })
         }

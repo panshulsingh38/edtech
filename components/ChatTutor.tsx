@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Loader2, Sparkles } from 'lucide-react';
+import { MessageCircle, X, Send, Loader2, Sparkles, Code2 } from 'lucide-react';
 
 
 import { twMerge } from 'tailwind-merge';
@@ -26,7 +26,9 @@ export default function ChatTutor({ testId }: ChatTutorProps) {
     { role: 'assistant', content: "Hi! I'm your AI Tutor. Stuck on a question? Ask me anything about the document!" }
   ]);
   const [input, setInput] = useState('');
+  const [persona, setPersona] = useState('Standard');
   const [isLoading, setIsLoading] = useState(false);
+  const [isTranspiling, setIsTranspiling] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -55,7 +57,9 @@ export default function ChatTutor({ testId }: ChatTutorProps) {
         body: JSON.stringify({
           testId,
           chatHistory: messages.slice(1), // exclude the welcome message from history
-          newMessage: userMessage.content
+          newMessage: userMessage.content,
+          persona,
+          isTranspiling
         })
       });
 
@@ -103,7 +107,20 @@ export default function ChatTutor({ testId }: ChatTutorProps) {
                 <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/50">
                   <Sparkles className="w-4 h-4 text-indigo-400" />
                 </div>
-                <h3 className="text-white font-semibold">AI Document Tutor</h3>
+                <div className="flex flex-col">
+                  <h3 className="text-white font-semibold text-sm leading-tight">AI Tutor</h3>
+                  <select 
+                    value={persona} 
+                    onChange={(e) => setPersona(e.target.value)}
+                    className="bg-transparent text-xs text-indigo-400 focus:outline-none appearance-none cursor-pointer"
+                  >
+                    <option value="Standard" className="bg-slate-900">Standard Tutor</option>
+                    <option value="Albert Einstein" className="bg-slate-900">Albert Einstein</option>
+                    <option value="Socrates" className="bg-slate-900">Socrates</option>
+                    <option value="Marie Curie" className="bg-slate-900">Marie Curie</option>
+                    <option value="Gordon Ramsay (Strict)" className="bg-slate-900">Gordon Ramsay (Strict)</option>
+                  </select>
+                </div>
               </div>
               <button 
                 onClick={() => setIsOpen(false)}
@@ -124,7 +141,7 @@ export default function ChatTutor({ testId }: ChatTutorProps) {
                   )}
                 >
                   <div className={cnlocal(
-                    "max-w-[85%] rounded-2xl px-5 py-3 text-sm leading-relaxed shadow-sm",
+                    "max-w-[85%] rounded-2xl px-5 py-3 text-sm leading-relaxed shadow-sm whitespace-pre-wrap font-mono",
                     msg.role === 'user' 
                       ? "bg-indigo-600 text-white rounded-br-none" 
                       : "bg-white/10 text-gray-200 border border-white/5 rounded-bl-none"
@@ -144,20 +161,33 @@ export default function ChatTutor({ testId }: ChatTutorProps) {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input Area */}
             <div className="p-4 border-t border-white/10 bg-black/20 shrink-0">
+              <div className="flex items-center gap-2 mb-2">
+                <button
+                  type="button"
+                  onClick={() => setIsTranspiling(!isTranspiling)}
+                  className={cnlocal(
+                    "text-xs px-2 py-1 rounded border flex items-center gap-1 transition-colors",
+                    isTranspiling 
+                      ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/50" 
+                      : "bg-white/5 text-gray-400 border-white/10 hover:bg-white/10"
+                  )}
+                >
+                  <Code2 className="w-3 h-3" /> Transpile Code to Math Proof
+                </button>
+              </div>
               <form onSubmit={handleSubmit} className="flex items-end gap-2">
-                <input
-                  type="text"
+                <textarea
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Ask a question about the document..."
-                  className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-gray-500"
+                  placeholder={isTranspiling ? "Paste your JavaScript/Python code here..." : "Ask a question about the document..."}
+                  className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-gray-500 min-h-[46px] max-h-[150px] font-mono resize-y"
+                  rows={isTranspiling ? 3 : 1}
                 />
                 <button
                   type="submit"
                   disabled={!input.trim() || isLoading}
-                  className="h-[46px] w-[46px] flex items-center justify-center rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                  className="h-[46px] w-[46px] flex items-center justify-center rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all shrink-0"
                 >
                   <Send className="w-5 h-5" />
                 </button>

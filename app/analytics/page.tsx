@@ -1,6 +1,8 @@
 import { prisma } from '@/lib/db';
 import Link from 'next/link';
-import { ArrowLeft, BrainCircuit, Activity, CalendarDays, Flame } from 'lucide-react';
+import { ArrowLeft, BrainCircuit, Activity, CalendarDays, Flame, Target } from 'lucide-react';
+import SyllabusMapper from '@/components/SyllabusMapper';
+import { calculatePredictedScore } from '@/lib/analytics';
 
 export default async function AnalyticsPage() {
   const reviews = await prisma.flashcardReview.findMany({
@@ -16,6 +18,33 @@ export default async function AnalyticsPage() {
   const hardPercent = totalReviews === 0 ? 0 : Math.round((hardCount / totalReviews) * 100);
   const goodPercent = totalReviews === 0 ? 0 : Math.round((goodCount / totalReviews) * 100);
   const easyPercent = totalReviews === 0 ? 0 : Math.round((easyCount / totalReviews) * 100);
+
+  // Mock Predictive Score (Feature 23)
+  const results = await prisma.questionResult.findMany();
+  const totalAnswers = results.length;
+  const correctAnswers = results.filter(r => r.isCorrect).length;
+  const averageConfidence = results.reduce((acc, curr) => acc + curr.confidenceScore, 0) / (totalAnswers || 1);
+  const predictedScore = calculatePredictedScore(totalAnswers, correctAnswers, averageConfidence);
+
+  // Mock Syllabus Data (Feature 22)
+  const mockSyllabus = [
+    {
+      id: '1', name: 'AP Physics C: Mechanics', mastery: 65,
+      children: [
+        { id: '1-1', name: 'Kinematics', mastery: 90 },
+        { id: '1-2', name: 'Newton\'s Laws of Motion', mastery: 75 },
+        { id: '1-3', name: 'Work, Energy, and Power', mastery: 30 }
+      ]
+    },
+    {
+      id: '2', name: 'Calculus AB', mastery: 82,
+      children: [
+        { id: '2-1', name: 'Limits and Continuity', mastery: 95 },
+        { id: '2-2', name: 'Derivatives', mastery: 85 },
+        { id: '2-3', name: 'Integrals', mastery: 66 }
+      ]
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-white p-8 md:p-16">
@@ -60,6 +89,37 @@ export default async function AnalyticsPage() {
             <p className="text-4xl font-bold text-white">{hardCount + Math.floor(goodCount / 2)}</p>
           </div>
         </div>
+
+        {/* Predictive Score Matrix */}
+        <div className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 p-8 rounded-3xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 p-8 opacity-20">
+            <Target className="w-32 h-32 text-indigo-400" />
+          </div>
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 mb-2">
+              <BrainCircuit className="w-5 h-5 text-indigo-400" />
+              <h3 className="text-indigo-400 font-bold tracking-wider uppercase text-sm">Predictive Score Model Matrix</h3>
+            </div>
+            <div className="flex flex-col md:flex-row md:items-end gap-6 mt-6">
+              <div>
+                <p className="text-gray-400 mb-1">Projected Exam Score Range</p>
+                <div className="text-5xl md:text-6xl font-extrabold text-white">
+                  {totalAnswers > 0 ? `${predictedScore.min} - ${predictedScore.max}` : 'N/A'}
+                </div>
+              </div>
+              <div className="pb-2">
+                <span className="inline-flex items-center px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-sm font-medium border border-indigo-500/30">
+                  {totalAnswers > 0 ? `Top ${100 - predictedScore.percentile}% Percentile` : 'Take tests to generate prediction'}
+                </span>
+              </div>
+            </div>
+            <p className="text-sm text-gray-500 mt-6 max-w-xl">
+              * Based on {totalAnswers} data points. This model weighs your historical accuracy across all subjects, penalizing guessed answers and rewarding high-confidence correct answers.
+            </p>
+          </div>
+        </div>
+
+        <SyllabusMapper topics={mockSyllabus} />
 
         {/* Memory Retention Breakdown */}
         <div className="bg-[#13131a] border border-white/5 p-8 md:p-12 rounded-3xl">

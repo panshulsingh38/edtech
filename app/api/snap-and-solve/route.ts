@@ -4,6 +4,8 @@ import { authOptions } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+export const maxDuration = 60; // Allow 60 seconds for Vercel Hobby tier
+
 const prisma = new PrismaClient();
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
@@ -40,7 +42,7 @@ export async function POST(req: NextRequest) {
     const buffer = await image.arrayBuffer();
     const base64Image = Buffer.from(buffer).toString("base64");
 
-    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
     const prompt = `You are a world-class tutor for Math, Physics, and Chemistry. 
 A student has uploaded a picture of a homework problem they are stuck on.

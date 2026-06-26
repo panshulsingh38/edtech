@@ -12,10 +12,12 @@ model Test {
   title      String
   sourceText String?
   userId     String?
+  tenantId   String?
   createdAt  DateTime   @default(now())
   questions  Question[]
   lobbies    Lobby[]
   user       User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant     Tenant?    @relation(fields: [tenantId], references: [id], onDelete: SetNull)
 }
 
 model Question {
@@ -26,9 +28,17 @@ model Question {
   options       String?  // SQLite doesn't support JSON, so we use String to store serialized JSON
   correctAnswer String
   explanation   String
+  steps         String?  // JSON string for multi-step breakdown
+  flawIndex     Int?     // For 'Spot the Flaw' questions
+  variables     String?  // JSON string for slider_interactive variables
+  targetCoordinate String? // JSON string for coordinate_hotspot
+  topicId       String?
 
   test          Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  topic         Topic?   @relation(fields: [topicId], references: [id])
   reviews       FlashcardReview[]
+  spacedReviews SpacedRepetition[]
+  questionResults QuestionResult[]
 }
 
 model FlashcardReview {
@@ -39,6 +49,32 @@ model FlashcardReview {
   createdAt   DateTime @default(now())
 
   question    Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
+model SpacedRepetition {
+  id          String   @id @default(uuid())
+  userId      String
+  questionId  String
+  interval    Int      @default(0)
+  easeFactor  Float    @default(2.5)
+  repetitions Int      @default(0)
+  nextReview  DateTime
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question    Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
+model QuestionResult {
+  id              String   @id @default(uuid())
+  userId          String
+  questionId      String
+  isCorrect       Boolean
+  confidenceScore Float    // 1.0 (Certain), 0.5 (Unsure), 0.0 (Guess)
+  createdAt       DateTime @default(now())
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question        Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
 }
 
 model Lobby {
@@ -60,6 +96,24 @@ model LobbyPlayer {
   joinedAt  DateTime @default(now())
   
   lobby     Lobby    @relation(fields: [lobbyId], references: [id], onDelete: Cascade)
+}
+
+model Syllabus {
+  id        String   @id @default(uuid())
+  name      String
+  topics    Topic[]
+}
+
+model Topic {
+  id          String   @id @default(uuid())
+  syllabusId  String
+  name        String
+  parentId    String?
+  parent      Topic?   @relation("TopicHierarchy", fields: [parentId], references: [id])
+  children    Topic[]  @relation("TopicHierarchy")
+  
+  syllabus    Syllabus @relation(fields: [syllabusId], references: [id], onDelete: Cascade)
+  questions   Question[]
 }
 
 // NextAuth Models
@@ -99,11 +153,30 @@ model User {
   image         String?
   role          String    @default("USER") // "USER" or "ADMIN"
   insights      Int       @default(10)
+  streak        Int       @default(0)
+  lastActive    DateTime  @default(now())
+  examDate      DateTime?
+  tenantId      String?
   accounts      Account[]
   sessions      Session[]
   tests         Test[]
   solutionLogs  SolutionLog[]
   payments      Payment[]
+  spacedReviews SpacedRepetition[]
+  questionResults QuestionResult[]
+  tenant        Tenant?   @relation(fields: [tenantId], references: [id], onDelete: SetNull)
+}
+
+model Tenant {
+  id          String   @id @default(uuid())
+  name        String
+  subdomain   String   @unique // e.g. 'school1', 'district'
+  logoUrl     String?
+  themeColor  String?  @default("#4f46e5") // default indigo
+  createdAt   DateTime @default(now())
+  
+  users       User[]
+  tests       Test[]
 }
 
 model SolutionLog {

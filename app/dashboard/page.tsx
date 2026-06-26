@@ -2,6 +2,7 @@ import { prisma } from '@/lib/db';
 import Link from 'next/link';
 import { formatDistanceToNow } from 'date-fns';
 import { ArrowRight, BookOpen, FileText } from 'lucide-react';
+import CheatSheetButton from './CheatSheetButton';
 
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -18,6 +19,11 @@ export default async function DashboardPage() {
       </div>
     );
   }
+
+  const userProfile = await prisma.user.findUnique({
+    // @ts-ignore
+    where: { id: session.user.id }
+  });
 
   const tests = await prisma.test.findMany({
     where: {
@@ -37,13 +43,60 @@ export default async function DashboardPage() {
     }
   });
 
+  const examDate = userProfile?.examDate ? new Date(userProfile.examDate) : null;
+  const daysUntilExam = examDate ? Math.ceil((examDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) : null;
+
   return (
     <div className="w-full max-w-6xl mx-auto p-6 pt-12 pb-24">
-      <div className="mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 mb-4">
-          My Tests
-        </h1>
-        <p className="text-xl text-gray-400">Review your past generated study materials.</p>
+      {/* Gamification Dashboard Header */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="p-6 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-between">
+          <div>
+            <p className="text-gray-400 font-medium mb-1">Current Streak</p>
+            <div className="flex items-baseline gap-2">
+              <span className="text-4xl font-bold text-orange-400">{userProfile?.streak || 0}</span>
+              <span className="text-orange-400/50">days</span>
+            </div>
+          </div>
+          <div className="text-5xl">🔥</div>
+        </div>
+
+        <div className="p-6 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-between">
+          <div>
+            <p className="text-gray-400 font-medium mb-1">Target Exam</p>
+            {daysUntilExam !== null ? (
+              <div className="flex items-baseline gap-2">
+                <span className="text-4xl font-bold text-emerald-400">{daysUntilExam > 0 ? daysUntilExam : 0}</span>
+                <span className="text-emerald-400/50">days left</span>
+              </div>
+            ) : (
+              <form action="/api/user/exam-date" method="POST" className="mt-2 flex items-center gap-2">
+                <input type="date" name="examDate" className="bg-black/50 border border-white/10 rounded-lg p-2 text-sm text-gray-300" required />
+                <button type="submit" className="px-4 py-2 bg-indigo-600 rounded-lg text-sm font-medium hover:bg-indigo-500">Set</button>
+              </form>
+            )}
+          </div>
+          <div className="text-5xl">🎯</div>
+        </div>
+
+        <div className="p-6 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-between">
+          <div>
+            <p className="text-gray-400 font-medium mb-1">Insights Remaining</p>
+            <div className="flex items-baseline gap-2">
+              <span className="text-4xl font-bold text-purple-400">{userProfile?.insights || 0}</span>
+            </div>
+          </div>
+          <div className="text-5xl">🧠</div>
+        </div>
+      </div>
+
+      <div className="mb-8 flex items-center justify-between">
+        <div>
+          <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 mb-2">
+            My Tests
+          </h1>
+          <p className="text-lg text-gray-400">Review your past generated study materials.</p>
+        </div>
       </div>
 
       {tests.length === 0 ? (
@@ -61,26 +114,32 @@ export default async function DashboardPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {tests.map((test) => (
-            <Link 
+            <div 
               key={test.id} 
-              href={`/?testId=${test.id}`}
-              className="group block p-6 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-indigo-500/50 transition-all duration-300"
+              className="group p-6 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-indigo-500/50 transition-all duration-300 flex flex-col"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="w-12 h-12 rounded-2xl bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
                   <FileText className="w-6 h-6 text-indigo-400" />
                 </div>
-                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-indigo-500/20 group-hover:text-indigo-400 transition-colors">
-                  <ArrowRight className="w-4 h-4" />
-                </div>
               </div>
-              <h3 className="text-xl font-bold text-white mb-2 line-clamp-2">{test.title}</h3>
-              <div className="flex items-center gap-4 text-sm text-gray-400">
+              <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 flex-1">{test.title}</h3>
+              <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
                 <span>{test._count.questions} questions</span>
                 <span>•</span>
                 <span>{formatDistanceToNow(test.createdAt, { addSuffix: true })}</span>
               </div>
-            </Link>
+              
+              <div className="flex flex-col gap-2 mt-auto">
+                <Link 
+                  href={`/?testId=${test.id}`}
+                  className="w-full flex items-center justify-center gap-2 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-sm font-medium transition-colors"
+                >
+                  Take Test <ArrowRight className="w-4 h-4" />
+                </Link>
+                <CheatSheetButton testId={test.id} />
+              </div>
+            </div>
           ))}
         </div>
       )}

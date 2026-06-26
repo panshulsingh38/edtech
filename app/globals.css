@@ -61,3 +61,45 @@ body {
     display: none !important;
   }
 }
+
+/* High Contrast Theme Overrides */
+.theme-high-contrast {
+  /* Override basic backgrounds and text */
+  --background: #000000;
+  --foreground: #ffff00;
+}
+
+.theme-high-contrast body, 
+.theme-high-contrast main, 
+.theme-high-contrast div,
+.theme-high-contrast p,
+.theme-high-contrast span {
+  color: #ffff00 !important;
+  border-color: #00ffff !important;
+}
+
+.theme-high-contrast .bg-indigo-600,
+.theme-high-contrast .bg-indigo-500,
+.theme-high-contrast .bg-purple-600 {
+  background-color: #000000 !important;
+  border: 2px solid #00ffff !important;
+  color: #ffff00 !important;
+}
+
+.theme-high-contrast .text-indigo-400,
+.theme-high-contrast .text-gray-400,
+.theme-high-contrast .text-gray-300 {
+  color: #ffff00 !important;
+}
+
+.theme-high-contrast .bg-white\/5,
+.theme-high-contrast .bg-white\/10,
+.theme-high-contrast .bg-black\/40 {
+  background-color: #000000 !important;
+  border: 1px solid #00ffff !important;
+}
+
+.theme-high-contrast button {
+  border-width: 2px !important;
+  border-color: #00ffff !important;
+}

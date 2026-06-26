@@ -2,9 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { chatWithDocument } from '@/lib/ai-engine';
 
+export const maxDuration = 60; // Allow 60 seconds for Vercel Hobby tier
+
 export async function POST(req: NextRequest) {
   try {
-    const { testId, chatHistory, newMessage } = await req.json();
+    const { testId, chatHistory, newMessage, persona, isTranspiling } = await req.json();
 
     if (!testId || !newMessage) {
       return NextResponse.json({ error: 'Missing testId or newMessage.' }, { status: 400 });
@@ -21,7 +23,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 2. Stream/Generate Response
-    const aiResponse = await chatWithDocument(testRecord.sourceText, chatHistory || [], newMessage);
+    const aiResponse = await chatWithDocument(testRecord.sourceText, chatHistory || [], newMessage, persona || "Standard", isTranspiling);
 
     return NextResponse.json({ text: aiResponse });
 
