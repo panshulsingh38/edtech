@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Sparkles, Zap, CheckCircle2, Loader2, BookOpen, GraduationCap } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 
 function loadScript(src: string) {
   return new Promise((resolve) => {
@@ -20,6 +21,9 @@ interface PaywallModalProps {
 }
 
 export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
+  const { data: session } = useSession();
+  const isAdmin = session?.user?.email === 'panshulsingh38@gmail.com';
+  
   const [loadingId, setLoadingId] = useState<string | null>(null);
   const [region, setRegion] = useState<'india' | 'intl'>('intl');
 
@@ -168,20 +172,22 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
                   Choose a pack that fits your study schedule.
                 </p>
 
-                <div className="flex p-1 bg-white/5 rounded-xl mb-6 w-full max-w-[200px] mx-auto border border-white/10">
-                  <button
-                    onClick={() => setRegion('india')}
-                    className={`flex-1 py-1 text-xs font-bold rounded-lg transition-all ${region === 'india' ? 'bg-indigo-500 text-white shadow-md' : 'text-gray-400 hover:text-white'}`}
-                  >
-                    🇮🇳 INR
-                  </button>
-                  <button
-                    onClick={() => setRegion('intl')}
-                    className={`flex-1 py-1 text-xs font-bold rounded-lg transition-all ${region === 'intl' ? 'bg-indigo-500 text-white shadow-md' : 'text-gray-400 hover:text-white'}`}
-                  >
-                    🌍 USD
-                  </button>
-                </div>
+                {isAdmin && (
+                  <div className="flex p-1 bg-white/5 rounded-xl mb-6 w-full max-w-[200px] mx-auto border border-white/10">
+                    <button
+                      onClick={() => setRegion('india')}
+                      className={`flex-1 py-1 text-xs font-bold rounded-lg transition-all ${region === 'india' ? 'bg-indigo-500 text-white shadow-md' : 'text-gray-400 hover:text-white'}`}
+                    >
+                      🇮🇳 INR
+                    </button>
+                    <button
+                      onClick={() => setRegion('intl')}
+                      className={`flex-1 py-1 text-xs font-bold rounded-lg transition-all ${region === 'intl' ? 'bg-indigo-500 text-white shadow-md' : 'text-gray-400 hover:text-white'}`}
+                    >
+                      🌍 USD
+                    </button>
+                  </div>
+                )}
 
                 <div className="w-full flex flex-col gap-3 mb-6">
                   {/* Mini Pack */}
