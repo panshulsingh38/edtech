@@ -69,7 +69,7 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
       const res = await fetch('/api/razorpay/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ packId })
+        body: JSON.stringify({ packId, region })
       });
       
       if (res.status === 401) {

@@ -11,30 +11,54 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { packId } = body;
+    const { packId, region = 'india' } = body;
 
-    let priceInPaisa = 0;
+    let amount = 0;
     let insights = 0;
+    let currency = region === 'intl' ? 'USD' : 'INR';
 
-    switch (packId) {
-      case "mini":
-        priceInPaisa = 5000; // ₹50
-        insights = 25;
-        break;
-      case "starter":
-        priceInPaisa = 24900; // ₹249
-        insights = 50;
-        break;
-      case "midterm":
-        priceInPaisa = 59900; // ₹599
-        insights = 150;
-        break;
-      case "finals":
-        priceInPaisa = 124900; // ₹1249
-        insights = 500;
-        break;
-      default:
-        return NextResponse.json({ error: "Invalid pack ID" }, { status: 400 });
+    if (currency === 'INR') {
+      switch (packId) {
+        case "mini":
+          amount = 5000; // ₹50
+          insights = 25;
+          break;
+        case "starter":
+          amount = 24900; // ₹249
+          insights = 50;
+          break;
+        case "midterm":
+          amount = 59900; // ₹599
+          insights = 150;
+          break;
+        case "finals":
+          amount = 124900; // ₹1249
+          insights = 500;
+          break;
+        default:
+          return NextResponse.json({ error: "Invalid pack ID" }, { status: 400 });
+      }
+    } else {
+      switch (packId) {
+        case "mini":
+          amount = 199; // $1.99
+          insights = 25;
+          break;
+        case "starter":
+          amount = 499; // $4.99
+          insights = 50;
+          break;
+        case "midterm":
+          amount = 999; // $9.99
+          insights = 150;
+          break;
+        case "finals":
+          amount = 1999; // $19.99
+          insights = 500;
+          break;
+        default:
+          return NextResponse.json({ error: "Invalid pack ID" }, { status: 400 });
+      }
     }
 
     const razorpay = new Razorpay({
@@ -43,8 +67,8 @@ export async function POST(req: Request) {
     });
 
     const orderOptions = {
-      amount: priceInPaisa,
-      currency: "INR",
+      amount: amount,
+      currency: currency,
       receipt: `rcpt_${Date.now().toString().slice(-8)}`,
       notes: {
         // @ts-ignore
