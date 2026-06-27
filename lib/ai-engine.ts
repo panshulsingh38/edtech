@@ -136,29 +136,7 @@ Do NOT include any conversational filler, markdown code blocks, or text outside 
     return object;
   } catch (error: any) {
     console.error('Error generating question set:', error);
-    console.warn("Falling back to Mock AI Mode due to API error (likely Quota Exceeded or Invalid Model).");
-    // Return mock response to prevent the app from breaking
-    return {
-      testTitle: "Mocked Video/Document Test (API Quota Exceeded)",
-      questions: [
-        {
-          id: crypto.randomUUID(),
-          type: "mcq",
-          questionText: "What happens when you exceed a free-tier API quota?",
-          options: ["The app crashes forever", "You gracefully fall back to mock data", "You cry", "You delete the codebase"],
-          correctAnswer: "You gracefully fall back to mock data",
-          explanation: "Graceful degradation is a key principle of robust software engineering."
-        },
-        {
-          id: crypto.randomUUID(),
-          type: "true_false",
-          questionText: "Spaced Repetition Systems (SRS) are proven to increase long-term memory retention.",
-          options: ["True", "False"],
-          correctAnswer: "True",
-          explanation: "SRS algorithms optimize the intervals at which you review material to combat the forgetting curve."
-        }
-      ]
-    };
+    throw new Error(`Google API Error: ${error.message || 'Unknown error during test generation'}`);
   }
 }
 
