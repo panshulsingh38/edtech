@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { formatDistanceToNow } from 'date-fns';
 import { ArrowRight, BookOpen, FileText, Camera, Swords } from 'lucide-react';
 import CheatSheetButton from './CheatSheetButton';
+import ActivityFeed from '@/components/ActivityFeed';
 
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -13,6 +14,7 @@ export default async function DashboardPage() {
   
   let userProfile = null;
   let tests: any[] = [];
+  let solutionLogs: any[] = [];
 
   if (session && session.user) {
     userProfile = await prisma.user.findUnique({
@@ -30,6 +32,14 @@ export default async function DashboardPage() {
         title: true,
         createdAt: true,
         _count: { select: { questions: true } }
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    solutionLogs = await prisma.solutionLog.findMany({
+      where: {
+        // @ts-ignore
+        userId: session.user.id
       },
       orderBy: { createdAt: 'desc' }
     });
@@ -168,6 +178,10 @@ export default async function DashboardPage() {
             </div>
           ))}
         </div>
+      )}
+
+      {solutionLogs.length > 0 && (
+        <ActivityFeed logs={solutionLogs} />
       )}
     </div>
   );
