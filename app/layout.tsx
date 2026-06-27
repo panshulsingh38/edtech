@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Magic Test EdTech Platform",
+  title: "Aether Learning",
   description: "AI-powered personalized learning platform",
   manifest: "/manifest.json"
 };

@@ -4,8 +4,31 @@ import { ArrowLeft, BrainCircuit, Activity, CalendarDays, Flame, Target } from '
 import SyllabusMapper from '@/components/SyllabusMapper';
 import { calculatePredictedScore } from '@/lib/analytics';
 
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+
 export default async function AnalyticsPage() {
+  const session = await getServerSession(authOptions);
+  
+  if (!session || !session.user) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0f] text-white p-8 md:p-16 flex items-center justify-center">
+        <div className="text-center">
+          <Activity className="w-16 h-16 text-gray-600 mx-auto mb-6" />
+          <h3 className="text-2xl font-semibold text-white mb-2">Sign in to view your Analytics</h3>
+          <Link href="/auth/signin" className="px-8 py-4 mt-6 inline-block rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition-all">
+            Sign In
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // @ts-ignore
+  const userId = session.user.id;
+
   const reviews = await prisma.flashcardReview.findMany({
+    where: { question: { test: { userId } } },
     orderBy: { createdAt: 'desc' }
   });
 
@@ -14,37 +37,47 @@ export default async function AnalyticsPage() {
   const goodCount = reviews.filter(r => r.status === 'Good').length;
   const easyCount = reviews.filter(r => r.status === 'Easy').length;
 
-  // Simple percentages for the progress bar
   const hardPercent = totalReviews === 0 ? 0 : Math.round((hardCount / totalReviews) * 100);
   const goodPercent = totalReviews === 0 ? 0 : Math.round((goodCount / totalReviews) * 100);
   const easyPercent = totalReviews === 0 ? 0 : Math.round((easyCount / totalReviews) * 100);
 
-  // Mock Predictive Score (Feature 23)
-  const results = await prisma.questionResult.findMany();
+  const results = await prisma.questionResult.findMany({
+    where: { userId }
+  });
   const totalAnswers = results.length;
   const correctAnswers = results.filter(r => r.isCorrect).length;
-  const averageConfidence = results.reduce((acc, curr) => acc + curr.confidenceScore, 0) / (totalAnswers || 1);
+  const averageConfidence = totalAnswers > 0 ? results.reduce((acc, curr) => acc + curr.confidenceScore, 0) / totalAnswers : 0;
   const predictedScore = calculatePredictedScore(totalAnswers, correctAnswers, averageConfidence);
 
-  // Mock Syllabus Data (Feature 22)
-  const mockSyllabus = [
-    {
-      id: '1', name: 'AP Physics C: Mechanics', mastery: 65,
-      children: [
-        { id: '1-1', name: 'Kinematics', mastery: 90 },
-        { id: '1-2', name: 'Newton\'s Laws of Motion', mastery: 75 },
-        { id: '1-3', name: 'Work, Energy, and Power', mastery: 30 }
-      ]
+  // Real Syllabus Data based on generated tests
+  const userTests = await prisma.test.findMany({
+    where: { userId },
+    include: {
+      questions: {
+        include: { questionResults: { where: { userId } } }
+      }
     },
-    {
-      id: '2', name: 'Calculus AB', mastery: 82,
-      children: [
-        { id: '2-1', name: 'Limits and Continuity', mastery: 95 },
-        { id: '2-2', name: 'Derivatives', mastery: 85 },
-        { id: '2-3', name: 'Integrals', mastery: 66 }
-      ]
-    }
-  ];
+    orderBy: { createdAt: 'desc' }
+  });
+
+  const realSyllabus = userTests.map(test => {
+    let testTotalAnswers = 0;
+    let testCorrectAnswers = 0;
+    
+    test.questions.forEach(q => {
+      testTotalAnswers += q.questionResults.length;
+      testCorrectAnswers += q.questionResults.filter(qr => qr.isCorrect).length;
+    });
+    
+    const mastery = testTotalAnswers > 0 ? Math.round((testCorrectAnswers / testTotalAnswers) * 100) : 0;
+    
+    return {
+      id: test.id,
+      name: test.title,
+      mastery: mastery,
+      children: []
+    };
+  });
 
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-white p-8 md:p-16">
@@ -119,7 +152,7 @@ export default async function AnalyticsPage() {
           </div>
         </div>
 
-        <SyllabusMapper topics={mockSyllabus} />
+        <SyllabusMapper topics={realSyllabus} />
 
         {/* Memory Retention Breakdown */}
         <div className="bg-[#13131a] border border-white/5 p-8 md:p-12 rounded-3xl">

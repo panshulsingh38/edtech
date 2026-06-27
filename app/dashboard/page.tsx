@@ -12,7 +12,7 @@ export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
   
   let userProfile = null;
-  let tests = [];
+  let tests: any[] = [];
 
   if (session && session.user) {
     userProfile = await prisma.user.findUnique({
@@ -34,17 +34,8 @@ export default async function DashboardPage() {
       orderBy: { createdAt: 'desc' }
     });
   } else {
-    tests = await prisma.test.findMany({
-      where: { userId: null },
-      select: {
-        id: true,
-        title: true,
-        createdAt: true,
-        _count: { select: { questions: true } }
-      },
-      orderBy: { createdAt: 'desc' },
-      take: 12
-    });
+    // If not signed in, do not show a global list of all anonymous tests
+    tests = [];
   }
 
   const examDate = userProfile?.examDate ? new Date(userProfile.examDate) : null;
@@ -106,8 +97,14 @@ export default async function DashboardPage() {
       {tests.length === 0 ? (
         <div className="text-center py-20 border border-white/5 rounded-3xl bg-white/5 backdrop-blur-sm">
           <BookOpen className="w-16 h-16 text-gray-600 mx-auto mb-6" />
-          <h3 className="text-2xl font-semibold text-white mb-2">No tests found</h3>
-          <p className="text-gray-400 mb-8 max-w-sm mx-auto">Upload a PDF document to generate your first Magic Test!</p>
+          <h3 className="text-2xl font-semibold text-white mb-2">
+            {!session ? "Sign in to view your tests" : "No tests found"}
+          </h3>
+          <p className="text-gray-400 mb-8 max-w-sm mx-auto">
+            {!session 
+              ? "When you sign up, all your generated tests will be saved here."
+              : "Upload a PDF document to generate your first Magic Test!"}
+          </p>
           <Link 
             href="/"
             className="px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition-all"

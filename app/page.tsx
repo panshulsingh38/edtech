@@ -74,9 +74,9 @@ export default function Home() {
     } else {
       const storedInsights = localStorage.getItem('magic_insights');
       if (storedInsights !== null) {
-        setInsights(parseInt(storedInsights, 10));
+        setInsights(Math.min(parseInt(storedInsights, 10), 10));
       } else {
-        setInsights(3);
+        setInsights(10);
       }
     }
 

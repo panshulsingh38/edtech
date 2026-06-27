@@ -17,10 +17,14 @@ export default function Header() {
     <header className="w-full border-b border-white/10 bg-[#13131a]/80 backdrop-blur-md sticky top-0 z-50 print:hidden">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30 group-hover:scale-110 transition-transform">
-            <Sparkles className="w-4 h-4 text-indigo-400" />
+          <div className="relative w-8 h-8 flex items-center justify-center">
+            <div className="absolute inset-0 bg-blue-500/20 blur-md rounded-full group-hover:bg-blue-400/40 transition-colors" />
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 relative z-10 text-blue-400">
+              <path d="M12 2L2 22H22L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M12 10L6 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </div>
-          <span className="font-bold text-lg text-white tracking-tight">Magic<span className="text-indigo-400">Test</span></span>
+          <span className="font-bold text-lg text-white tracking-tight">Aether<span className="text-blue-400">Learning</span></span>
         </Link>
         
         <nav className="flex items-center gap-4">

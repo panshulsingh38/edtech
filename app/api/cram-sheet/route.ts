@@ -1,3 +1,5 @@
+export const maxDuration = 60; // Allow 60 seconds for Vercel Hobby tier
+
 import { NextResponse } from 'next/server';
 import { generateText } from 'ai';
 import { google } from '@ai-sdk/google';

@@ -125,11 +125,12 @@ Do NOT include any conversational filler, markdown code blocks, or text outside 
     }
 
     const { object } = await generateObject({
-      model: google('gemini-3.5-flash'),
+      model: google('gemini-1.5-flash'),
       schema: questionSetSchema,
       system: systemPrompt,
       messages: [{ role: 'user', content: messageContent }],
       temperature: 0.2, 
+      abortSignal: AbortSignal.timeout(45000)
     });
 
     return object;
@@ -179,11 +180,12 @@ export async function gradeAnswer(questionText: string, correctAnswer: string, u
 Provide personalized, encouraging feedback. Point out exactly what they missed if they didn't get a 10/10.`;
 
   const { object } = await generateObject({
-    model: google('gemini-3.5-flash'),
+    model: google('gemini-1.5-flash'),
     schema: gradingSchema,
     system: systemPrompt,
     prompt: `Question: ${questionText}\nCorrect Answer/Concept: ${correctAnswer}\nStudent's Answer: ${userAnswer}`,
     temperature: 0.1,
+    abortSignal: AbortSignal.timeout(15000),
   });
 
   return object;
@@ -224,7 +226,7 @@ CRITICAL INSTRUCTION ON MATH FORMATTING: You must strictly wrap ALL LaTeX math e
   ];
 
   const { text } = await generateText({
-    model: google('gemini-3.5-flash'),
+    model: google('gemini-1.5-flash'),
     system: systemPrompt,
     messages: messages as any,
     temperature: 0.7,
