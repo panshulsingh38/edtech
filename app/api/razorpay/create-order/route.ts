@@ -41,19 +41,19 @@ export async function POST(req: Request) {
     } else {
       switch (packId) {
         case "mini":
-          amount = 199; // $1.99
+          amount = 299; // $2.99
           insights = 25;
           break;
         case "starter":
-          amount = 499; // $4.99
+          amount = 699; // $6.99
           insights = 50;
           break;
         case "midterm":
-          amount = 999; // $9.99
+          amount = 1499; // $14.99
           insights = 150;
           break;
         case "finals":
-          amount = 1999; // $19.99
+          amount = 2999; // $29.99
           insights = 500;
           break;
         default:

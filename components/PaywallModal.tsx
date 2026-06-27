@@ -48,10 +48,10 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
       finals: "₹1249"
     },
     intl: {
-      mini: "$1.99",
-      starter: "$4.99",
-      midterm: "$9.99",
-      finals: "$19.99"
+      mini: "$2.99",
+      starter: "$6.99",
+      midterm: "$14.99",
+      finals: "$29.99"
     }
   };
 
