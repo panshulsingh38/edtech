@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/db';
 import Link from 'next/link';
 import { formatDistanceToNow } from 'date-fns';
-import { ArrowRight, BookOpen, FileText } from 'lucide-react';
+import { ArrowRight, BookOpen, FileText, Camera, Swords } from 'lucide-react';
 import CheatSheetButton from './CheatSheetButton';
 
 import { getServerSession } from 'next-auth';
@@ -82,6 +82,31 @@ export default async function DashboardPage() {
             </div>
           </div>
           <div className="text-5xl">🧠</div>
+        </div>
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold text-white mb-4">Study Modes</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Link href="/snap-and-solve" className="group p-6 rounded-3xl bg-gradient-to-br from-indigo-900/40 to-purple-900/40 border border-indigo-500/30 hover:border-indigo-400 transition-all flex items-center gap-4">
+            <div className="w-14 h-14 rounded-2xl bg-indigo-500/20 flex items-center justify-center">
+              <Camera className="w-7 h-7 text-indigo-400 group-hover:scale-110 transition-transform" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-white mb-1">Snap & Solve</h3>
+              <p className="text-indigo-200/70 text-sm">Take a picture of a math or science problem and get an instant step-by-step solution.</p>
+            </div>
+          </Link>
+          
+          <Link href="/battle" className="group p-6 rounded-3xl bg-gradient-to-br from-red-900/40 to-orange-900/40 border border-red-500/30 hover:border-red-400 transition-all flex items-center gap-4">
+            <div className="w-14 h-14 rounded-2xl bg-red-500/20 flex items-center justify-center">
+              <Swords className="w-7 h-7 text-red-400 group-hover:scale-110 transition-transform" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-white mb-1">Survival Mode</h3>
+              <p className="text-red-200/70 text-sm">Join a multiplayer battle lobby and compete against others to survive the longest!</p>
+            </div>
+          </Link>
         </div>
       </div>
 
