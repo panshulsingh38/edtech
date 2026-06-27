@@ -48,7 +48,9 @@ export async function POST(req: NextRequest) {
 A student has uploaded a picture of a homework problem they are stuck on.
 Provide a step-by-step solution. Do NOT just give the final answer. 
 Break down the concepts clearly so the student can learn from it.
-Use markdown formatting to make it easy to read.`;
+Use markdown formatting to make it easy to read.
+
+CRITICAL INSTRUCTION ON MATH FORMATTING: You must strictly wrap ALL LaTeX math expressions in valid delimiters for markdown rendering. Use \`$\` for inline math (e.g., $x = 2$) and \`$$\` for block math (e.g., $$x^2 = 4$$). Never output raw LaTeX like \\begin{array} without wrapping it in \`$$\`!`;
 
     const result = await model.generateContent([
       prompt,
