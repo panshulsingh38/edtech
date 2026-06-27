@@ -15,11 +15,23 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Aether Learning",
   description: "AI-powered personalized learning platform",
-  manifest: "/manifest.json"
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Aether Learning"
+  },
+  icons: {
+    apple: "/apple-icon.png"
+  }
 };
 
 export const viewport = {
-  themeColor: "#4f46e5"
+  themeColor: "#0a0a0a",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false
 };
 
 import Header from "@/components/Header";

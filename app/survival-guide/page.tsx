@@ -105,19 +105,19 @@ export default function SurvivalGuide() {
   return (
     <div className="min-h-screen bg-black text-white p-6 md:p-12 font-sans selection:bg-orange-500/30">
       <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-orange-500/20 rounded-xl border border-orange-500/30">
+            <div className="p-3 bg-orange-500/20 rounded-xl border border-orange-500/30 shrink-0">
               <BookOpen className="w-8 h-8 text-orange-400" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-red-500">
+              <h1 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-red-500">
                 Night-Before Survival Guide
               </h1>
-              <p className="text-zinc-400">Upload your textbook or syllabus and get a 10-page crash course.</p>
+              <p className="text-sm md:text-base text-zinc-400">Upload your textbook or syllabus and get a 10-page crash course.</p>
             </div>
           </div>
-          <button onClick={() => router.push("/")} className="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 rounded-lg text-sm text-zinc-300 transition-colors">
+          <button onClick={() => router.push("/")} className="w-full md:w-auto px-4 py-2 bg-zinc-900 hover:bg-zinc-800 rounded-lg text-sm text-zinc-300 transition-colors">
             Back to Dashboard
           </button>
         </div>
