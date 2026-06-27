@@ -112,43 +112,43 @@ export default function Flashcard({ id, question, answer, explanation, imageProm
         {/* Front */}
         <div 
           className={cnlocal(
-            "absolute inset-0 backface-hidden w-full h-full rounded-3xl p-6 md:p-8 flex flex-col items-center justify-center text-center",
-            "bg-gradient-to-br from-[#1a1a24] to-[#13131a] border border-white/10 shadow-xl hover:border-indigo-500/50 transition-colors"
+            "absolute inset-0 backface-hidden w-full h-full rounded-3xl flex flex-col items-center justify-center text-center overflow-hidden",
+            "border border-white/10 shadow-xl hover:border-indigo-500/50 transition-colors"
           )}
         >
-          <div className="absolute top-4 left-4 md:top-6 md:left-6 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 font-bold border border-white/10 text-sm z-10">
-            {index + 1}
-          </div>
-          
-          <button 
-            onClick={(e) => speakText(e, question)}
-            className="absolute top-4 right-4 md:top-6 md:right-6 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/5 hover:bg-indigo-500/20 hover:text-indigo-300 flex items-center justify-center text-gray-400 border border-white/10 transition-colors z-10"
-            title="Read Aloud"
-          >
-            <Volume2 className="w-4 h-4 md:w-5 md:h-5" />
-          </button>
+          {/* Background Image & Overlay */}
+          {imagePrompt ? (
+            <>
+              <div 
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat w-full h-full transition-transform duration-700 scale-100 hover:scale-110"
+                style={{ backgroundImage: `url('https://image.pollinations.ai/prompt/${encodeURIComponent(imagePrompt)}?width=800&height=600&nologo=true')` }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-black/80 to-black/90 backdrop-blur-[2px]" />
+            </>
+          ) : (
+             <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a24] to-[#13131a]" />
+          )}
 
-          <div className="absolute top-4 right-4 text-zinc-500 font-mono text-sm">
-            #{index + 1}
-          </div>
-          
-          <div className="h-full flex flex-col items-center justify-center space-y-6">
-            {imagePrompt && (
-              <div className="w-full h-32 md:h-40 rounded-xl overflow-hidden shadow-lg border border-white/5 relative bg-black">
-                <img 
-                  src={`https://image.pollinations.ai/prompt/${encodeURIComponent(imagePrompt)}?width=400&height=300&nologo=true`} 
-                  alt="Flashcard context" 
-                  className="w-full h-full object-cover opacity-80"
-                  loading="lazy"
-                />
-              </div>
-            )}
-            <div className="w-full max-h-[150px] overflow-y-auto custom-scrollbar pr-2">
-              <h3 className="text-xl md:text-2xl font-bold text-center text-white break-words">
+          {/* Content Container */}
+          <div className="absolute inset-0 p-6 md:p-8 flex flex-col items-center justify-center z-10">
+            <div className="absolute top-4 left-4 md:top-6 md:left-6 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/10 flex items-center justify-center text-gray-300 font-bold border border-white/20 text-sm z-20">
+              {index + 1}
+            </div>
+            
+            <button 
+              onClick={(e) => speakText(e, question)}
+              className="absolute top-4 right-4 md:top-6 md:right-6 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/10 hover:bg-indigo-500/40 hover:text-indigo-300 flex items-center justify-center text-gray-300 border border-white/20 transition-colors z-20"
+              title="Read Aloud"
+            >
+              <Volume2 className="w-4 h-4 md:w-5 md:h-5" />
+            </button>
+            
+            <div className="w-full max-h-[180px] overflow-y-auto custom-scrollbar pr-2 flex items-center justify-center my-auto">
+              <h3 className="text-xl md:text-3xl font-bold text-center text-white break-words drop-shadow-md">
                 {question}
               </h3>
             </div>
-          </div>
+
 
           {spokenAnswer && (
             <div className="absolute bottom-16 w-full px-8 text-indigo-300 text-sm font-medium italic truncate">
@@ -174,6 +174,7 @@ export default function Flashcard({ id, question, answer, explanation, imageProm
               <RefreshCw className="w-3 h-3 md:w-4 md:h-4" />
               Click to reveal
             </div>
+          </div>
           </div>
         </div>
 
