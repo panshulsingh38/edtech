@@ -130,6 +130,7 @@ Do NOT include any conversational filler, markdown code blocks, or text outside 
       system: systemPrompt,
       messages: [{ role: 'user', content: messageContent }],
       temperature: 0.2, 
+      maxRetries: 0,
       abortSignal: AbortSignal.timeout(50000)
     });
 
@@ -163,6 +164,7 @@ Provide personalized, encouraging feedback. Point out exactly what they missed i
     system: systemPrompt,
     prompt: `Question: ${questionText}\nCorrect Answer/Concept: ${correctAnswer}\nStudent's Answer: ${userAnswer}`,
     temperature: 0.1,
+    maxRetries: 0,
     abortSignal: AbortSignal.timeout(15000),
   });
 
@@ -208,6 +210,7 @@ CRITICAL INSTRUCTION ON MATH FORMATTING: You must strictly wrap ALL LaTeX math e
     system: systemPrompt,
     messages: messages as any,
     temperature: 0.7,
+    maxRetries: 0,
   });
 
   return text;
