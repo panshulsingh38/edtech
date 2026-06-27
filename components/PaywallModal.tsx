@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Sparkles, Zap, CheckCircle2, Loader2, BookOpen, GraduationCap } from 'lucide-react';
 
@@ -21,7 +21,20 @@ interface PaywallModalProps {
 
 export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
   const [loadingId, setLoadingId] = useState<string | null>(null);
-  const [region, setRegion] = useState<'india' | 'intl'>('india');
+  const [region, setRegion] = useState<'india' | 'intl'>('intl');
+
+  useEffect(() => {
+    fetch('https://api.country.is/')
+      .then(res => res.json())
+      .then(data => {
+        if (data.country === 'IN') {
+          setRegion('india');
+        } else {
+          setRegion('intl');
+        }
+      })
+      .catch(err => console.error('Failed to detect country', err));
+  }, []);
 
   const pricing = {
     india: {
@@ -64,55 +77,55 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
       const orderData = await res.json();
       
       if (orderData.error) {
-        alert(orderData.error || "Failed to create order");
+        alert(orderData.error);
         setLoadingId(null);
         return;
       }
-
+      
       const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "",
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, 
         amount: orderData.amount,
         currency: orderData.currency,
-        name: "EdTech Insights",
-        description: "AI Insight Recharge",
+        name: 'Aether Learning',
+        description: `Purchase Insights (${packId})`,
         order_id: orderData.id,
         handler: async function (response: any) {
-          try {
-            const verifyRes = await fetch('/api/razorpay/verify', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_signature: response.razorpay_signature,
-                insightsToAdd: orderData.insightsToAdd,
-              })
-            });
-            const verifyData = await verifyRes.json();
-            if (verifyData.success) {
-              alert("Payment successful! Your insights have been added.");
-              window.location.reload();
-            } else {
-              alert("Payment verification failed. Please contact support.");
-            }
-          } catch (e) {
-            console.error(e);
-            alert("Verification error.");
+          const verifyRes = await fetch('/api/razorpay/verify-payment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              packId
+            })
+          });
+          
+          if (verifyRes.ok) {
+            window.location.reload();
+          } else {
+            alert('Payment verification failed.');
           }
         },
+        prefill: {
+          name: 'Student',
+          email: 'student@example.com',
+          contact: '9999999999'
+        },
         theme: {
-          color: "#6366f1"
+          color: '#6366f1'
         }
       };
 
-      // @ts-ignore
-      const rzp1 = new window.Razorpay(options);
-      rzp1.open();
-      setLoadingId(null);
-      
-    } catch (err: any) {
-      console.error(err);
-      alert(err.message || "Something went wrong");
+      const rzp = new (window as any).Razorpay(options);
+      rzp.on('payment.failed', function (response: any) {
+        alert(`Payment Failed: ${response.error.description}`);
+      });
+      rzp.open();
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert('Something went wrong. Please try again.');
+    } finally {
       setLoadingId(null);
     }
   };
@@ -154,22 +167,6 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
                 <p className="text-gray-400 mb-6 text-sm">
                   Choose a pack that fits your study schedule.
                 </p>
-
-                {/* Regional Toggle */}
-                <div className="flex p-1 bg-white/5 rounded-xl mb-6 w-full">
-                  <button
-                    onClick={() => setRegion('india')}
-                    className={`flex-1 py-2 text-sm font-bold rounded-lg transition-all ${region === 'india' ? 'bg-indigo-500 text-white shadow-md' : 'text-gray-400 hover:text-white'}`}
-                  >
-                    🇮🇳 India (₹)
-                  </button>
-                  <button
-                    onClick={() => setRegion('intl')}
-                    className={`flex-1 py-2 text-sm font-bold rounded-lg transition-all ${region === 'intl' ? 'bg-indigo-500 text-white shadow-md' : 'text-gray-400 hover:text-white'}`}
-                  >
-                    🌍 International ($)
-                  </button>
-                </div>
 
                 <div className="w-full flex flex-col gap-3 mb-6">
                   {/* Mini Pack */}
