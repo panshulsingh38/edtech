@@ -21,6 +21,22 @@ interface PaywallModalProps {
 
 export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
   const [loadingId, setLoadingId] = useState<string | null>(null);
+  const [region, setRegion] = useState<'india' | 'intl'>('india');
+
+  const pricing = {
+    india: {
+      mini: "₹50",
+      starter: "₹249",
+      midterm: "₹599",
+      finals: "₹1249"
+    },
+    intl: {
+      mini: "$1.99",
+      starter: "$4.99",
+      midterm: "$9.99",
+      finals: "$19.99"
+    }
+  };
 
   const handleCheckout = async (packId: string) => {
     try {
@@ -134,10 +150,26 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
                   <Sparkles className="w-8 h-8 text-indigo-400" />
                 </div>
                 
-                <h2 className="text-3xl font-extrabold text-white mb-2">Out of Insights!</h2>
-                <p className="text-gray-400 mb-8">
-                  You've used your free insights. Refill your brainpower with a one-time pack to keep generating!
+                <h3 className="text-2xl font-bold text-white mb-2">Refill your Insights</h3>
+                <p className="text-gray-400 mb-6 text-sm">
+                  Choose a pack that fits your study schedule.
                 </p>
+
+                {/* Regional Toggle */}
+                <div className="flex p-1 bg-white/5 rounded-xl mb-6 w-full">
+                  <button
+                    onClick={() => setRegion('india')}
+                    className={`flex-1 py-2 text-sm font-bold rounded-lg transition-all ${region === 'india' ? 'bg-indigo-500 text-white shadow-md' : 'text-gray-400 hover:text-white'}`}
+                  >
+                    🇮🇳 India (₹)
+                  </button>
+                  <button
+                    onClick={() => setRegion('intl')}
+                    className={`flex-1 py-2 text-sm font-bold rounded-lg transition-all ${region === 'intl' ? 'bg-indigo-500 text-white shadow-md' : 'text-gray-400 hover:text-white'}`}
+                  >
+                    🌍 International ($)
+                  </button>
+                </div>
 
                 <div className="w-full flex flex-col gap-3 mb-6">
                   {/* Mini Pack */}
@@ -154,7 +186,7 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
                       <p className="text-sm text-emerald-200/70">25 AI Insights</p>
                     </div>
                     <div className="flex items-center gap-4">
-                      <span className="text-xl font-bold text-white">$1.99</span>
+                      <span className="text-xl font-bold text-white">{pricing[region].mini}</span>
                       {loadingId === 'mini' ? <Loader2 className="w-5 h-5 animate-spin" /> : <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center group-hover:bg-emerald-500 transition-colors"><CheckCircle2 className="w-4 h-4 text-white opacity-0 group-hover:opacity-100" /></div>}
                     </div>
                   </button>
@@ -173,7 +205,7 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
                       <p className="text-sm text-gray-400">50 AI Insights</p>
                     </div>
                     <div className="flex items-center gap-4">
-                      <span className="text-xl font-bold text-white">$4.99</span>
+                      <span className="text-xl font-bold text-white">{pricing[region].starter}</span>
                       {loadingId === 'starter' ? <Loader2 className="w-5 h-5 animate-spin" /> : <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center group-hover:bg-indigo-500 transition-colors"><CheckCircle2 className="w-4 h-4 text-white opacity-0 group-hover:opacity-100" /></div>}
                     </div>
                   </button>
@@ -193,7 +225,7 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
                       <p className="text-sm text-indigo-200">150 AI Insights</p>
                     </div>
                     <div className="flex items-center gap-4 mt-1">
-                      <span className="text-xl font-bold text-white">$9.99</span>
+                      <span className="text-xl font-bold text-white">{pricing[region].midterm}</span>
                       {loadingId === 'midterm' ? <Loader2 className="w-5 h-5 animate-spin" /> : <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center shadow-lg"><CheckCircle2 className="w-4 h-4 text-white" /></div>}
                     </div>
                   </button>
@@ -212,13 +244,15 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
                       <p className="text-sm text-gray-400">500 AI Insights</p>
                     </div>
                     <div className="flex items-center gap-4">
-                      <span className="text-xl font-bold text-white">$19.99</span>
+                      <span className="text-xl font-bold text-white">{pricing[region].finals}</span>
                       {loadingId === 'finals' ? <Loader2 className="w-5 h-5 animate-spin text-pink-500" /> : <div className="w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center group-hover:bg-pink-500 transition-colors"><CheckCircle2 className="w-4 h-4 text-white opacity-0 group-hover:opacity-100" /></div>}
                     </div>
                   </button>
                 </div>
                 
-                <p className="text-xs text-gray-500 mt-2">Payments are securely processed by Stripe.</p>
+                <p className="text-xs text-gray-500 mt-2">
+                  Payments are securely processed by Razorpay. {region === 'intl' && 'Your card will be charged in USD equivalent.'}
+                </p>
               </div>
             </div>
           </motion.div>
