@@ -154,7 +154,7 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
                       <p className="text-sm text-emerald-200/70">25 AI Insights</p>
                     </div>
                     <div className="flex items-center gap-4">
-                      <span className="text-xl font-bold text-white">₹50</span>
+                      <span className="text-xl font-bold text-white">$1.99</span>
                       {loadingId === 'mini' ? <Loader2 className="w-5 h-5 animate-spin" /> : <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center group-hover:bg-emerald-500 transition-colors"><CheckCircle2 className="w-4 h-4 text-white opacity-0 group-hover:opacity-100" /></div>}
                     </div>
                   </button>
@@ -173,7 +173,7 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
                       <p className="text-sm text-gray-400">50 AI Insights</p>
                     </div>
                     <div className="flex items-center gap-4">
-                      <span className="text-xl font-bold text-white">₹249</span>
+                      <span className="text-xl font-bold text-white">$4.99</span>
                       {loadingId === 'starter' ? <Loader2 className="w-5 h-5 animate-spin" /> : <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center group-hover:bg-indigo-500 transition-colors"><CheckCircle2 className="w-4 h-4 text-white opacity-0 group-hover:opacity-100" /></div>}
                     </div>
                   </button>
@@ -193,7 +193,7 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
                       <p className="text-sm text-indigo-200">150 AI Insights</p>
                     </div>
                     <div className="flex items-center gap-4 mt-1">
-                      <span className="text-xl font-bold text-white">₹599</span>
+                      <span className="text-xl font-bold text-white">$9.99</span>
                       {loadingId === 'midterm' ? <Loader2 className="w-5 h-5 animate-spin" /> : <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center shadow-lg"><CheckCircle2 className="w-4 h-4 text-white" /></div>}
                     </div>
                   </button>
@@ -212,13 +212,13 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
                       <p className="text-sm text-gray-400">500 AI Insights</p>
                     </div>
                     <div className="flex items-center gap-4">
-                      <span className="text-xl font-bold text-white">₹1249</span>
+                      <span className="text-xl font-bold text-white">$19.99</span>
                       {loadingId === 'finals' ? <Loader2 className="w-5 h-5 animate-spin text-pink-500" /> : <div className="w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center group-hover:bg-pink-500 transition-colors"><CheckCircle2 className="w-4 h-4 text-white opacity-0 group-hover:opacity-100" /></div>}
                     </div>
                   </button>
                 </div>
                 
-                <p className="text-xs text-gray-500 mt-2">Payments are securely processed by Razorpay.</p>
+                <p className="text-xs text-gray-500 mt-2">Payments are securely processed by Stripe.</p>
               </div>
             </div>
           </motion.div>
