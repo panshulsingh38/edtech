@@ -108,13 +108,13 @@ export default async function DashboardPage() {
             </div>
           </Link>
           
-          <Link href="/battle" className="group p-6 rounded-3xl bg-gradient-to-br from-red-900/40 to-orange-900/40 border border-red-500/30 hover:border-red-400 transition-all flex items-center gap-4">
+          <Link href="/survival-guide" className="group p-6 rounded-3xl bg-gradient-to-br from-red-900/40 to-orange-900/40 border border-red-500/30 hover:border-red-400 transition-all flex items-center gap-4">
             <div className="w-14 h-14 rounded-2xl bg-red-500/20 flex items-center justify-center">
-              <Swords className="w-7 h-7 text-red-400 group-hover:scale-110 transition-transform" />
+              <BookOpen className="w-7 h-7 text-red-400 group-hover:scale-110 transition-transform" />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-white mb-1">Survival Mode</h3>
-              <p className="text-red-200/70 text-sm">Join a multiplayer battle lobby and compete against others to survive the longest!</p>
+              <h3 className="text-xl font-bold text-white mb-1">Survival Guide</h3>
+              <p className="text-red-200/70 text-sm">Upload your syllabus and generate a 10-page crash course for tomorrow's exam.</p>
             </div>
           </Link>
         </div>
