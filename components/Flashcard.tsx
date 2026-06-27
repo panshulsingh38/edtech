@@ -16,10 +16,11 @@ interface FlashcardProps {
   question: string;
   answer: string;
   explanation?: string;
+  imagePrompt?: string | null;
   index: number;
 }
 
-export default function Flashcard({ id, question, answer, explanation, index }: FlashcardProps) {
+export default function Flashcard({ id, question, answer, explanation, imagePrompt, index }: FlashcardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [reviewStatus, setReviewStatus] = useState<'Hard' | 'Good' | 'Easy' | null>(null);
   
@@ -127,10 +128,26 @@ export default function Flashcard({ id, question, answer, explanation, index }: 
             <Volume2 className="w-4 h-4 md:w-5 md:h-5" />
           </button>
 
-          <div className="w-full h-full flex flex-col items-center justify-center overflow-y-auto py-10 px-2 mt-4 mb-8 custom-scrollbar">
-            <p className="text-lg md:text-xl font-medium text-white leading-relaxed">
-              {question}
-            </p>
+          <div className="absolute top-4 right-4 text-zinc-500 font-mono text-sm">
+            #{index + 1}
+          </div>
+          
+          <div className="h-full flex flex-col items-center justify-center space-y-6">
+            {imagePrompt && (
+              <div className="w-full h-32 md:h-40 rounded-xl overflow-hidden shadow-lg border border-white/5 relative bg-black">
+                <img 
+                  src={`https://image.pollinations.ai/prompt/${encodeURIComponent(imagePrompt)}?width=400&height=300&nologo=true`} 
+                  alt="Flashcard context" 
+                  className="w-full h-full object-cover opacity-80"
+                  loading="lazy"
+                />
+              </div>
+            )}
+            <div className="w-full max-h-[150px] overflow-y-auto custom-scrollbar pr-2">
+              <h3 className="text-xl md:text-2xl font-bold text-center text-white break-words">
+                {question}
+              </h3>
+            </div>
           </div>
 
           {spokenAnswer && (

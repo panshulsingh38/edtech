@@ -578,6 +578,7 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                 question={q.questionText} // TODO: Flashcards might need Latex wrapping too, but TestEnvironment controls it
                 answer={q.correctAnswer}
                 explanation={q.explanation}
+                imagePrompt={q.imagePrompt}
                 index={idx}
               />
             </motion.div>

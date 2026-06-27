@@ -31,7 +31,8 @@ export const questionSetSchema = z.object({
         y: z.number()
       }).nullable().optional().describe('For coordinate_hotspot, the target (x,y) coordinates to click on a Cartesian plane.'),
       trapLabel: z.string().nullable().optional().describe('For mcq and true_false, a short 1-3 word label of the specific cognitive trap or fallacy a student falls for if they get it wrong (e.g., "Unit Mismatch", "Confirmation Bias").'),
-      alignmentCode: z.string().nullable().optional().describe('National Core Competency standard alignment code (e.g. CCSS.MATH.CONTENT.HSA.CED.A.1) if applicable.')
+      alignmentCode: z.string().nullable().optional().describe('National Core Competency standard alignment code (e.g. CCSS.MATH.CONTENT.HSA.CED.A.1) if applicable.'),
+      imagePrompt: z.string().nullable().optional().describe('A concise, descriptive prompt for generating an image to accompany this question. Must be a visual description (e.g. "a glowing blue microscopic cell structure").')
     })
   ),
 });

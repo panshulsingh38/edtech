@@ -111,6 +111,7 @@ export async function POST(req: NextRequest) {
               flawIndex: q.flawIndex || null,
               variables: q.variables ? JSON.stringify(q.variables) : null,
               targetCoordinate: q.targetCoordinate ? JSON.stringify(q.targetCoordinate) : null,
+              imagePrompt: q.imagePrompt || null,
             };
           })
         }

@@ -33,6 +33,7 @@ model Question {
   variables     String?  // JSON string for slider_interactive variables
   targetCoordinate String? // JSON string for coordinate_hotspot
   topicId       String?
+  imagePrompt   String?  // AI generated image prompt for the question
 
   test          Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
   topic         Topic?   @relation(fields: [topicId], references: [id])
