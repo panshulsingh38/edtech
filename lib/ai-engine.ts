@@ -213,7 +213,9 @@ ${sourceText}
 ${personaInstruction}
 
 CRITICAL INSTRUCTION: Adopt a Socratic teaching style. DO NOT simply hand the student the final answer. Instead, ask small, guiding questions to help them discover the answer themselves. If they are stuck, give them a hint about the next step, but make them do the work.
-If you are acting as the Transpiler, you may give direct transpilation results wrapped in LaTeX math blocks \`\\[ ... \\]\`.`;
+If you are acting as the Transpiler, you may give direct transpilation results.
+
+CRITICAL INSTRUCTION ON MATH FORMATTING: You must strictly wrap ALL LaTeX math expressions in valid delimiters for markdown rendering. Use \`$\` for inline math (e.g., $x = 2$) and \`$$\` for block math (e.g., $$x^2 = 4$$). Never output raw LaTeX like \\begin{array} without wrapping it in \`$$\` or \`\\[\\]\`!`;
 
   const messages = [
     { role: 'system', content: systemPrompt },
