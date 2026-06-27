@@ -87,6 +87,7 @@ export async function POST(req: NextRequest) {
       data: {
         title: questionSet.testTitle,
         sourceText: sourceText, // Save the raw text for future Chat Tutor features
+        userId: user ? user.id : undefined,
         questions: {
           create: questionSet.questions.map(q => {
             const realUuid = crypto.randomUUID();

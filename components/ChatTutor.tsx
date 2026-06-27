@@ -2,8 +2,11 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Loader2, Sparkles, Code2 } from 'lucide-react';
-
+import { BrainCircuit, X, Send, Loader2, Minimize2, Maximize2, Code2, MessageCircle, Sparkles } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 
 import { twMerge } from 'tailwind-merge';
 import { clsx, type ClassValue } from 'clsx';
@@ -141,12 +144,21 @@ export default function ChatTutor({ testId }: ChatTutorProps) {
                   )}
                 >
                   <div className={cnlocal(
-                    "max-w-[85%] rounded-2xl px-5 py-3 text-sm leading-relaxed shadow-sm whitespace-pre-wrap font-mono",
+                    "max-w-[85%] rounded-2xl px-5 py-3 text-sm leading-relaxed shadow-sm",
                     msg.role === 'user' 
                       ? "bg-indigo-600 text-white rounded-br-none" 
-                      : "bg-white/10 text-gray-200 border border-white/5 rounded-bl-none"
+                      : "bg-white/10 text-gray-200 border border-white/5 rounded-bl-none prose prose-invert prose-sm max-w-none prose-p:leading-relaxed prose-pre:bg-black/50"
                   )}>
-                    {msg.content}
+                    {msg.role === 'user' ? (
+                      <span className="whitespace-pre-wrap font-sans">{msg.content}</span>
+                    ) : (
+                      <ReactMarkdown
+                        remarkPlugins={[remarkMath]}
+                        rehypePlugins={[rehypeKatex]}
+                      >
+                        {msg.content}
+                      </ReactMarkdown>
+                    )}
                   </div>
                 </div>
               ))}
