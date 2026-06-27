@@ -78,6 +78,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Extracted content is empty. Cannot generate a test.' }, { status: 422 });
     }
 
+    // Strip null bytes to prevent PostgreSQL errors
+    sourceText = sourceText.replace(/\0/g, '');
+
     if (sourceText.length > 80000) {
       console.warn(`Truncating text from ${sourceText.length} to 80000 characters to prevent Vercel 504 Timeout.`);
       sourceText = sourceText.substring(0, 80000);
