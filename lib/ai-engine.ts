@@ -134,22 +134,12 @@ Do NOT include any conversational filler, markdown code blocks, or text outside 
         system: systemPrompt,
         messages: [{ role: 'user', content: messageContent }],
         temperature: 0.2, 
-        maxRetries: 2 // Enable auto-retries for minor hiccups
+        maxRetries: 4 // Enable robust auto-retries for minor hiccups
       });
       return object;
     } catch (primaryError: any) {
-      console.warn('gemini-2.5-flash failed (likely high demand). Falling back to gemini-1.5-flash...', primaryError.message);
-      
-      // Fallback to older, more stable model if 2.5 is overloaded
-      const { object } = await generateObject({
-        model: google('gemini-1.5-flash'),
-        schema: questionSetSchema,
-        system: systemPrompt,
-        messages: [{ role: 'user', content: messageContent }],
-        temperature: 0.2, 
-        maxRetries: 2
-      });
-      return object;
+      console.error('gemini-2.5-flash failed after retries:', primaryError.message);
+      throw primaryError;
     }
 
   } catch (error: any) {
