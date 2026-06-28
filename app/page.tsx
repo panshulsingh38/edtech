@@ -202,26 +202,32 @@ export default function Home() {
       </div>
 
       <div className="max-w-6xl mx-auto px-6 py-16 lg:py-24 relative z-10">
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center mb-16"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-6">
-            <Sparkles className="w-4 h-4 text-indigo-400" />
-            <span className="text-sm font-medium text-indigo-200">Next-Gen AI Testing Engine</span>
-          </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
-            Transform Documents into <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
-              Interactive Knowledge
-            </span>
-          </h1>
-          <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 font-light">
-            Upload your course materials, PDFs, or images, and our advanced neural engine will instantly synthesize a beautifully structured, interactive assessment.
-          </p>
-        </motion.div>
+        <AnimatePresence mode="wait">
+          {!testData && (
+            <motion.div 
+              key="hero"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="text-center mb-16"
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-6">
+                <Sparkles className="w-4 h-4 text-indigo-400" />
+                <span className="text-sm font-medium text-indigo-200">Next-Gen AI Testing Engine</span>
+              </div>
+              <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+                Transform Documents into <br/>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
+                  Interactive Knowledge
+                </span>
+              </h1>
+              <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 font-light">
+                Upload your course materials, PDFs, or images, and our advanced neural engine will instantly synthesize a beautifully structured, interactive assessment.
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <AnimatePresence mode="wait">
           {!testData ? (
