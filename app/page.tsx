@@ -250,6 +250,7 @@ export default function Home() {
             </motion.div>
           )}
         </AnimatePresence>
+      </div>
       <footer className="w-full text-center py-8 text-sm text-zinc-600 mt-auto relative z-10">
         <p>© {new Date().getFullYear()} Aether Learning. All rights reserved.</p>
         <div className="mt-2 flex justify-center gap-4">
