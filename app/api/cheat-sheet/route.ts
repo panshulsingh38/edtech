@@ -30,7 +30,7 @@ ${testRecord.sourceText.substring(0, 30000)}
 ---`;
 
     const { text } = await generateText({
-      model: google('gemini-3.5-flash'),
+      model: google('gemini-2.5-flash'),
       system: systemPrompt,
       prompt: 'Generate the cheat sheet in markdown format.',
       temperature: 0.2,

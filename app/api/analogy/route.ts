@@ -29,7 +29,7 @@ Your goal is to explain the provided concept using a structurally accurate analo
 Do not provide a dictionary definition. Map the specific components of the concept to the specific components of the discipline.`;
 
     const { text } = await generateText({
-      model: google('gemini-3.5-flash'),
+      model: google('gemini-2.5-flash'),
       system: systemPrompt,
       prompt: `Concept to explain: ${concept}\nTarget Discipline: ${discipline}\n\nGenerate the analogy:`,
       temperature: 0.7,

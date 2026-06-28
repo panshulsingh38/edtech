@@ -31,7 +31,7 @@ Instead, ask a leading, Socratic question that points them in the right directio
 Keep it extremely concise (1-2 sentences max).`;
 
     const { text } = await generateText({
-      model: google('gemini-3.5-flash'),
+      model: google('gemini-2.5-flash'),
       system: systemPrompt,
       prompt: `Question: ${questionText}\nCorrect Answer: ${correctAnswer}\n\nProvide the Socratic hint:`,
       temperature: 0.7,

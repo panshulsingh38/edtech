@@ -52,7 +52,7 @@ Please include:
 Make it highly structured and readable using Markdown. Use bolding and lists to make it skimmable.`;
 
     const result = await streamText({
-      model: google('gemini-3.5-flash'),
+      model: google('gemini-2.5-flash'),
       messages: [
         {
           role: 'user',
