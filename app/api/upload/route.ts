@@ -32,13 +32,14 @@ export async function POST(req: NextRequest) {
         where: { email: session.user.email },
         include: { _count: { select: { tests: true } } }
       });
-      if (user && user.role !== 'ADMIN') {
+      if (user && user.role !== 'ADMIN' && user.role !== 'PRO') {
         if (user._count.tests >= 3) {
           return NextResponse.json({ error: "Freemium limit reached. You can only generate 3 tests for free. Please upgrade to Pro." }, { status: 403 });
         }
-        if (user.insights < 3) {
-          return NextResponse.json({ error: "Insufficient Insights. You need at least 3 to generate a test." }, { status: 403 });
-        }
+      }
+      // If they are PRO or ADMIN, they still need insights to generate
+      if (user && user.role !== 'ADMIN' && user.insights < 3) {
+         return NextResponse.json({ error: "Insufficient Insights. You need at least 3 to generate a test." }, { status: 403 });
       }
     }
 
