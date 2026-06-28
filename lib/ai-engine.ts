@@ -56,7 +56,8 @@ export async function generateQuestionSet(
   difficulty: string = 'College Level', 
   tone: string = 'Professional', 
   isSynthesis: boolean = false,
-  images?: { data: string, mimeType: string }[]
+  images?: { data: string, mimeType: string }[],
+  questionCount: number = 10
 ): Promise<QuestionSet> {
   const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 
