@@ -95,6 +95,7 @@ TARGET AUDIENCE / DIFFICULTY LEVEL: ${difficulty}. The questions and concepts te
 TONE OF VOICE / STYLE: ${tone}. The questions, answers, and especially the explanations should be written in this tone.
 ${isSynthesis ? `CRITICAL INSTRUCTION: You are generating a CROSS-DOCUMENT SYNTHESIS test. The source text contains concatenated text from MULTIPLE distinct documents. 
 You MUST generate questions that explicitly bridge concepts between these different documents. Compare, contrast, and synthesize ideas across the entire provided corpus.` : ''}
+CRITICAL INSTRUCTION: You MUST generate EXACTLY ${questionCount} questions. No more, no less.
 You must return the result strictly matching the provided JSON schema.
 - For Multiple Choice Questions (mcq), provide exactly 4 options. The 'correctAnswer' must exactly match one of the 'options'.
 - For True/False questions (true_false), provide options: ["True", "False"]. The 'correctAnswer' must be "True" or "False".

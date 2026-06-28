@@ -21,8 +21,9 @@ export default function FileUpload({ onTestGenerated, onConsumeInsight }: FileUp
   const [isDragging, setIsDragging] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [difficulty, setDifficulty] = useState('College Level');
+    const [difficulty, setDifficulty] = useState('College Level');
   const [tone, setTone] = useState('Professional');
+  const [questionCount, setQuestionCount] = useState('10');
   const [isSynthesisMode, setIsSynthesisMode] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -88,6 +89,7 @@ export default function FileUpload({ onTestGenerated, onConsumeInsight }: FileUp
       files.forEach(f => formData.append('files', f));
       formData.append('difficulty', difficulty);
       formData.append('tone', tone);
+      formData.append('questionCount', questionCount);
       if (isSynthesisMode) formData.append('isSynthesis', 'true');
 
       const response = await fetch('/api/upload', {
@@ -229,7 +231,7 @@ export default function FileUpload({ onTestGenerated, onConsumeInsight }: FileUp
               )}
             </AnimatePresence>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-300 ml-1">Target Difficulty</label>
                 <select 
@@ -253,6 +255,19 @@ export default function FileUpload({ onTestGenerated, onConsumeInsight }: FileUp
                   <option className="bg-gray-900">Strict & Rigorous</option>
                   <option className="bg-gray-900">Friendly & Encouraging</option>
                   <option className="bg-gray-900">Socratic Method</option>
+                </select>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-300 ml-1">Question Count</label>
+                <select 
+                  value={questionCount}
+                  onChange={(e) => setQuestionCount(e.target.value)}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
+                >
+                  <option className="bg-gray-900" value="5">5 Questions (Quick)</option>
+                  <option className="bg-gray-900" value="10">10 Questions (Standard)</option>
+                  <option className="bg-gray-900" value="15">15 Questions (Thorough)</option>
+                  <option className="bg-gray-900" value="20">20 Questions (Exam Prep)</option>
                 </select>
               </div>
             </div>

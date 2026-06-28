@@ -86,8 +86,11 @@ export async function POST(req: NextRequest) {
       sourceText = sourceText.substring(0, 80000);
     }
 
+    const questionCountStr = formData.get('questionCount') as string;
+    const questionCount = questionCountStr ? parseInt(questionCountStr, 10) : 10;
+
     // 4. Generate Question Set via LLM
-    const questionSet = await generateQuestionSet(sourceText, difficulty, tone, isSynthesis, images);
+    const questionSet = await generateQuestionSet(sourceText, difficulty, tone, isSynthesis, images, questionCount);
 
     // 5. Save to PostgreSQL Database using Prisma
     // We use a transaction or single nested create to insert the Test and its Questions
