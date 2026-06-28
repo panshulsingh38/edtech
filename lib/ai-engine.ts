@@ -127,16 +127,31 @@ Do NOT include any conversational filler, markdown code blocks, or text outside 
       });
     }
 
-    const { object } = await generateObject({
-      model: google('gemini-2.5-flash'),
-      schema: questionSetSchema,
-      system: systemPrompt,
-      messages: [{ role: 'user', content: messageContent }],
-      temperature: 0.2, 
-      maxRetries: 0
-    });
+    try {
+      const { object } = await generateObject({
+        model: google('gemini-2.5-flash'),
+        schema: questionSetSchema,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: messageContent }],
+        temperature: 0.2, 
+        maxRetries: 2 // Enable auto-retries for minor hiccups
+      });
+      return object;
+    } catch (primaryError: any) {
+      console.warn('gemini-2.5-flash failed (likely high demand). Falling back to gemini-1.5-flash...', primaryError.message);
+      
+      // Fallback to older, more stable model if 2.5 is overloaded
+      const { object } = await generateObject({
+        model: google('gemini-1.5-flash'),
+        schema: questionSetSchema,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: messageContent }],
+        temperature: 0.2, 
+        maxRetries: 2
+      });
+      return object;
+    }
 
-    return object;
   } catch (error: any) {
     console.error('Error generating question set:', error);
     throw new Error(`Google API Error: ${error.message || 'Unknown error during test generation'}`);
