@@ -262,14 +262,38 @@ export default async function DashboardPage() {
           </section>
 
           {/* Recommended for You */}
+          <section className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-slate-800 mb-6">Recommended for You</h2>
+            <div className="space-y-4">
+              
+              <div className="flex gap-4 p-3 -mx-3 hover:bg-slate-50 rounded-xl transition-colors cursor-pointer group">
+                <div className="w-16 h-16 rounded-xl bg-indigo-100 flex-shrink-0"></div>
+                <div>
+                  <h3 className="text-sm font-semibold text-slate-800 group-hover:text-indigo-600 transition-colors">Digital Marketing Fundamentals</h3>
+                  <p className="text-xs text-slate-500 mt-1 line-clamp-2">Master the core concepts of SEO, SEM, and social media strategy.</p>
+                  <p className="text-[10px] text-amber-600 font-semibold mt-2">Popular with new learners · 4.8 stars</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4 p-3 -mx-3 hover:bg-slate-50 rounded-xl transition-colors cursor-pointer group">
+                <div className="w-16 h-16 rounded-xl bg-emerald-100 flex-shrink-0"></div>
+                <div>
+                  <h3 className="text-sm font-semibold text-slate-800 group-hover:text-emerald-600 transition-colors">Data Science 101</h3>
+                  <p className="text-xs text-slate-500 mt-1 line-clamp-2">An introduction to Python, Pandas, and basic machine learning.</p>
+                  <p className="text-[10px] text-amber-600 font-semibold mt-2">Trending this week · 4.9 stars</p>
+                </div>
               </div>
 
             </div>
+            
+            <button className="w-full mt-6 py-2.5 text-sm font-semibold text-slate-600 hover:text-slate-800 flex items-center justify-center gap-1">
+              View All <ChevronDown className="w-4 h-4" />
+            </button>
           </section>
-
         </div>
 
       </div>
+      )}
     </div>
   );
 }
