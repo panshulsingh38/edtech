@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Script from 'next/script';
 import { Check, Sparkles, Zap, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 const TIERS = [
   {
@@ -44,10 +45,27 @@ const TIERS = [
 export default function PricingCards() {
   const [loading, setLoading] = useState<string | null>(null);
   const router = useRouter();
+  const { data: session } = useSession();
+  
+  const isAdmin = (session?.user as any)?.role === 'ADMIN';
 
   const handlePayment = async (packId: string, insights: number) => {
     setLoading(packId);
     try {
+      // 0. Admin Bypass
+      if (isAdmin) {
+        const res = await fetch('/api/admin/add-insights', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ insights })
+        });
+        if (res.ok) {
+          alert('Admin bypass successful! Insights added for free.');
+          window.location.reload();
+          return;
+        }
+      }
+
       // 1. Create order on the server
       const res = await fetch('/api/razorpay/create-order', {
         method: 'POST',
@@ -157,7 +175,7 @@ export default function PricingCards() {
                   : 'bg-nord-2 hover:bg-nord-3 text-white'
               }`}
             >
-              {loading === tier.id ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Get Started'}
+              {loading === tier.id ? <Loader2 className="w-5 h-5 animate-spin" /> : isAdmin ? 'Add Free (Admin)' : 'Get Started'}
             </button>
           </div>
         ))}
