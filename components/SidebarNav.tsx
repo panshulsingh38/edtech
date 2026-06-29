@@ -31,8 +31,8 @@ export default function SidebarNav() {
             href={link.href} 
             className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
               isActive 
-                ? "bg-nord-1 text-nord-14 font-medium" 
-                : "text-nord-4 hover:bg-nord-1 hover:text-nord-6"
+                ? "bg-nord-2 text-nord-14 font-medium" 
+                : "text-nord-4 hover:bg-nord-2 hover:text-nord-6"
             }`}
           >
             <Icon className="w-5 h-5" />
