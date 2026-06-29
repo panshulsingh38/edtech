@@ -210,16 +210,123 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-12 bg-[#2e3440] text-[#d8dee9] px-8 py-3 rounded-2xl flex items-center justify-center gap-8 shadow-2xl border border-[#434c5e]"
+          className="mt-16 flex flex-col items-center"
         >
-          <span className="font-serif font-bold tracking-wider text-sm opacity-80 hover:opacity-100 transition-opacity">HARVARD</span>
-          <span className="font-sans font-black tracking-widest text-lg opacity-80 hover:opacity-100 transition-opacity">MIT</span>
-          <span className="font-sans font-medium text-sm flex items-center gap-1 opacity-80 hover:opacity-100 transition-opacity">
-            <Triangle className="w-4 h-4 rotate-180" /> OpenAI
-          </span>
+          <span className="text-sm font-medium text-slate-500 mb-4 uppercase tracking-widest">Trusted by students at</span>
+          <div className="bg-[#2e3440] text-[#d8dee9] px-8 py-3 rounded-2xl flex items-center justify-center gap-8 shadow-2xl border border-[#434c5e]">
+            <span className="font-serif font-bold tracking-wider text-sm opacity-80 hover:opacity-100 transition-opacity">HARVARD</span>
+            <span className="font-sans font-black tracking-widest text-lg opacity-80 hover:opacity-100 transition-opacity">MIT</span>
+            <span className="font-sans font-medium text-sm flex items-center gap-1 opacity-80 hover:opacity-100 transition-opacity">
+              <Triangle className="w-4 h-4 rotate-180" /> OpenAI
+            </span>
+          </div>
         </motion.div>
 
       </div>
+
+      {/* Feature Breakdown Section */}
+      <section className="relative z-10 py-24 bg-white border-y border-slate-200">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4 font-[family-name:var(--font-playfair)]">What's Inside a Distilled Module?</h2>
+            <p className="text-slate-500 text-lg">Every time you upload a document, our AI builds a complete study toolkit.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-slate-50 border border-slate-100 p-8 rounded-3xl">
+              <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center mb-6">
+                <FileText className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-800 mb-3">Concept Summaries</h3>
+              <p className="text-slate-500 leading-relaxed">Dense textbook chapters are broken down into bite-sized, easy-to-read summaries that highlight the core concepts you actually need to know.</p>
+            </div>
+            
+            <div className="bg-slate-50 border border-slate-100 p-8 rounded-3xl">
+              <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center mb-6">
+                <CheckCircle2 className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-800 mb-3">Smart Flashcards</h3>
+              <p className="text-slate-500 leading-relaxed">Automatically generated spaced-repetition flashcards ensure you memorize key terms, dates, and definitions without spending hours making them.</p>
+            </div>
+            
+            <div className="bg-slate-50 border border-slate-100 p-8 rounded-3xl">
+              <div className="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center mb-6">
+                <BarChart3 className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-800 mb-3">Practice Quizzes</h3>
+              <p className="text-slate-500 leading-relaxed">Test your knowledge with AI-generated multiple-choice questions that mimic real exam formats, complete with explanations for wrong answers.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="relative z-10 py-24 bg-[#f8fafc]">
+        <div className="max-w-3xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4 font-[family-name:var(--font-playfair)]">Frequently Asked Questions</h2>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+              <h4 className="text-lg font-bold text-slate-800 mb-2">Is my data safe?</h4>
+              <p className="text-slate-500">Yes. Your files are encrypted during transit, processed to generate your study module, and are never used to train public AI models.</p>
+            </div>
+            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+              <h4 className="text-lg font-bold text-slate-800 mb-2">What file types work?</h4>
+              <p className="text-slate-500">Currently, we support PDF, DOCX, TXT, and Markdown files up to 50MB in size. Support for audio and video lectures is coming soon.</p>
+            </div>
+            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+              <h4 className="text-lg font-bold text-slate-800 mb-2">Is it really free?</h4>
+              <p className="text-slate-500">You can upload your first few documents and generate complete modules completely free. We offer premium tiers for high-volume students.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="relative z-10 bg-white border-t border-slate-200 py-12 text-sm text-slate-500">
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="col-span-1 md:col-span-2">
+            <div className="flex items-center gap-2 mb-4">
+              <Triangle className="w-5 h-5 text-indigo-600" />
+              <span className="text-lg font-bold text-slate-800">AetherLearning</span>
+            </div>
+            <p className="mb-4 max-w-sm">Turn any document into an interactive study path in seconds. The smartest way to master new subjects.</p>
+            <div className="flex items-center gap-2 text-xs font-semibold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-lg w-fit">
+              <CheckCircle2 className="w-4 h-4" />
+              Your files are never stored. Processed and deleted immediately.
+            </div>
+          </div>
+          
+          <div>
+            <h5 className="font-bold text-slate-800 mb-4">Product</h5>
+            <ul className="space-y-2">
+              <li><Link href="#" className="hover:text-indigo-600">Features</Link></li>
+              <li><Link href="/dashboard/upgrade" className="hover:text-indigo-600">Pricing</Link></li>
+              <li><Link href="#" className="hover:text-indigo-600">Use Cases</Link></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h5 className="font-bold text-slate-800 mb-4">Legal & Company</h5>
+            <ul className="space-y-2">
+              <li><Link href="#" className="hover:text-indigo-600">About Us</Link></li>
+              <li><Link href="#" className="hover:text-indigo-600">Privacy Policy</Link></li>
+              <li><Link href="#" className="hover:text-indigo-600">Terms of Service</Link></li>
+              <li><Link href="#" className="hover:text-indigo-600">Contact</Link></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 mt-12 pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p>© 2025 Aether Learning. All rights reserved.</p>
+          <div className="flex gap-4">
+            <Link href="/dashboard" className="font-medium text-indigo-600 hover:text-indigo-700">Upload Now ➔</Link>
+          </div>
+        </div>
+      </footer>
+
     </main>
   );
 }

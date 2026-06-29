@@ -18,8 +18,30 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Aether Learning",
-  description: "AI-powered personalized learning platform",
+  title: "Aether Learning | Turn Any Document into an Interactive Study Path",
+  description: "Upload your PDFs, notes, or lecture slides. Our AI instantly generates personalized flashcards, practice quizzes, and interactive modules to help you master the material.",
+  openGraph: {
+    title: "Aether Learning | Turn Any Document into an Interactive Study Path",
+    description: "Upload your PDFs, notes, or lecture slides. Our AI instantly generates personalized flashcards, practice quizzes, and interactive modules to help you master the material.",
+    url: "https://aetherlearning.com",
+    siteName: "Aether Learning",
+    images: [
+      {
+        url: "/distillation-pod.png",
+        width: 1200,
+        height: 630,
+        alt: "Aether Learning Distillation Pod",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Aether Learning",
+    description: "Turn Any Document into an Interactive Study Path",
+    images: ["/distillation-pod.png"],
+  },
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
