@@ -1,13 +1,35 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { UploadCloud, FileText, ArrowRight, CheckCircle2, PlayCircle, BarChart3, Triangle } from 'lucide-react';
 import Image from 'next/image';
 
 export default function Home() {
+  const [isMounted, setIsMounted] = useState(false);
+  
+  // Mouse tracking for 3D tilt
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth springs for the rotation
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), { damping: 30, stiffness: 200 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), { damping: 30, stiffness: 200 });
+
+  useEffect(() => {
+    setIsMounted(true);
+    const handleMouseMove = (e: MouseEvent) => {
+      const { innerWidth, innerHeight } = window;
+      mouseX.set(e.clientX / innerWidth - 0.5);
+      mouseY.set(e.clientY / innerHeight - 0.5);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
   return (
-    <main className="min-h-screen bg-[#e5e9f0] text-[#2e3440] relative overflow-hidden font-sans">
+    <main className="min-h-screen bg-[#e5e9f0] text-[#2e3440] relative overflow-hidden font-sans" style={{ perspective: 1000 }}>
       
       {/* Abstract Node Background Pattern */}
       <div className="absolute inset-0 z-0 opacity-40 pointer-events-none" 
@@ -36,38 +58,44 @@ export default function Home() {
             Sign In
           </Link>
           <Link href="/dashboard" className="bg-[#4c566a] hover:bg-[#2e3440] text-white px-5 py-2 rounded-lg text-sm font-medium shadow-md transition-all">
-            Start Free Path
+            Upload Your First Document Free
           </Link>
         </div>
       </nav>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 pt-12 pb-24 flex flex-col items-center">
         
-        {/* Distillation Pod Image */}
+        {/* Distillation Pod Image with 3D Tilt */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
+          style={{ rotateX: isMounted ? rotateX : 0, rotateY: isMounted ? rotateY : 0, transformStyle: "preserve-3d" }}
           transition={{ duration: 0.8 }}
           className="relative w-[500px] h-[350px] mb-8"
         >
           {/* Subtle glow behind the pod */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-blue-400/20 rounded-full blur-[80px]" />
-          <Image 
-            src="/distillation-pod.png" 
-            alt="Distillation Pod" 
-            fill 
-            className="object-contain drop-shadow-2xl mix-blend-multiply"
-            priority
+          <motion.div 
+            style={{ translateZ: -50 }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-blue-400/20 rounded-full blur-[80px]" 
           />
+          <motion.div style={{ translateZ: 50 }} className="w-full h-full relative">
+            <Image 
+              src="/distillation-pod.png" 
+              alt="Distillation Pod" 
+              fill 
+              className="object-contain drop-shadow-2xl mix-blend-multiply"
+              priority
+            />
+          </motion.div>
         </motion.div>
 
         {/* Hero Typography */}
         <div className="text-center max-w-4xl mb-12">
           <h1 className="text-4xl md:text-5xl lg:text-6xl text-[#2e3440] mb-4 font-[family-name:var(--font-playfair)] tracking-tight">
-            COGNITIVE CLARITY | ARCHITECTURES OF INSIGHT
+            Turn Any Document Into An Interactive Study Guide
           </h1>
           <p className="text-[#4c566a] text-lg md:text-xl max-w-3xl mx-auto font-light">
-            Distill any raw document into structured, interactive knowledge modules with our neural-syncretic engine.
+            Upload your PDFs, notes, or lecture slides. Our AI instantly generates personalized flashcards, practice quizzes, and interactive modules to help you master the material.
           </p>
         </div>
 
@@ -75,11 +103,12 @@ export default function Home() {
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
+          style={{ rotateX: isMounted ? rotateX : 0, rotateY: isMounted ? rotateY : 0, transformStyle: "preserve-3d" }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="w-full max-w-5xl bg-[#f0f4f8]/80 backdrop-blur-xl border border-white/60 shadow-2xl rounded-2xl overflow-hidden"
         >
           <div className="bg-[#e5e9f0]/90 border-b border-white/50 px-6 py-3 text-center text-sm font-semibold tracking-widest text-[#4c566a] uppercase">
-            Your Distillation Roadmap
+            How It Works
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/40 p-6 gap-6">
@@ -88,20 +117,20 @@ export default function Home() {
             <div className="space-y-4">
               <div className="flex items-center gap-2 text-[#434c5e] font-medium text-sm">
                 <UploadCloud className="w-4 h-4 text-[#88c0d0]" />
-                SYNTHESIS STREAM
+                UPLOAD MATERIALS
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between bg-white/60 rounded-lg p-3 text-sm text-[#4c566a] border border-white/40">
                   <div className="flex items-center gap-2">
                     <FileText className="w-4 h-4 text-[#81a1c1]" />
-                    Upload: File 1
+                    Biology_101_Syllabus.pdf
                   </div>
                   <UploadCloud className="w-4 h-4 text-[#d8dee9]" />
                 </div>
                 <div className="flex items-center justify-between bg-white/60 rounded-lg p-3 text-sm text-[#4c566a] border border-white/40">
                   <div className="flex items-center gap-2">
                     <FileText className="w-4 h-4 text-[#ebcb8b]" />
-                    Document 2
+                    Lecture_Notes.docx
                   </div>
                   <UploadCloud className="w-4 h-4 text-[#d8dee9]" />
                 </div>
@@ -112,35 +141,35 @@ export default function Home() {
             <div className="space-y-4 md:px-4">
               <div className="flex items-center gap-2 text-[#434c5e] font-medium text-sm">
                 <ArrowRight className="w-4 h-4 text-[#88c0d0]" />
-                PATH BUILDER
+                AI GENERATION
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex flex-col items-center gap-2">
                   <div className="w-12 h-12 rounded-xl bg-[#e5e9f0] border-2 border-[#88c0d0] flex items-center justify-center text-[#5e81ac] shadow-sm">
                     <FileText className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-medium text-[#4c566a] text-center leading-tight">Create<br/>Module</span>
+                  <span className="text-[10px] font-medium text-[#4c566a] text-center leading-tight">Extract<br/>Concepts</span>
                 </div>
                 <div className="h-[1px] w-4 bg-[#d8dee9]" />
                 <div className="flex flex-col items-center gap-2">
                   <div className="w-12 h-12 rounded-xl bg-white/50 border border-white flex items-center justify-center text-[#4c566a]">
                     <PlayCircle className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-medium text-[#4c566a]">Synthesize</span>
+                  <span className="text-[10px] font-medium text-[#4c566a]">Generate</span>
                 </div>
                 <div className="h-[1px] w-4 bg-[#d8dee9]" />
                 <div className="flex flex-col items-center gap-2">
                   <div className="w-12 h-12 rounded-xl bg-white/50 border border-white flex items-center justify-center text-[#4c566a]">
                     <BarChart3 className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-medium text-[#4c566a]">Optimize</span>
+                  <span className="text-[10px] font-medium text-[#4c566a]">Build Quiz</span>
                 </div>
                 <div className="h-[1px] w-4 bg-[#d8dee9]" />
                 <div className="flex flex-col items-center gap-2">
                   <div className="w-12 h-12 rounded-xl bg-white/50 border border-white flex items-center justify-center text-[#4c566a]">
                     <CheckCircle2 className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-medium text-[#4c566a]">Finalize</span>
+                  <span className="text-[10px] font-medium text-[#4c566a]">Ready</span>
                 </div>
               </div>
             </div>
@@ -149,7 +178,7 @@ export default function Home() {
             <div className="space-y-4 md:pl-4">
               <div className="flex items-center gap-2 text-[#434c5e] font-medium text-sm">
                 <PlayCircle className="w-4 h-4 text-[#88c0d0]" />
-                COGNITIVE PROGRESS
+                TRACK MASTERY
               </div>
               <div className="space-y-5 pt-2">
                 <div className="space-y-2">
