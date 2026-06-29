@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, BookOpen, FileText, GraduationCap, Folder, Settings } from 'lucide-react';
+import { LayoutDashboard, BookOpen, FileText, GraduationCap, Folder, Settings, ArrowUpCircle } from 'lucide-react';
 
 export default function SidebarNav() {
   const pathname = usePathname();
@@ -40,6 +40,20 @@ export default function SidebarNav() {
           </Link>
         );
       })}
+      
+      <div className="pt-8 pb-4">
+        <Link 
+          href="/dashboard/upgrade"
+          className={`flex items-center justify-between px-4 py-3 rounded-xl border border-nord-14/30 bg-nord-14/10 text-nord-14 hover:bg-nord-14 hover:text-nord-0 font-bold transition-all ${
+            pathname === '/dashboard/upgrade' ? "bg-nord-14 text-nord-0" : ""
+          }`}
+        >
+          <div className="flex items-center gap-3">
+            <ArrowUpCircle className="w-5 h-5" />
+            Upgrade Plan
+          </div>
+        </Link>
+      </div>
     </nav>
   );
 }
