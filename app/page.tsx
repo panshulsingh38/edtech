@@ -6,16 +6,13 @@ import TestEnvironment from '@/components/TestEnvironment';
 import { QuestionSet } from '@/lib/ai-engine';
 import { getTestById } from '@/app/actions';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, BarChart3, Diamond, Zap, Flame, Trophy, User, Camera, BookOpen } from 'lucide-react';
+import { Sparkles, BarChart3, Zap, Flame, Trophy, User, Camera, BookOpen } from 'lucide-react';
 import Link from 'next/link';
-import PaywallModal from '@/components/PaywallModal';
 import { useSession, signIn, signOut } from 'next-auth/react';
 
 export default function Home() {
   const [testData, setTestData] = useState<QuestionSet | null>(null);
   const [testId, setTestId] = useState<string | null>(null);
-  const [insights, setInsights] = useState<number | null>(null);
-  const [isPaywallOpen, setIsPaywallOpen] = useState(false);
   const [xp, setXp] = useState<number>(0);
   const [streak, setStreak] = useState<number>(0);
   
@@ -27,25 +24,6 @@ export default function Home() {
   };
 
   const consumeInsight = () => {
-    // Admin override
-    // @ts-ignore - custom property
-    if (session?.user?.role === 'ADMIN') return true;
-
-    if (insights === null) {
-      alert("Still loading your profile... Please try again in a few seconds.");
-      return false;
-    }
-    if (insights < 3) {
-      setIsPaywallOpen(true);
-      return false;
-    }
-    const newCount = insights - 3;
-    setInsights(newCount);
-    
-    // Only update localStorage if not logged in
-    if (!session) {
-      localStorage.setItem('magic_insights', newCount.toString());
-    }
     return true;
   };
 
@@ -67,18 +45,7 @@ export default function Home() {
       });
     }
 
-    // Load insights, xp, and streak
-    if (session?.user) {
-      // @ts-ignore
-      setInsights(session.user.insights);
-    } else {
-      const storedInsights = localStorage.getItem('magic_insights');
-      if (storedInsights !== null) {
-        setInsights(Math.min(parseInt(storedInsights, 10), 10));
-      } else {
-        setInsights(10);
-      }
-    }
+    // Load xp, and streak
 
     const storedXp = localStorage.getItem('magic_xp');
     if (storedXp !== null) setXp(parseInt(storedXp, 10));
@@ -134,17 +101,6 @@ export default function Home() {
             <div className="flex items-center gap-1.5 cursor-pointer text-nord-13 hover:text-yellow-300 transition-colors">
               <Zap className="w-3.5 h-3.5" />
               <span className="text-sm font-bold">{xp}</span>
-            </div>
-            <div 
-              onClick={() => setIsPaywallOpen(true)}
-              className="flex items-center gap-1.5 cursor-pointer text-nord-14 hover:text-white transition-colors"
-              title="Refill Insights"
-            >
-              <Diamond className="w-3.5 h-3.5" />
-              <span className="text-sm font-bold">
-                {/* @ts-ignore */}
-                {session?.user?.role === 'ADMIN' ? '∞' : insights !== null ? insights : '...'}
-              </span>
             </div>
           </div>
 
@@ -230,8 +186,6 @@ export default function Home() {
           <a href="mailto:support@aetherlearning.com" className="hover:text-nord-4 transition-colors">Contact</a>
         </div>
       </footer>
-
-      <PaywallModal isOpen={isPaywallOpen} onClose={() => setIsPaywallOpen(false)} />
     </main>
   );
 }
