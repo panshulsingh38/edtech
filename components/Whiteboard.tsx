@@ -99,18 +99,18 @@ export default function Whiteboard({ className }: { className?: string }) {
   const colors = ['#ffffff', '#ef4444', '#3b82f6', '#22c55e', '#eab308', '#a855f7'];
 
   return (
-    <div className={cn("flex flex-col gap-4 border border-white/10 rounded-2xl p-4 bg-white/5", className)}>
+    <div className={cn("flex flex-col gap-4 border border-nord-3 rounded-2xl p-4 bg-nord-1/50", className)}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <button 
             onClick={() => setIsEraser(false)}
-            className={cn("p-2 rounded-lg transition-colors", !isEraser ? "bg-white/20 text-white" : "text-gray-400 hover:text-white")}
+            className={cn("p-2 rounded-lg transition-colors", !isEraser ? "bg-white/20 text-white" : "text-nord-4 hover:text-white")}
           >
             <Pen className="w-5 h-5" />
           </button>
           <button 
             onClick={() => setIsEraser(true)}
-            className={cn("p-2 rounded-lg transition-colors", isEraser ? "bg-white/20 text-white" : "text-gray-400 hover:text-white")}
+            className={cn("p-2 rounded-lg transition-colors", isEraser ? "bg-white/20 text-white" : "text-nord-4 hover:text-white")}
           >
             <Eraser className="w-5 h-5" />
           </button>
@@ -135,7 +135,7 @@ export default function Whiteboard({ className }: { className?: string }) {
 
       <div 
         ref={containerRef}
-        className="relative w-full h-[300px] sm:h-[400px] rounded-xl overflow-hidden bg-[#000000] border border-white/10 shadow-inner touch-none cursor-crosshair"
+        className="relative w-full h-[300px] sm:h-[400px] rounded-xl overflow-hidden bg-[#000000] border border-nord-3 shadow-inner touch-none cursor-crosshair"
       >
         <canvas
           ref={canvasRef}

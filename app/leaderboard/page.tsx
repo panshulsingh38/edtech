@@ -50,34 +50,34 @@ export default function Leaderboard() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-white p-6 relative selection:bg-indigo-500/30">
-      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-yellow-600/10 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-orange-600/10 blur-[120px] pointer-events-none" />
+    <main className="min-h-screen bg-nord-0 text-white p-6 relative selection:bg-nord-8/30">
+      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-yellow-600/10 hidden pointer-events-none" />
+      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-orange-600/10 hidden pointer-events-none" />
 
       <div className="max-w-4xl mx-auto relative z-10 pt-10">
         <Link 
           href="/" 
-          className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-12"
+          className="inline-flex items-center gap-2 text-nord-4 hover:text-white transition-colors mb-12"
         >
           <ArrowLeft className="w-5 h-5" />
           Back to Dashboard
         </Link>
 
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-nord-1/50 border border-nord-3 backdrop-blur-md mb-6">
             <Trophy className="w-4 h-4 text-yellow-400" />
             <span className="text-sm font-medium text-yellow-200">Global Rankings</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
             The Leaderboard
           </h1>
-          <p className="text-gray-400 text-lg">
+          <p className="text-nord-4 text-lg">
             Compete with students worldwide. Gain XP by reviewing flashcards.
           </p>
         </div>
 
-        <div className="bg-[#13131a]/80 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
-          <div className="grid grid-cols-12 gap-4 p-6 border-b border-white/5 text-sm font-semibold text-gray-400 uppercase tracking-wider">
+        <div className="bg-[#13131a]/80 backdrop-blur-xl border border-nord-3 rounded-3xl overflow-hidden shadow-2xl">
+          <div className="grid grid-cols-12 gap-4 p-6 border-b border-white/5 text-sm font-semibold text-nord-4 uppercase tracking-wider">
             <div className="col-span-2 text-center">Rank</div>
             <div className="col-span-6">Student</div>
             <div className="col-span-2 text-center hidden sm:block">Streak</div>
@@ -93,7 +93,7 @@ export default function Leaderboard() {
                 key={user.name}
                 className={cn(
                   "grid grid-cols-12 gap-4 p-6 items-center border-b border-white/5 transition-colors",
-                  user.isCurrentUser ? "bg-indigo-500/10 border-indigo-500/20" : "hover:bg-white/5"
+                  user.isCurrentUser ? "bg-nord-8/10 border-nord-8/20" : "hover:bg-nord-1/50"
                 )}
               >
                 <div className="col-span-2 flex justify-center">
@@ -103,7 +103,7 @@ export default function Leaderboard() {
                     </div>
                   ) : user.rank === 2 ? (
                     <div className="w-10 h-10 rounded-full bg-gray-300/20 flex items-center justify-center border border-gray-300/50">
-                      <span className="font-bold text-gray-300">2</span>
+                      <span className="font-bold text-nord-5">2</span>
                     </div>
                   ) : user.rank === 3 ? (
                     <div className="w-10 h-10 rounded-full bg-amber-600/20 flex items-center justify-center border border-amber-600/50">
@@ -117,12 +117,12 @@ export default function Leaderboard() {
                 </div>
 
                 <div className="col-span-6 flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500/30 to-purple-500/30 border border-white/10 flex flex-shrink-0 items-center justify-center text-white font-bold">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-nord-8/30 to-purple-500/30 border border-nord-3 flex flex-shrink-0 items-center justify-center text-white font-bold">
                     {user.name.charAt(0)}
                   </div>
                   <span className={cn(
                     "font-medium truncate",
-                    user.isCurrentUser ? "text-indigo-300 font-bold" : "text-white"
+                    user.isCurrentUser ? "text-nord-8 font-bold" : "text-white"
                   )}>
                     {user.name} {user.isCurrentUser && "(You)"}
                   </span>
@@ -134,7 +134,7 @@ export default function Leaderboard() {
                 </div>
 
                 <div className="col-span-4 sm:col-span-2 flex justify-end items-center gap-1.5 pr-4">
-                  <span className="font-mono font-bold text-lg text-indigo-400">
+                  <span className="font-mono font-bold text-lg text-nord-8">
                     {user.xp.toLocaleString()}
                   </span>
                 </div>

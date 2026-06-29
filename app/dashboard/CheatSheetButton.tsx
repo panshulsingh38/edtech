@@ -48,7 +48,7 @@ export default function CheatSheetButton({ testId }: { testId: string }) {
       <button 
         onClick={generateCheatSheet}
         disabled={isLoading}
-        className="mt-4 w-full flex items-center justify-center gap-2 py-2 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-300 rounded-lg text-sm font-medium transition-colors"
+        className="mt-4 w-full flex items-center justify-center gap-2 py-2 bg-nord-8/10 hover:bg-nord-8/20 text-nord-8 rounded-lg text-sm font-medium transition-colors"
       >
         {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <FileText className="w-4 h-4" />}
         {isLoading ? "Generating..." : "Generate Cheat Sheet"}
@@ -62,18 +62,18 @@ export default function CheatSheetButton({ testId }: { testId: string }) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#1a1a24] border border-white/10 w-full max-w-3xl max-h-[80vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+              className="bg-nord-1 border border-nord-3 w-full max-w-3xl max-h-[80vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
             >
-              <div className="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
+              <div className="p-4 border-b border-nord-3 flex justify-between items-center bg-nord-1/50">
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-indigo-400" />
+                  <FileText className="w-5 h-5 text-nord-8" />
                   AI Cheat Sheet
                 </h2>
                 <div className="flex gap-2">
-                  <button onClick={handleDownload} className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 rounded-lg text-sm text-white flex items-center gap-2 transition-colors">
+                  <button onClick={handleDownload} className="px-3 py-1.5 bg-nord-8 hover:bg-nord-8 rounded-lg text-sm text-white flex items-center gap-2 transition-colors">
                     <DownloadCloud className="w-4 h-4" /> Download .md
                   </button>
-                  <button onClick={() => setIsOpen(false)} className="px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-sm text-white transition-colors">
+                  <button onClick={() => setIsOpen(false)} className="px-3 py-1.5 bg-nord-2/50 hover:bg-white/20 rounded-lg text-sm text-white transition-colors">
                     Close
                   </button>
                 </div>

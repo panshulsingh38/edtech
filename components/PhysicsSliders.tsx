@@ -35,13 +35,13 @@ export default function PhysicsSliders({ variables, onChange, disabled }: Physic
   };
 
   return (
-    <div className="space-y-6 bg-white/5 p-6 rounded-xl border border-white/10 mt-4">
-      <h4 className="text-sm font-bold tracking-wider uppercase text-indigo-400 mb-4">Interactive Variables</h4>
+    <div className="space-y-6 bg-nord-1/50 p-6 rounded-xl border border-nord-3 mt-4">
+      <h4 className="text-sm font-bold tracking-wider uppercase text-nord-8 mb-4">Interactive Variables</h4>
       {variables.map((v) => (
         <div key={v.name} className="flex flex-col gap-2">
           <div className="flex justify-between items-center">
-            <label className="text-gray-300 font-medium capitalize">{v.name}</label>
-            <span className="text-indigo-300 font-mono bg-indigo-500/10 px-2 py-1 rounded text-sm">
+            <label className="text-nord-5 font-medium capitalize">{v.name}</label>
+            <span className="text-nord-8 font-mono bg-nord-8/10 px-2 py-1 rounded text-sm">
               {values[v.name]}
             </span>
           </div>
@@ -53,7 +53,7 @@ export default function PhysicsSliders({ variables, onChange, disabled }: Physic
             value={values[v.name]}
             onChange={(e) => handleChange(v.name, parseFloat(e.target.value))}
             disabled={disabled}
-            className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-indigo-500 disabled:opacity-50"
+            className="w-full h-2 bg-nord-3 rounded-lg appearance-none cursor-pointer accent-indigo-500 disabled:opacity-50"
           />
           <div className="flex justify-between text-xs text-gray-500">
             <span>{v.min}</span>

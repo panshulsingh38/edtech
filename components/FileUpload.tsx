@@ -120,7 +120,7 @@ export default function FileUpload({ onTestGenerated, onConsumeInsight }: FileUp
           isDragging ? "shadow-[0_0_40px_rgba(99,102,241,0.4)]" : "shadow-2xl shadow-black/50"
         )}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-30 animate-pulse" />
+        <div className="absolute inset-0 bg-nord-3 opacity-30 animate-pulse" />
         
         <div className="relative bg-[#13131a]/90 backdrop-blur-xl rounded-[23px] p-8 md:p-12 border border-white/5">
           <form onSubmit={handleUpload} className="flex flex-col gap-8">
@@ -128,8 +128,8 @@ export default function FileUpload({ onTestGenerated, onConsumeInsight }: FileUp
             <div 
               className={cn(
                 "relative flex flex-col items-center justify-center w-full min-h-[18rem] rounded-2xl border-2 border-dashed transition-all duration-300 group overflow-hidden cursor-pointer",
-                isDragging ? "border-indigo-400 bg-indigo-500/10" : "border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20",
-                files.length > 0 ? "border-solid border-indigo-500/50 bg-indigo-500/5 cursor-default" : ""
+                isDragging ? "border-indigo-400 bg-nord-8/10" : "border-nord-3 bg-nord-1/50 hover:bg-nord-2/50 hover:border-white/20",
+                files.length > 0 ? "border-solid border-nord-8/50 bg-nord-8/5 cursor-default" : ""
               )}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
@@ -154,13 +154,13 @@ export default function FileUpload({ onTestGenerated, onConsumeInsight }: FileUp
                     className="text-center cursor-pointer p-6"
                     onClick={() => fileInputRef.current?.click()}
                   >
-                    <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-indigo-500/10 group-hover:border-indigo-500/30 transition-colors">
-                      <UploadCloud className="w-10 h-10 text-gray-400 group-hover:text-indigo-400 transition-colors" />
+                    <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-nord-1/50 flex items-center justify-center border border-nord-3 group-hover:bg-nord-8/10 group-hover:border-nord-8/30 transition-colors">
+                      <UploadCloud className="w-10 h-10 text-nord-4 group-hover:text-nord-8 transition-colors" />
                     </div>
                     <h3 className="text-xl font-bold text-white mb-2">Upload Files for Analysis</h3>
-                    <p className="text-gray-400 mb-6 max-w-sm mx-auto">Drag & drop PDFs, text files, or images here. Upload multiple files for a Cross-Document Synthesis Matrix.</p>
+                    <p className="text-nord-4 mb-6 max-w-sm mx-auto">Drag & drop PDFs, text files, or images here. Upload multiple files for a Cross-Document Synthesis Matrix.</p>
                     
-                    <div className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 transition-colors text-white font-medium">
+                    <div className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-nord-2/50 hover:bg-white/15 border border-nord-3 transition-colors text-white font-medium">
                       Browse Files
                     </div>
                   </motion.div>
@@ -174,13 +174,13 @@ export default function FileUpload({ onTestGenerated, onConsumeInsight }: FileUp
                   >
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                        <Layers className="w-5 h-5 text-indigo-400" /> 
+                        <Layers className="w-5 h-5 text-nord-8" /> 
                         {isSynthesisMode ? 'Cross-Document Synthesis' : 'Selected File'}
                       </h3>
                       <button 
                         type="button"
                         onClick={() => { setFiles([]); setIsSynthesisMode(false); }}
-                        className="p-2 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+                        className="p-2 rounded-lg hover:bg-nord-2/50 text-nord-4 hover:text-white transition-colors"
                       >
                         <X className="w-5 h-5" />
                       </button>
@@ -188,11 +188,11 @@ export default function FileUpload({ onTestGenerated, onConsumeInsight }: FileUp
                     
                     <div className="space-y-2 mb-6">
                       {files.map((f, i) => (
-                        <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-black/40 border border-white/10">
+                        <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-black/40 border border-nord-3">
                           {f.type.startsWith('image/') ? (
-                            <FileImage className="w-8 h-8 text-indigo-400 shrink-0" />
+                            <FileImage className="w-8 h-8 text-nord-8 shrink-0" />
                           ) : (
-                            <FileText className="w-8 h-8 text-indigo-400 shrink-0" />
+                            <FileText className="w-8 h-8 text-nord-8 shrink-0" />
                           )}
                           <div className="min-w-0 flex-1">
                             <p className="text-white font-medium truncate">{f.name}</p>
@@ -206,7 +206,7 @@ export default function FileUpload({ onTestGenerated, onConsumeInsight }: FileUp
                       <button
                         type="button"
                         onClick={() => fileInputRef.current?.click()}
-                        className="flex-1 py-3 px-4 rounded-xl border border-dashed border-white/20 text-gray-400 hover:text-white hover:bg-white/5 transition-colors font-medium text-sm"
+                        className="flex-1 py-3 px-4 rounded-xl border border-dashed border-white/20 text-nord-4 hover:text-white hover:bg-nord-1/50 transition-colors font-medium text-sm"
                       >
                         + Add Another File
                       </button>
@@ -233,41 +233,41 @@ export default function FileUpload({ onTestGenerated, onConsumeInsight }: FileUp
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300 ml-1">Target Difficulty</label>
+                <label className="text-sm font-medium text-nord-5 ml-1">Target Difficulty</label>
                 <select 
                   value={difficulty}
                   onChange={(e) => setDifficulty(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
+                  className="w-full bg-nord-1/50 border border-nord-3 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
                 >
-                  <option className="bg-gray-900">High School</option>
-                  <option className="bg-gray-900">College Level</option>
-                  <option className="bg-gray-900">Post-Grad / PhD</option>
+                  <option className="bg-nord-1">High School</option>
+                  <option className="bg-nord-1">College Level</option>
+                  <option className="bg-nord-1">Post-Grad / PhD</option>
                 </select>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300 ml-1">Instructor Tone</label>
+                <label className="text-sm font-medium text-nord-5 ml-1">Instructor Tone</label>
                 <select 
                   value={tone}
                   onChange={(e) => setTone(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
+                  className="w-full bg-nord-1/50 border border-nord-3 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
                 >
-                  <option className="bg-gray-900">Professional</option>
-                  <option className="bg-gray-900">Strict & Rigorous</option>
-                  <option className="bg-gray-900">Friendly & Encouraging</option>
-                  <option className="bg-gray-900">Socratic Method</option>
+                  <option className="bg-nord-1">Professional</option>
+                  <option className="bg-nord-1">Strict & Rigorous</option>
+                  <option className="bg-nord-1">Friendly & Encouraging</option>
+                  <option className="bg-nord-1">Socratic Method</option>
                 </select>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300 ml-1">Question Count</label>
+                <label className="text-sm font-medium text-nord-5 ml-1">Question Count</label>
                 <select 
                   value={questionCount}
                   onChange={(e) => setQuestionCount(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
+                  className="w-full bg-nord-1/50 border border-nord-3 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
                 >
-                  <option className="bg-gray-900" value="5">5 Questions (Quick)</option>
-                  <option className="bg-gray-900" value="10">10 Questions (Standard)</option>
-                  <option className="bg-gray-900" value="15">15 Questions (Thorough)</option>
-                  <option className="bg-gray-900" value="20">20 Questions (Exam Prep)</option>
+                  <option className="bg-nord-1" value="5">5 Questions (Quick)</option>
+                  <option className="bg-nord-1" value="10">10 Questions (Standard)</option>
+                  <option className="bg-nord-1" value="15">15 Questions (Thorough)</option>
+                  <option className="bg-nord-1" value="20">20 Questions (Exam Prep)</option>
                 </select>
               </div>
             </div>
@@ -275,7 +275,7 @@ export default function FileUpload({ onTestGenerated, onConsumeInsight }: FileUp
             <button
               type="submit"
               disabled={loading || files.length === 0}
-              className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white py-4 px-6 rounded-xl font-bold transition-all shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(79,70,229,0.5)]"
+              className="w-full flex items-center justify-center gap-2 bg-nord-8 hover:bg-nord-8 disabled:opacity-50 disabled:cursor-not-allowed text-white py-4 px-6 rounded-xl font-bold transition-all shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(79,70,229,0.5)]"
             >
               {loading ? (
                 <><Loader2 className="w-5 h-5 animate-spin" /> Analyzing Document{files.length > 1 ? 's' : ''}...</>

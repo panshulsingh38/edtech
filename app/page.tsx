@@ -105,40 +105,38 @@ export default function Home() {
   }, [session]);
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-white overflow-hidden relative selection:bg-indigo-500/30">
-      {/* Background Gradients */}
-      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-600/20 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-600/20 blur-[120px] pointer-events-none" />
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-overlay"></div>
+    <main className="min-h-screen bg-nord-0 text-white overflow-hidden relative selection:bg-nord-8/30">
+      {/* Solid Clean Background for Nord Theme */}
+      <div className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-5"></div>
 
       {/* Top Navigation */}
       <div className="absolute top-6 right-6 md:top-10 md:right-10 z-50 flex items-center gap-4 flex-wrap justify-end">
         
         {/* Gamification Stats */}
         <div className="hidden sm:flex items-center gap-3">
-          <Link href="/leaderboard" className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md cursor-pointer hover:bg-white/10 transition-colors">
+          <Link href="/leaderboard" className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-nord-1/50 border border-nord-3 backdrop-blur-md cursor-pointer hover:bg-nord-2/50 transition-colors">
             <Trophy className="w-4 h-4 text-yellow-400" />
             <span className="text-sm font-bold text-white">Rank</span>
           </Link>
-          <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+          <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-nord-1/50 border border-nord-3 backdrop-blur-md">
             <Flame className="w-4 h-4 text-orange-500" />
             <span className="text-sm font-bold text-white">{streak}</span>
           </div>
-          <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+          <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-nord-1/50 border border-nord-3 backdrop-blur-md">
             <Zap className="w-4 h-4 text-yellow-400" />
             <span className="text-sm font-bold text-white">{xp} XP</span>
           </div>
           <div 
             onClick={() => setIsPaywallOpen(true)}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md cursor-pointer hover:bg-white/10 hover:border-pink-500/50 transition-all group"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-nord-1/50 border border-nord-3 backdrop-blur-md cursor-pointer hover:bg-nord-2/50 hover:border-nord-15/50 transition-all group"
             title="Refill Insights"
           >
-            <Diamond className="w-4 h-4 text-pink-400 group-hover:scale-110 transition-transform" />
+            <Diamond className="w-4 h-4 text-nord-15 group-hover:scale-110 transition-transform" />
             <span className="font-bold text-white text-lg drop-shadow-md">
               {/* @ts-ignore */}
               {session?.user?.role === 'ADMIN' ? '∞' : insights !== null ? insights : '...'}
             </span>
-            <div className="ml-1 w-5 h-5 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400 group-hover:bg-pink-500 group-hover:text-white transition-colors">
+            <div className="ml-1 w-5 h-5 rounded-full bg-nord-15/20 flex items-center justify-center text-nord-15 group-hover:bg-nord-15 group-hover:text-white transition-colors">
               <span className="text-sm font-bold leading-none mb-0.5">+</span>
             </div>
           </div>
@@ -150,21 +148,21 @@ export default function Home() {
                 setInsights(999);
                 localStorage.setItem('magic_insights', '999');
               }}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md cursor-pointer hover:bg-white/10 transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-nord-1/50 border border-nord-3 backdrop-blur-md cursor-pointer hover:bg-nord-2/50 transition-colors"
               title="Admin Backdoor: Click to refill!"
             >
-              <Diamond className="w-4 h-4 text-pink-400" />
+              <Diamond className="w-4 h-4 text-nord-15" />
               <span className="text-sm font-bold text-white">Refill</span>
             </button>
           )}
 
           {session ? (
-            <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-2 py-1.5 rounded-full pr-4">
+            <div className="flex items-center gap-3 bg-nord-1/50 border border-nord-3 px-2 py-1.5 rounded-full pr-4">
               {session.user?.image ? (
                 <img src={session.user.image} alt="User" className="w-8 h-8 rounded-full border border-white/20" />
               ) : (
-                <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center">
-                  <User className="w-4 h-4 text-indigo-400" />
+                <div className="w-8 h-8 rounded-full bg-nord-8/20 flex items-center justify-center">
+                  <User className="w-4 h-4 text-nord-8" />
                 </div>
               )}
               <span className="text-sm font-medium">{session.user?.name?.split(' ')[0]}</span>
@@ -180,23 +178,23 @@ export default function Home() {
 
         <Link 
           href="/analytics" 
-          className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 backdrop-blur-md text-white font-medium transition-all duration-200"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-nord-1/50 hover:bg-nord-2/50 border border-nord-3 backdrop-blur-md text-white font-medium transition-all duration-200"
         >
-          <BarChart3 className="w-4 h-4 text-indigo-400" />
+          <BarChart3 className="w-4 h-4 text-nord-8" />
           <span className="hidden sm:inline">Analytics</span>
         </Link>
         <Link 
           href="/snap-and-solve" 
-          className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 backdrop-blur-md text-purple-100 font-medium transition-all duration-200 shadow-[0_0_15px_rgba(168,85,247,0.15)]"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-nord-9/10 hover:bg-nord-9/20 border border-nord-9/30 backdrop-blur-md text-nord-4 font-medium transition-all duration-200 shadow-[0_0_15px_rgba(168,85,247,0.15)]"
         >
-          <Camera className="w-4 h-4 text-purple-400" />
+          <Camera className="w-4 h-4 text-nord-9" />
           <span className="hidden sm:inline">Snap & Solve</span>
         </Link>
         <Link 
           href="/survival-guide" 
-          className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/30 backdrop-blur-md text-orange-100 font-medium transition-all duration-200 shadow-[0_0_15px_rgba(249,115,22,0.15)]"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-nord-12/10 hover:bg-nord-12/20 border border-nord-12/30 backdrop-blur-md text-nord-4 font-medium transition-all duration-200 shadow-[0_0_15px_rgba(249,115,22,0.15)]"
         >
-          <BookOpen className="w-4 h-4 text-orange-400" />
+          <BookOpen className="w-4 h-4 text-nord-12" />
           <span className="hidden sm:inline">Survival Guide</span>
         </Link>
       </div>
@@ -212,17 +210,17 @@ export default function Home() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-center mb-16"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-6">
-                <Sparkles className="w-4 h-4 text-indigo-400" />
-                <span className="text-sm font-medium text-indigo-200">Next-Gen AI Testing Engine</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-nord-1/50 border border-nord-3 backdrop-blur-md mb-6">
+                <Sparkles className="w-4 h-4 text-nord-8" />
+                <span className="text-sm font-medium text-nord-4">Next-Gen AI Testing Engine</span>
               </div>
               <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
                 Transform Documents into <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-nord-7 via-nord-8 to-nord-9">
                   Interactive Knowledge
                 </span>
               </h1>
-              <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 font-light">
+              <p className="max-w-2xl mx-auto text-lg md:text-xl text-nord-4 font-light">
                 Upload your course materials, PDFs, or images, and our advanced neural engine will instantly synthesize a beautifully structured, interactive assessment.
               </p>
             </motion.div>

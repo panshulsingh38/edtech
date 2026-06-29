@@ -47,7 +47,7 @@ export default function SprintTimer({ initialTime, isActive, onTimeUp, timeDelta
   const isDanger = timeLeft <= 15;
 
   return (
-    <div className={`relative flex items-center gap-2 px-4 py-2 rounded-full font-mono text-xl border-2 shadow-lg transition-colors duration-300 ${isDanger ? 'bg-red-500/20 border-red-500 text-red-400' : 'bg-indigo-900/50 border-indigo-500/30 text-indigo-300'}`}>
+    <div className={`relative flex items-center gap-2 px-4 py-2 rounded-full font-mono text-xl border-2 shadow-lg transition-colors duration-300 ${isDanger ? 'bg-red-500/20 border-red-500 text-red-400' : 'bg-indigo-900/50 border-nord-8/30 text-nord-8'}`}>
       <Timer className={`w-5 h-5 ${isDanger ? 'animate-pulse' : ''}`} />
       <span className="w-16 text-center">
         {minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}
