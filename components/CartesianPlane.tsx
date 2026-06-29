@@ -41,7 +41,7 @@ export default function CartesianPlane({ onCoordinateSelect, disabled, correctAn
   return (
     <div className="flex flex-col items-center">
       <div 
-        className="relative bg-glass-surface border-2 border-white/20 rounded-xl overflow-hidden cursor-crosshair shadow-lg"
+        className="relative bg-nord-1 border-2 border-nord-3 rounded-xl overflow-hidden cursor-crosshair shadow-lg"
         style={{ width: PIXEL_SIZE, height: PIXEL_SIZE }}
         onClick={handleClick}
       >
@@ -68,7 +68,7 @@ export default function CartesianPlane({ onCoordinateSelect, disabled, correctAn
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            className="absolute w-4 h-4 bg-electric-blue rounded-full -translate-x-1/2 -translate-y-1/2 border-2 border-white shadow-[0_0_10px_rgba(99,102,241,0.8)]"
+            className="absolute w-4 h-4 bg-nord-14 rounded-full -translate-x-1/2 -translate-y-1/2 border-2 border-white shadow-[0_0_10px_rgba(99,102,241,0.8)]"
             style={{ ...toPixel(selectedCoordinate.x, selectedCoordinate.y) }}
           />
         )}
@@ -86,7 +86,7 @@ export default function CartesianPlane({ onCoordinateSelect, disabled, correctAn
         )}
       </div>
 
-      <div className="mt-4 text-center text-sm text-zinc-400">
+      <div className="mt-4 text-center text-sm text-nord-4">
         {selectedCoordinate 
           ? `Selected: (${selectedCoordinate.x}, ${selectedCoordinate.y})` 
           : 'Click on the grid to select a coordinate'}

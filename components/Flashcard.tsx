@@ -113,7 +113,7 @@ export default function Flashcard({ id, question, answer, explanation, imageProm
         <div 
           className={cnlocal(
             "absolute inset-0 backface-hidden w-full h-full rounded-3xl flex flex-col items-center justify-center text-center overflow-hidden",
-            "border border-glass-border shadow-xl hover:border-electric-blue/50 transition-colors"
+            "border border-nord-3 shadow-xl hover:border-nord-14/50 transition-colors"
           )}
         >
           {/* Background Image & Overlay */}
@@ -131,13 +131,13 @@ export default function Flashcard({ id, question, answer, explanation, imageProm
 
           {/* Content Container */}
           <div className="absolute inset-0 p-6 md:p-8 flex flex-col items-center justify-center z-10">
-            <div className="absolute top-4 left-4 md:top-6 md:left-6 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/[0.06] flex items-center justify-center text-zinc-400 font-bold border border-white/20 text-sm z-20">
+            <div className="absolute top-4 left-4 md:top-6 md:left-6 w-8 h-8 md:w-10 md:h-10 rounded-full bg-nord-2 flex items-center justify-center text-nord-4 font-bold border border-nord-3 text-sm z-20">
               {index + 1}
             </div>
             
             <button 
               onClick={(e) => speakText(e, question)}
-              className="absolute top-4 right-4 md:top-6 md:right-6 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/[0.06] hover:bg-electric-blue/40 hover:text-white flex items-center justify-center text-zinc-400 border border-white/20 transition-colors z-20"
+              className="absolute top-4 right-4 md:top-6 md:right-6 w-8 h-8 md:w-10 md:h-10 rounded-full bg-nord-2 hover:bg-nord-14/40 hover:text-white flex items-center justify-center text-nord-4 border border-nord-3 transition-colors z-20"
               title="Read Aloud"
             >
               <Volume2 className="w-4 h-4 md:w-5 md:h-5" />
@@ -163,7 +163,7 @@ export default function Flashcard({ id, question, answer, explanation, imageProm
                 "flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full border transition-all duration-300",
                 isListening 
                   ? "bg-red-500/20 border-red-500 text-red-400 animate-pulse" 
-                  : "bg-glass-surface border-glass-border text-zinc-400 hover:text-white hover:bg-white/[0.06]"
+                  : "bg-nord-1 border-nord-3 text-nord-4 hover:text-white hover:bg-nord-2"
               )}
             >
               {isListening ? <MicOff className="w-3 h-3 md:w-4 md:h-4" /> : <Mic className="w-3 h-3 md:w-4 md:h-4" />}
@@ -182,13 +182,13 @@ export default function Flashcard({ id, question, answer, explanation, imageProm
         <div 
           className={cnlocal(
             "absolute inset-0 backface-hidden w-full h-full rounded-3xl p-6 md:p-8 flex flex-col items-center justify-center text-center",
-            "bg-gradient-to-br from-indigo-900/40 to-purple-900/40 border border-electric-blue/30 shadow-2xl",
+            "bg-gradient-to-br from-indigo-900/40 to-purple-900/40 border border-nord-8/30 shadow-2xl",
             "rotate-y-180"
           )}
         >
           <button 
             onClick={(e) => speakText(e, `${answer}. ${explanation || ''}`)}
-            className="absolute top-4 right-4 md:top-6 md:right-6 w-8 h-8 md:w-10 md:h-10 rounded-full bg-glass-surface hover:bg-electric-blue/20 hover:text-white flex items-center justify-center text-zinc-400 border border-glass-border transition-colors z-10"
+            className="absolute top-4 right-4 md:top-6 md:right-6 w-8 h-8 md:w-10 md:h-10 rounded-full bg-nord-1 hover:bg-nord-8/20 hover:text-white flex items-center justify-center text-nord-4 border border-nord-3 transition-colors z-10"
             title="Read Aloud"
           >
             <Volume2 className="w-4 h-4 md:w-5 md:h-5" />
@@ -200,7 +200,7 @@ export default function Flashcard({ id, question, answer, explanation, imageProm
               {answer}
             </p>
             {explanation && (
-              <p className="text-sm md:text-base text-zinc-400/80 leading-relaxed max-w-2xl">
+              <p className="text-sm md:text-base text-nord-4/80 leading-relaxed max-w-2xl">
                 {explanation}
               </p>
             )}
@@ -212,7 +212,7 @@ export default function Flashcard({ id, question, answer, explanation, imageProm
               onClick={(e) => handleReview(e, 'Hard')}
               className={cnlocal(
                 "px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200",
-                reviewStatus === 'Hard' ? "bg-red-500/20 border-red-500 text-red-300" : "bg-glass-surface border-glass-border text-zinc-400 hover:bg-white/[0.06] hover:text-white"
+                reviewStatus === 'Hard' ? "bg-red-500/20 border-red-500 text-red-300" : "bg-nord-1 border-nord-3 text-nord-4 hover:bg-nord-2 hover:text-white"
               )}
             >
               Hard (10m)
@@ -221,7 +221,7 @@ export default function Flashcard({ id, question, answer, explanation, imageProm
               onClick={(e) => handleReview(e, 'Good')}
               className={cnlocal(
                 "px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200",
-                reviewStatus === 'Good' ? "bg-green-500/20 border-green-500 text-green-300" : "bg-glass-surface border-glass-border text-zinc-400 hover:bg-white/[0.06] hover:text-white"
+                reviewStatus === 'Good' ? "bg-green-500/20 border-green-500 text-green-300" : "bg-nord-1 border-nord-3 text-nord-4 hover:bg-nord-2 hover:text-white"
               )}
             >
               Good (1d)
@@ -230,7 +230,7 @@ export default function Flashcard({ id, question, answer, explanation, imageProm
               onClick={(e) => handleReview(e, 'Easy')}
               className={cnlocal(
                 "px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200",
-                reviewStatus === 'Easy' ? "bg-blue-500/20 border-blue-500 text-blue-300" : "bg-glass-surface border-glass-border text-zinc-400 hover:bg-white/[0.06] hover:text-white"
+                reviewStatus === 'Easy' ? "bg-blue-500/20 border-blue-500 text-blue-300" : "bg-nord-1 border-nord-3 text-nord-4 hover:bg-nord-2 hover:text-white"
               )}
             >
               Easy (4d)

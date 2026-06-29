@@ -4,15 +4,15 @@ import { ArrowLeft, Shield } from 'lucide-react';
 
 export default function PrivacyPolicy() {
   return (
-    <div className="min-h-screen bg-black text-white p-6 md:p-12 font-sans selection:bg-electric-blue/30">
+    <div className="min-h-screen bg-black text-white p-6 md:p-12 font-sans selection:bg-nord-14/30">
       <div className="max-w-4xl mx-auto">
-        <Link href="/" className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors mb-8">
+        <Link href="/" className="inline-flex items-center gap-2 text-nord-4 hover:text-white transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" />
           Back to Home
         </Link>
 
         <div className="flex items-center gap-4 mb-8">
-          <div className="p-3 bg-electric-blue/20 rounded-xl border border-electric-blue/30">
+          <div className="p-3 bg-nord-8/20 rounded-xl border border-nord-8/30">
             <Shield className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-400">
@@ -20,7 +20,7 @@ export default function PrivacyPolicy() {
           </h1>
         </div>
 
-        <div className="space-y-8 text-zinc-300 leading-relaxed bg-glass-surface border border-glass-border p-8 md:p-12 rounded-3xl backdrop-blur-sm">
+        <div className="space-y-8 text-nord-4 leading-relaxed bg-nord-1 border border-nord-3 p-8 md:p-12 rounded-3xl backdrop-blur-sm">
           <section>
             <h2 className="text-2xl font-semibold text-white mb-4">1. We Respect Your Data (The TL;DR)</h2>
             <p>

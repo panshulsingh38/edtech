@@ -368,18 +368,18 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
       {/* Proctoring Warning Modal */}
       {showBlurWarning && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="bg-zinc-900 border border-red-500/30 p-8 rounded-3xl max-w-md w-full shadow-2xl text-center relative overflow-hidden">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1 bg-zinc-9001" />
+          <div className="bg-nord-1 border border-red-500/30 p-8 rounded-3xl max-w-md w-full shadow-2xl text-center relative overflow-hidden">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1 bg-nord-11" />
             <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
               <AlertTriangle className="w-10 h-10 text-red-500" />
             </div>
             <h2 className="text-2xl font-bold text-white mb-2">Attention!</h2>
-            <p className="text-zinc-400 mb-6">
+            <p className="text-nord-4 mb-6">
               You have navigated away from the exam environment. This is violation #{blurViolations}. Continuing to tab out may result in disciplinary action or automatic failure.
             </p>
             <button
               onClick={() => setShowBlurWarning(false)}
-              className="w-full py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition-colors"
+              className="w-full py-3 bg-nord-11 hover:bg-red-700 text-white rounded-xl font-bold transition-colors"
             >
               I Understand, Return to Test
             </button>
@@ -388,7 +388,7 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
       )}
 
       <div className="w-full max-w-4xl mx-auto pb-20 print:pb-0">
-      <div className="flex flex-col md:flex-row justify-between items-center mb-10 pb-6 border-b border-glass-border gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-10 pb-6 border-b border-nord-3 gap-4">
         <div className="flex items-center gap-4">
           {!showResults && (
             <div className="flex items-center gap-4 mr-4">
@@ -396,7 +396,7 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                 onClick={() => setIsHighContrast(!isHighContrast)}
                 className={cn(
                   "flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold transition-colors",
-                  isHighContrast ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/50" : "bg-glass-surface text-zinc-400 border border-glass-border hover:text-white"
+                  isHighContrast ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/50" : "bg-nord-1 text-nord-4 border border-nord-3 hover:text-white"
                 )}
               >
                 <Eye className="w-3 h-3" />
@@ -409,7 +409,7 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                 onClick={() => setIsSprintMode(!isSprintMode)}
                 className={cn(
                   "relative w-12 h-6 rounded-full transition-colors duration-200 ease-in-out focus:outline-none",
-                  isSprintMode ? "bg-electric-blue" : "bg-gray-600"
+                  isSprintMode ? "bg-nord-14" : "bg-gray-600"
                 )}
               >
                 <span
@@ -434,19 +434,19 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
             {testData.testTitle}
           </h2>
           {mode === 'test' && (
-            <div className="flex items-center gap-2 bg-electric-blue/20 text-white px-4 py-2 rounded-full border border-electric-blue/30 font-mono text-xl shadow-lg">
+            <div className="flex items-center gap-2 bg-nord-8/20 text-white px-4 py-2 rounded-full border border-nord-8/30 font-mono text-xl shadow-lg">
               <Timer className="w-5 h-5" />
               <span>{formatTime(elapsedTime)}</span>
             </div>
           )}
         </div>
         <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 print:hidden w-full md:w-auto">
-          <div className="flex items-center bg-zinc-900 rounded-full p-1 mr-4 border border-glass-border">
+          <div className="flex items-center bg-nord-1 rounded-full p-1 mr-4 border border-nord-3">
             <button
               onClick={() => setMode('test')}
               className={cn(
                 "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200",
-                mode === 'test' ? "bg-electric-blue text-white shadow-lg" : "text-zinc-400 hover:text-white"
+                mode === 'test' ? "bg-nord-14 text-white shadow-lg" : "text-nord-4 hover:text-white"
               )}
             >
               <ClipboardList className="w-4 h-4" />
@@ -456,7 +456,7 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
               onClick={() => setMode('flashcards')}
               className={cn(
                 "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200",
-                mode === 'flashcards' ? "bg-electric-blue text-white shadow-lg" : "text-zinc-400 hover:text-white"
+                mode === 'flashcards' ? "bg-nord-14 text-white shadow-lg" : "text-nord-4 hover:text-white"
               )}
             >
               <Layers className="w-4 h-4" />
@@ -466,7 +466,7 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
               onClick={() => setMode('mindmap')}
               className={cn(
                 "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200",
-                mode === 'mindmap' ? "bg-electric-blue text-white shadow-lg" : "text-zinc-400 hover:text-white"
+                mode === 'mindmap' ? "bg-nord-14 text-white shadow-lg" : "text-nord-4 hover:text-white"
               )}
             >
               <Network className="w-4 h-4" />
@@ -479,14 +479,14 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                 const lobbyId = await createLobby(testId);
                 router.push(`/battle/${lobbyId}`);
               }}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-9002/20 hover:bg-zinc-9002/30 border border-white/10 text-zinc-300 font-bold transition-all duration-200 shadow-lg shadow-nord-12/10 hover:scale-105"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-nord-12/20 hover:bg-nord-12/30 border border-nord-2 text-nord-4 font-bold transition-all duration-200 shadow-lg shadow-nord-12/10 hover:scale-105"
             >
               <Swords className="w-4 h-4" />
               Battle
             </button>
             <button 
               onClick={() => setShowExportMenu(!showExportMenu)}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-electric-blue/20 hover:bg-electric-blue/30 border border-electric-blue/30 text-white font-medium transition-all duration-200"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-nord-8/20 hover:bg-nord-14/30 border border-nord-8/30 text-white font-medium transition-all duration-200"
             >
               <DownloadCloud className="w-4 h-4" />
               Export <ChevronDown className="w-4 h-4 opacity-70" />
@@ -498,26 +498,26 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                   initial={{ opacity: 0, y: 10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                  className="absolute right-0 mt-2 w-48 bg-zinc-900 border border-glass-border rounded-xl shadow-2xl overflow-hidden z-50"
+                  className="absolute right-0 mt-2 w-48 bg-nord-1 border border-nord-3 rounded-xl shadow-2xl overflow-hidden z-50"
                 >
                   <div className="p-1">
                     <button 
                       onClick={() => window.print()}
-                      className="flex items-center w-full px-4 py-2.5 text-sm text-zinc-400 hover:text-white hover:bg-glass-surface rounded-lg transition-colors text-left"
+                      className="flex items-center w-full px-4 py-2.5 text-sm text-nord-4 hover:text-white hover:bg-nord-1 rounded-lg transition-colors text-left"
                     >
                       <DownloadCloud className="w-4 h-4 mr-2" />
                       Save as PDF
                     </button>
                     <button 
                       onClick={exportToQuizlet}
-                      className="flex items-center w-full px-4 py-2.5 text-sm text-zinc-400 hover:text-white hover:bg-glass-surface rounded-lg transition-colors text-left"
+                      className="flex items-center w-full px-4 py-2.5 text-sm text-nord-4 hover:text-white hover:bg-nord-1 rounded-lg transition-colors text-left"
                     >
                       <Copy className="w-4 h-4 mr-2" />
                       Copy for Quizlet
                     </button>
                     <button 
                       onClick={exportToNotion}
-                      className="flex items-center w-full px-4 py-2.5 text-sm text-zinc-400 hover:text-white hover:bg-glass-surface rounded-lg transition-colors text-left"
+                      className="flex items-center w-full px-4 py-2.5 text-sm text-nord-4 hover:text-white hover:bg-nord-1 rounded-lg transition-colors text-left"
                     >
                       <Copy className="w-4 h-4 mr-2" />
                       Copy for Notion
@@ -529,7 +529,7 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
           </div>
           <button 
             onClick={onReset}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-glass-surface hover:bg-white/[0.06] border border-glass-border text-white font-medium transition-all duration-200"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-nord-1 hover:bg-nord-2 border border-nord-3 text-white font-medium transition-all duration-200"
           >
             <RefreshCw className="w-4 h-4" />
             New Test
@@ -541,23 +541,23 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="mb-12 p-[1px] rounded-3xl bg-zinc-800"
+          className="mb-12 p-[1px] rounded-3xl bg-nord-2"
         >
           <div className="bg-[#13131a] rounded-[23px] p-8 md:p-12 text-center relative overflow-hidden">
             
-            <h3 className="text-2xl font-bold text-zinc-400 mb-4 relative z-10">Your Performance</h3>
+            <h3 className="text-2xl font-bold text-nord-4 mb-4 relative z-10">Your Performance</h3>
             <div className="flex items-baseline justify-center gap-2 mb-8 relative z-10">
               <span className="text-7xl font-extrabold text-white">
                 {calculateScore()}
               </span>
               <span className="text-3xl text-gray-500 font-medium">/ {testData.questions.length}</span>
             </div>
-            <div className="w-full h-2 bg-zinc-800 rounded-full overflow-hidden mb-6 relative z-10">
+            <div className="w-full h-2 bg-nord-2 rounded-full overflow-hidden mb-6 relative z-10">
               <motion.div 
                 initial={{ width: 0 }}
                 animate={{ width: `${(calculateScore() / testData.questions.length) * 100}%` }}
                 transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-                className="h-full bg-electric-blue"
+                className="h-full bg-nord-14"
               />
             </div>
           </div>
@@ -622,13 +622,13 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                   "p-8 rounded-3xl border backdrop-blur-sm transition-all duration-300",
                   showResults 
                     ? (isCorrect ? 'bg-green-500/5 border-green-500/20' : 'bg-red-500/5 border-red-500/20') 
-                    : 'bg-glass-surface border-white/5 hover:border-glass-border'
+                    : 'bg-nord-1 border-white/5 hover:border-nord-3'
                 )}
               >
                 <div className="flex flex-col mb-6">
                   <div className="flex items-start justify-between gap-6">
                     <div className="flex items-start gap-6 flex-1">
-                      <span className="flex items-center justify-center bg-electric-blue/20 text-white font-bold rounded-xl w-12 h-12 shrink-0 text-xl border border-electric-blue/20">
+                      <span className="flex items-center justify-center bg-nord-8/20 text-white font-bold rounded-xl w-12 h-12 shrink-0 text-xl border border-nord-14/20">
                         {index + 1}
                       </span>
                       <div className="text-xl text-white font-medium pt-2 leading-relaxed prose prose-invert max-w-none">
@@ -660,8 +660,8 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                           className={cn(
                             "shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-all text-sm font-medium",
                             showWhiteboard[q.id] 
-                              ? "bg-white/10/20 text-purple-300 border-white/10 hover:bg-white/10/30" 
-                              : "bg-glass-surface text-zinc-400 border-glass-border hover:bg-white/[0.06] hover:text-white"
+                              ? "bg-nord-2/20 text-purple-300 border-nord-2 hover:bg-nord-2/30" 
+                              : "bg-nord-1 text-nord-4 border-nord-3 hover:bg-nord-2 hover:text-white"
                           )}
                         >
                           <Pen className="w-4 h-4" />
@@ -687,7 +687,7 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                           <RefreshCw className="w-4 h-4 animate-spin" /> Gathering thoughts...
                         </div>
                       ) : (
-                        <div className="text-zinc-400 prose prose-invert text-sm">{hints[q.id].text}</div>
+                        <div className="text-nord-4 prose prose-invert text-sm">{hints[q.id].text}</div>
                       )}
                     </div>
                   )}
@@ -701,7 +701,7 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                           <RefreshCw className="w-4 h-4 animate-spin" /> Generating analogy...
                         </div>
                       ) : (
-                        <div className="text-zinc-400 prose prose-invert text-sm"><Latex>{analogies[q.id].text}</Latex></div>
+                        <div className="text-nord-4 prose prose-invert text-sm"><Latex>{analogies[q.id].text}</Latex></div>
                       )}
                     </div>
                   )}
@@ -711,28 +711,28 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                     <motion.div 
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
-                      className="ml-[4.5rem] mt-4 flex items-center gap-4 bg-glass-surface p-3 rounded-xl border border-glass-border"
+                      className="ml-[4.5rem] mt-4 flex items-center gap-4 bg-nord-1 p-3 rounded-xl border border-nord-3"
                     >
-                      <span className="text-sm font-medium text-zinc-400">Confidence:</span>
+                      <span className="text-sm font-medium text-nord-4">Confidence:</span>
                       <div className="flex gap-2">
                         <button
                           type="button"
                           onClick={() => handleConfidenceChange(q.id, 1.0)}
-                          className={cn("px-3 py-1.5 rounded-lg text-sm font-medium transition-colors", confidence === 1.0 ? "bg-green-500/20 text-green-300 border border-green-500/30" : "bg-glass-surface text-zinc-400 hover:bg-white/[0.06] border border-transparent")}
+                          className={cn("px-3 py-1.5 rounded-lg text-sm font-medium transition-colors", confidence === 1.0 ? "bg-green-500/20 text-green-300 border border-green-500/30" : "bg-nord-1 text-nord-4 hover:bg-nord-2 border border-transparent")}
                         >
                           Certain
                         </button>
                         <button
                           type="button"
                           onClick={() => handleConfidenceChange(q.id, 0.5)}
-                          className={cn("px-3 py-1.5 rounded-lg text-sm font-medium transition-colors", confidence === 0.5 ? "bg-yellow-500/20 text-yellow-300 border border-yellow-500/30" : "bg-glass-surface text-zinc-400 hover:bg-white/[0.06] border border-transparent")}
+                          className={cn("px-3 py-1.5 rounded-lg text-sm font-medium transition-colors", confidence === 0.5 ? "bg-yellow-500/20 text-yellow-300 border border-yellow-500/30" : "bg-nord-1 text-nord-4 hover:bg-nord-2 border border-transparent")}
                         >
                           Unsure
                         </button>
                         <button
                           type="button"
                           onClick={() => handleConfidenceChange(q.id, 0.0)}
-                          className={cn("px-3 py-1.5 rounded-lg text-sm font-medium transition-colors", confidence === 0.0 ? "bg-red-500/20 text-red-300 border border-red-500/30" : "bg-glass-surface text-zinc-400 hover:bg-white/[0.06] border border-transparent")}
+                          className={cn("px-3 py-1.5 rounded-lg text-sm font-medium transition-colors", confidence === 0.0 ? "bg-red-500/20 text-red-300 border border-red-500/30" : "bg-nord-1 text-nord-4 hover:bg-nord-2 border border-transparent")}
                         >
                           Guess
                         </button>
@@ -755,9 +755,9 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                       } else if (showWrongHighlight) {
                         labelClass += "bg-red-500/10 border-red-500/50 text-red-200";
                       } else if (isSelected) {
-                        labelClass += "bg-electric-blue/20 border-electric-blue text-white shadow-lg";
+                        labelClass += "bg-nord-8/20 border-nord-14 text-white shadow-lg";
                       } else {
-                        labelClass += "bg-glass-surface border-transparent hover:bg-white/[0.06] text-zinc-400 hover:text-white";
+                        labelClass += "bg-nord-1 border-transparent hover:bg-nord-2 text-nord-4 hover:text-white";
                       }
 
                       return (
@@ -792,7 +792,7 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                 {(q.type === 'short_answer' || q.type === 'reverse_construction') && (
                   <div className="ml-[4.5rem]">
                     {q.type === 'reverse_construction' && (
-                      <div className="mb-4 p-4 bg-zinc-9002/10 border border-white/10 rounded-xl text-orange-200">
+                      <div className="mb-4 p-4 bg-nord-12/10 border border-nord-2 rounded-xl text-orange-200">
                         <span className="font-bold text-xs uppercase tracking-wider block mb-1">Target Answer:</span>
                         <div className="text-lg"><Latex>{q.correctAnswer}</Latex></div>
                         <p className="text-sm mt-2 opacity-80">Construct the original formula or question that yields this answer.</p>
@@ -805,7 +805,7 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                         onChange={(e) => handleOptionChange(q.id, e.target.value)}
                         disabled={showResults}
                         placeholder="Type or speak your answer here..."
-                        className="w-full bg-glass-surface border border-glass-border rounded-xl p-4 text-white placeholder-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all pr-12"
+                        className="w-full bg-nord-1 border border-nord-3 rounded-xl p-4 text-white placeholder-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all pr-12"
                       />
                       {!showResults && (
                         <button
@@ -815,7 +815,7 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                             "absolute top-4 right-4 p-2 rounded-full transition-colors",
                             recordingId === q.id 
                               ? "bg-red-500/20 text-red-400 animate-pulse" 
-                              : "bg-glass-surface text-zinc-400 hover:text-white hover:bg-white/[0.06]"
+                              : "bg-nord-1 text-nord-4 hover:text-white hover:bg-nord-2"
                           )}
                         >
                           {recordingId === q.id ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
@@ -831,7 +831,7 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                         className="mt-4"
                       >
                         {isGrading && !gradingResults[q.id] ? (
-                          <div className="flex items-center gap-3 p-4 rounded-xl bg-electric-blue/10 border border-electric-blue/20 text-white">
+                          <div className="flex items-center gap-3 p-4 rounded-xl bg-nord-8/10 border border-nord-14/20 text-white">
                             <RefreshCw className="w-5 h-5 animate-spin" />
                             <span>AI is grading your answer...</span>
                           </div>
@@ -842,8 +842,8 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                             gradingResults[q.id].score >= 5 ? 'bg-yellow-500/10 border-yellow-500/30' : 
                             'bg-red-500/10 border-red-500/30'
                           )}>
-                            <div className="flex items-center justify-between mb-3 pb-3 border-b border-glass-border">
-                              <span className="font-bold uppercase tracking-wider text-sm text-zinc-400">AI Grade</span>
+                            <div className="flex items-center justify-between mb-3 pb-3 border-b border-nord-3">
+                              <span className="font-bold uppercase tracking-wider text-sm text-nord-4">AI Grade</span>
                               <div className="flex items-baseline gap-1">
                                 <span className={cn(
                                   "text-2xl font-bold",
@@ -856,7 +856,7 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                                 <span className="text-gray-500">/ 10</span>
                               </div>
                             </div>
-                            <p className="text-zinc-400 leading-relaxed">{gradingResults[q.id].feedback}</p>
+                            <p className="text-nord-4 leading-relaxed">{gradingResults[q.id].feedback}</p>
                           </div>
                         ) : null}
                       </motion.div>
@@ -896,10 +896,10 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
 
                 {q.type === 'estimation' && (
                   <div className="ml-[4.5rem] mt-4">
-                    <div className="bg-glass-surface border border-glass-border rounded-xl p-6">
+                    <div className="bg-nord-1 border border-nord-3 rounded-xl p-6">
                       <h4 className="text-sm font-bold text-white mb-6 uppercase tracking-wider text-center">Order of Magnitude</h4>
                       <div className="flex items-center gap-4">
-                        <span className="text-zinc-400 font-mono text-sm">10<sup>-5</sup></span>
+                        <span className="text-nord-4 font-mono text-sm">10<sup>-5</sup></span>
                         <input
                           type="range"
                           min="-5"
@@ -908,12 +908,12 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                           value={answers[q.id]?.value || "0"}
                           onChange={(e) => handleOptionChange(q.id, e.target.value)}
                           disabled={showResults}
-                          className="flex-1 h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-indigo-500 disabled:opacity-50"
+                          className="flex-1 h-2 bg-nord-2 rounded-lg appearance-none cursor-pointer accent-indigo-500 disabled:opacity-50"
                         />
-                        <span className="text-zinc-400 font-mono text-sm">10<sup>15</sup></span>
+                        <span className="text-nord-4 font-mono text-sm">10<sup>15</sup></span>
                       </div>
                       <div className="mt-6 text-center">
-                        <span className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-electric-blue/20 border border-electric-blue/30 text-white font-mono text-xl">
+                        <span className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-nord-8/20 border border-nord-8/30 text-white font-mono text-xl">
                           10<sup>{answers[q.id]?.value || "0"}</sup>
                         </span>
                       </div>
@@ -942,8 +942,8 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                       isCorrect ? 'bg-green-500/10 border-green-500/20' : 'bg-red-500/10 border-red-500/20'
                     )}>
                       {!isCorrect && (
-                        <div className="mb-4 pb-4 border-b border-glass-border">
-                          <span className="text-sm font-bold tracking-wider uppercase text-zinc-400 block mb-1">Correct Answer</span>
+                        <div className="mb-4 pb-4 border-b border-nord-3">
+                          <span className="text-sm font-bold tracking-wider uppercase text-nord-4 block mb-1">Correct Answer</span>
                           <span className="text-lg text-white font-medium prose prose-invert max-w-none"><Latex>{q.correctAnswer}</Latex></span>
                           
                           {/* Fallacy / Trap Label */}
@@ -957,36 +957,36 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                       )}
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-bold tracking-wider uppercase text-zinc-400 block">AI Explanation</span>
+                          <span className="text-sm font-bold tracking-wider uppercase text-nord-4 block">AI Explanation</span>
                           <button
                             onClick={() => playAudio(q.explanation, q.id)}
                             className={cn(
                               "flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold transition-colors border",
                               playingAudioId === q.id 
-                                ? "bg-electric-blue/20 text-white border-electric-blue/50" 
-                                : "bg-glass-surface text-zinc-400 hover:text-white hover:bg-white/[0.06] border-glass-border"
+                                ? "bg-nord-8/20 text-white border-nord-14/50" 
+                                : "bg-nord-1 text-nord-4 hover:text-white hover:bg-nord-2 border-nord-3"
                             )}
                           >
                             {playingAudioId === q.id ? <Square className="w-3 h-3 fill-current" /> : <Volume2 className="w-3 h-3" />}
                             {playingAudioId === q.id ? "Stop Podcast" : "Listen"}
                           </button>
                         </div>
-                        <p className="text-zinc-400 leading-relaxed prose prose-invert max-w-none"><Latex>{q.explanation}</Latex></p>
+                        <p className="text-nord-4 leading-relaxed prose prose-invert max-w-none"><Latex>{q.explanation}</Latex></p>
                         
                         {/* Multi-Step Breakdown UI */}
                         {q.steps && q.steps.length > 0 && (
                           <div className="mt-6 space-y-4">
                             <h4 className="text-sm font-bold tracking-wider uppercase text-white mb-2">Step-by-Step Breakdown</h4>
                             {q.steps.map((step: any) => (
-                              <div key={step.stepNumber} className={cn("p-4 rounded-lg border", q.flawIndex === step.stepNumber ? "bg-red-500/10 border-red-500/30" : "bg-glass-surface border-glass-border")}>
+                              <div key={step.stepNumber} className={cn("p-4 rounded-lg border", q.flawIndex === step.stepNumber ? "bg-red-500/10 border-red-500/30" : "bg-nord-1 border-nord-3")}>
                                 <div className="flex items-center gap-2 mb-2">
-                                  <span className="flex items-center justify-center w-6 h-6 rounded-full bg-electric-blue/20 text-white text-xs font-bold">{step.stepNumber}</span>
+                                  <span className="flex items-center justify-center w-6 h-6 rounded-full bg-nord-8/20 text-white text-xs font-bold">{step.stepNumber}</span>
                                   <span className="font-medium text-white">{step.title}</span>
                                   {q.flawIndex === step.stepNumber && <span className="ml-auto text-xs font-bold uppercase text-red-400 bg-red-500/20 px-2 py-1 rounded-full">Intentional Flaw Here</span>}
                                 </div>
-                                <div className="text-sm text-zinc-400 mb-2 prose prose-invert max-w-none"><Latex>{step.logicalDeduction}</Latex></div>
+                                <div className="text-sm text-nord-4 mb-2 prose prose-invert max-w-none"><Latex>{step.logicalDeduction}</Latex></div>
                                 {step.equation && (
-                                  <div className="bg-black/30 p-3 rounded-lg text-center overflow-x-auto text-zinc-400">
+                                  <div className="bg-black/30 p-3 rounded-lg text-center overflow-x-auto text-nord-4">
                                     <Latex>{`$$${step.equation}$$`}</Latex>
                                   </div>
                                 )}
@@ -1003,7 +1003,7 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
                         <button
                           onClick={() => generateVariation(q)}
                           disabled={generatingVariation === q.id}
-                          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10/20 text-purple-300 hover:bg-white/10/30 transition-all text-sm font-bold border border-white/10"
+                          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-nord-2/20 text-purple-300 hover:bg-nord-2/30 transition-all text-sm font-bold border border-nord-2"
                         >
                           {generatingVariation === q.id ? (
                             <><RefreshCw className="w-4 h-4 animate-spin" /> Generating...</>
@@ -1025,20 +1025,20 @@ export default function TestEnvironment({ testData, testId, onReset }: TestEnvir
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="sticky bottom-8 mt-12 bg-zinc-900/80 backdrop-blur-xl p-6 border border-glass-border shadow-2xl rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-4 z-50 print:hidden"
+            className="sticky bottom-8 mt-12 bg-nord-1/80 backdrop-blur-xl p-6 border border-nord-3 shadow-2xl rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-4 z-50 print:hidden"
           >
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-electric-blue/20 flex items-center justify-center border border-electric-blue/30">
+              <div className="w-12 h-12 rounded-full bg-nord-8/20 flex items-center justify-center border border-nord-8/30">
                 <span className="text-white font-bold">{Object.keys(answers).length}</span>
               </div>
-              <span className="text-zinc-400 font-medium">
+              <span className="text-nord-4 font-medium">
                 of {testData.questions.length} answered
               </span>
             </div>
             
             <button 
               type="submit" 
-              className="w-full sm:w-auto flex items-center justify-center gap-2 text-white bg-electric-blue hover:bg-electric-blue font-semibold rounded-xl text-lg px-10 py-4 transition-all duration-200 hover:scale-[1.02] hover:shadow-xl"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 text-white bg-nord-14 hover:bg-nord-14 font-semibold rounded-xl text-lg px-10 py-4 transition-all duration-200 hover:scale-[1.02] hover:shadow-xl"
             >
               Submit Assessment
               <ArrowRight className="w-5 h-5" />

@@ -105,39 +105,39 @@ export default function Home() {
   }, [session]);
 
   return (
-    <main className="min-h-screen bg-oled-black text-white overflow-hidden relative selection:bg-electric-blue/30">
+    <main className="min-h-screen bg-nord-0 text-white overflow-hidden relative selection:bg-nord-14/30">
       {/* Solid Clean Background for Nord Theme */}
       <div className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-5"></div>
 
-      {/* Centered Pill Navigation */}
+      {/* Centered Pill Navigation - Dashboard Style */}
       <div className="absolute top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center">
-        <div className="flex items-center gap-4 bg-zinc-900/60 backdrop-blur-xl border border-glass-border px-6 py-3 rounded-full shadow-2xl">
-          <Link href="/analytics" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">
+        <div className="flex items-center gap-4 bg-nord-1/90 backdrop-blur-md border border-nord-2 px-6 py-3 rounded-2xl shadow-xl">
+          <Link href="/analytics" className="text-sm font-medium text-nord-4 hover:text-white transition-colors">
             Analytics
           </Link>
-          <div className="w-[1px] h-4 bg-glass-border"></div>
-          <Link href="/snap-and-solve" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">
+          <div className="w-[1px] h-4 bg-nord-3"></div>
+          <Link href="/snap-and-solve" className="text-sm font-medium text-nord-4 hover:text-white transition-colors">
             Snap & Solve
           </Link>
-          <div className="w-[1px] h-4 bg-glass-border"></div>
-          <Link href="/survival-guide" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">
+          <div className="w-[1px] h-4 bg-nord-3"></div>
+          <Link href="/survival-guide" className="text-sm font-medium text-nord-4 hover:text-white transition-colors">
             Survival Guide
           </Link>
 
           {/* Gamification Dropdown/Group */}
-          <div className="w-[1px] h-4 bg-glass-border"></div>
+          <div className="w-[1px] h-4 bg-nord-3"></div>
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 cursor-pointer hover:text-electric-blue transition-colors">
+            <div className="flex items-center gap-1.5 cursor-pointer text-nord-12 hover:text-nord-13 transition-colors">
               <Flame className="w-3.5 h-3.5" />
               <span className="text-sm font-bold">{streak}</span>
             </div>
-            <div className="flex items-center gap-1.5 cursor-pointer hover:text-electric-blue transition-colors">
+            <div className="flex items-center gap-1.5 cursor-pointer text-nord-13 hover:text-yellow-300 transition-colors">
               <Zap className="w-3.5 h-3.5" />
               <span className="text-sm font-bold">{xp}</span>
             </div>
             <div 
               onClick={() => setIsPaywallOpen(true)}
-              className="flex items-center gap-1.5 cursor-pointer text-electric-blue hover:text-white transition-colors"
+              className="flex items-center gap-1.5 cursor-pointer text-nord-14 hover:text-white transition-colors"
               title="Refill Insights"
             >
               <Diamond className="w-3.5 h-3.5" />
@@ -148,19 +148,19 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="w-[1px] h-4 bg-glass-border"></div>
+          <div className="w-[1px] h-4 bg-nord-3"></div>
           {session ? (
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => signOut()}>
               {session.user?.image ? (
                 <img src={session.user.image} alt="User" className="w-6 h-6 rounded-full" />
               ) : (
-                <div className="w-6 h-6 rounded-full bg-electric-blue/20 flex items-center justify-center">
-                  <User className="w-3 h-3 text-electric-blue" />
+                <div className="w-6 h-6 rounded-full bg-nord-2 flex items-center justify-center">
+                  <User className="w-3 h-3 text-nord-4" />
                 </div>
               )}
             </div>
           ) : (
-            <Link href="/auth/signin" className="text-sm font-medium text-electric-blue hover:text-white transition-colors">
+            <Link href="/auth/signin" className="text-sm font-medium text-nord-14 hover:text-white transition-colors">
               Sign In
             </Link>
           )}
@@ -178,17 +178,17 @@ export default function Home() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-center mb-16"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-glass-border backdrop-blur-md mb-6">
-                <Sparkles className="w-4 h-4 text-electric-blue" />
-                <span className="text-sm font-medium text-zinc-400">Next-Gen AI Testing Engine</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-nord-1 border border-nord-2 mb-6">
+                <Sparkles className="w-4 h-4 text-nord-14" />
+                <span className="text-sm font-medium text-nord-4">Next-Gen AI Testing Engine</span>
               </div>
-              <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 text-white">
+              <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-nord-6">
                 Transform Documents into <br/>
-                <span className="text-white">
+                <span className="text-nord-8">
                   Interactive Knowledge
                 </span>
               </h1>
-              <p className="max-w-2xl mx-auto text-lg md:text-xl text-zinc-400 font-light">
+              <p className="max-w-2xl mx-auto text-lg md:text-xl text-nord-4 font-normal">
                 Upload your course materials, PDFs, or images, and our advanced neural engine will instantly synthesize a beautifully structured, interactive assessment.
               </p>
             </motion.div>
@@ -226,8 +226,8 @@ export default function Home() {
       <footer className="w-full text-center py-8 text-sm text-zinc-600 mt-auto relative z-10">
         <p>© {new Date().getFullYear()} Aether Learning. All rights reserved.</p>
         <div className="mt-2 flex justify-center gap-4">
-          <Link href="/privacy" className="hover:text-zinc-400 transition-colors">Privacy Policy</Link>
-          <a href="mailto:support@aetherlearning.com" className="hover:text-zinc-400 transition-colors">Contact</a>
+          <Link href="/privacy" className="hover:text-nord-4 transition-colors">Privacy Policy</Link>
+          <a href="mailto:support@aetherlearning.com" className="hover:text-nord-4 transition-colors">Contact</a>
         </div>
       </footer>
 

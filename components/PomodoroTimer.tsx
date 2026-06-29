@@ -102,11 +102,11 @@ export default function PomodoroTimer() {
     : ((BREAK_TIME - timeLeft) / BREAK_TIME) * 100;
 
   return (
-    <div className="bg-[#13131a]/80 backdrop-blur-xl border border-glass-border rounded-3xl p-6 w-full max-w-sm shadow-2xl relative overflow-hidden">
+    <div className="bg-[#13131a]/80 backdrop-blur-xl border border-nord-3 rounded-3xl p-6 w-full max-w-sm shadow-2xl relative overflow-hidden">
       {/* Background Glow */}
       <div className={cnlocal(
         "absolute top-0 left-1/2 -translate-x-1/2 w-full h-32 blur-[60px] opacity-30 transition-colors duration-1000",
-        mode === 'focus' ? "bg-electric-blue" : "bg-emerald-500"
+        mode === 'focus' ? "bg-nord-14" : "bg-emerald-500"
       )} />
 
       {/* Lo-Fi Audio Player (Hidden, streams a generic royalty free lofi beat) */}
@@ -119,12 +119,12 @@ export default function PomodoroTimer() {
       <div className="relative z-10 flex flex-col items-center">
         
         {/* Mode Switcher */}
-        <div className="flex bg-glass-surface rounded-full p-1 border border-glass-border mb-6 w-full">
+        <div className="flex bg-nord-1 rounded-full p-1 border border-nord-3 mb-6 w-full">
           <button
             onClick={() => switchMode('focus')}
             className={cnlocal(
               "flex-1 py-1.5 rounded-full text-xs font-bold transition-all flex items-center justify-center gap-2",
-              mode === 'focus' ? "bg-electric-blue text-white shadow-md" : "text-zinc-400 hover:text-white"
+              mode === 'focus' ? "bg-nord-14 text-white shadow-md" : "text-nord-4 hover:text-white"
             )}
           >
             <Brain className="w-3.5 h-3.5" /> Focus
@@ -133,7 +133,7 @@ export default function PomodoroTimer() {
             onClick={() => switchMode('break')}
             className={cnlocal(
               "flex-1 py-1.5 rounded-full text-xs font-bold transition-all flex items-center justify-center gap-2",
-              mode === 'break' ? "bg-emerald-500 text-white shadow-md" : "text-zinc-400 hover:text-white"
+              mode === 'break' ? "bg-emerald-500 text-white shadow-md" : "text-nord-4 hover:text-white"
             )}
           >
             <Coffee className="w-3.5 h-3.5" /> Break
@@ -181,8 +181,8 @@ export default function PomodoroTimer() {
             <button
               onClick={toggleMusic}
               className={cnlocal(
-                "w-10 h-10 rounded-full border border-glass-border flex items-center justify-center transition-all",
-                isMusicPlaying ? "bg-zinc-9005/20 text-zinc-300 border-white/20/50" : "bg-glass-surface text-zinc-400 hover:text-white"
+                "w-10 h-10 rounded-full border border-nord-3 flex items-center justify-center transition-all",
+                isMusicPlaying ? "bg-nord-15/20 text-nord-4 border-nord-3/50" : "bg-nord-1 text-nord-4 hover:text-white"
               )}
               title="Toggle Music"
             >
@@ -193,7 +193,7 @@ export default function PomodoroTimer() {
               onClick={toggleTimer}
               className={cnlocal(
                 "w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg transition-transform hover:scale-105 active:scale-95",
-                mode === 'focus' ? "bg-electric-blue hover:bg-electric-blue" : "bg-emerald-600 hover:bg-emerald-500"
+                mode === 'focus' ? "bg-nord-14 hover:bg-nord-14" : "bg-emerald-600 hover:bg-emerald-500"
               )}
             >
               {isActive ? <Pause className="w-6 h-6 fill-current" /> : <Play className="w-6 h-6 fill-current ml-1" />}
@@ -201,7 +201,7 @@ export default function PomodoroTimer() {
 
             <button
               onClick={resetTimer}
-              className="w-10 h-10 rounded-full bg-glass-surface border border-glass-border flex items-center justify-center text-zinc-400 hover:text-white transition-colors"
+              className="w-10 h-10 rounded-full bg-nord-1 border border-nord-3 flex items-center justify-center text-nord-4 hover:text-white transition-colors"
               title="Reset Timer"
             >
               <RotateCcw className="w-4 h-4" />

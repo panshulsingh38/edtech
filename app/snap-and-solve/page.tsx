@@ -62,21 +62,21 @@ export default function SnapAndSolve() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white p-6 md:p-12 font-sans selection:bg-white/10/30">
+    <div className="min-h-screen bg-black text-white p-6 md:p-12 font-sans selection:bg-nord-2/30">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-white/10/20 rounded-xl border border-white/10 shrink-0">
-              <Camera className="w-8 h-8 text-zinc-300" />
+            <div className="p-3 bg-nord-2/20 rounded-xl border border-nord-2 shrink-0">
+              <Camera className="w-8 h-8 text-nord-4" />
             </div>
             <div>
               <h1 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
                 Snap & Solve
               </h1>
-              <p className="text-sm md:text-base text-zinc-400">Upload a photo of any problem and get instant step-by-step solutions.</p>
+              <p className="text-sm md:text-base text-nord-4">Upload a photo of any problem and get instant step-by-step solutions.</p>
             </div>
           </div>
-          <button onClick={() => router.push("/")} className="w-full md:w-auto px-4 py-2 bg-zinc-900 hover:bg-zinc-800 rounded-lg text-sm text-zinc-300 transition-colors">
+          <button onClick={() => router.push("/")} className="w-full md:w-auto px-4 py-2 bg-nord-1 hover:bg-nord-2 rounded-lg text-sm text-nord-4 transition-colors">
             Back to Dashboard
           </button>
         </div>
@@ -85,7 +85,7 @@ export default function SnapAndSolve() {
           {/* Upload Section */}
           <div className="flex flex-col gap-6">
             <div 
-              className="border-2 border-dashed border-zinc-700 hover:border-white/20/50 bg-zinc-900/50 rounded-2xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 min-h-[300px]"
+              className="border-2 border-dashed border-zinc-700 hover:border-nord-3/50 bg-nord-1/50 rounded-2xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 min-h-[300px]"
               onClick={() => fileInputRef.current?.click()}
             >
               <input 
@@ -100,8 +100,8 @@ export default function SnapAndSolve() {
                 <img src={preview} alt="Preview" className="max-h-[250px] rounded-lg object-contain shadow-lg" />
               ) : (
                 <>
-                  <div className="w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center mb-4">
-                    <UploadCloud className="w-8 h-8 text-zinc-400" />
+                  <div className="w-16 h-16 bg-nord-2 rounded-full flex items-center justify-center mb-4">
+                    <UploadCloud className="w-8 h-8 text-nord-4" />
                   </div>
                   <h3 className="text-lg font-medium text-zinc-200 mb-2">Upload a photo</h3>
                   <p className="text-sm text-zinc-500">
@@ -138,24 +138,24 @@ export default function SnapAndSolve() {
           </div>
 
           {/* Solution Section */}
-          <div className="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-6 lg:p-10 min-h-[500px]">
+          <div className="bg-nord-1/80 border border-zinc-800 rounded-2xl p-6 lg:p-10 min-h-[500px]">
             <h3 className="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2 border-b border-zinc-800 pb-4">
-              <Sparkles className="w-5 h-5 text-zinc-300" />
+              <Sparkles className="w-5 h-5 text-nord-4" />
               Step-by-Step Solution
             </h3>
             
             {loading ? (
               <div className="flex flex-col items-center justify-center h-[300px] text-zinc-500">
-                <Loader2 className="w-10 h-10 animate-spin mb-4 text-zinc-300" />
+                <Loader2 className="w-10 h-10 animate-spin mb-4 text-nord-4" />
                 <p className="animate-pulse">Breaking down the concepts...</p>
               </div>
             ) : solution ? (
-              <div className="text-zinc-300 leading-relaxed space-y-4 [&>h1]:text-2xl [&>h1]:font-bold [&>h1]:text-white [&>h1]:mt-6 [&>h1]:mb-4 [&>h2]:text-xl [&>h2]:font-bold [&>h2]:text-white [&>h2]:mt-6 [&>h2]:mb-3 [&>h3]:text-lg [&>h3]:font-bold [&>h3]:text-white [&>h3]:mt-4 [&>h3]:mb-2 [&>p]:mb-4 [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:mb-4 [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:mb-4 [&>li]:mb-1 [&>strong]:text-white [&>code]:bg-zinc-800 [&>code]:text-purple-300 [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded [&>pre]:bg-zinc-950 [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:mb-4 [&>pre>code]:bg-transparent [&>pre>code]:text-zinc-300 [&>pre>code]:p-0">
+              <div className="text-nord-4 leading-relaxed space-y-4 [&>h1]:text-2xl [&>h1]:font-bold [&>h1]:text-white [&>h1]:mt-6 [&>h1]:mb-4 [&>h2]:text-xl [&>h2]:font-bold [&>h2]:text-white [&>h2]:mt-6 [&>h2]:mb-3 [&>h3]:text-lg [&>h3]:font-bold [&>h3]:text-white [&>h3]:mt-4 [&>h3]:mb-2 [&>p]:mb-4 [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:mb-4 [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:mb-4 [&>li]:mb-1 [&>strong]:text-white [&>code]:bg-nord-2 [&>code]:text-purple-300 [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded [&>pre]:bg-zinc-950 [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:mb-4 [&>pre>code]:bg-transparent [&>pre>code]:text-nord-4 [&>pre>code]:p-0">
                 <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{solution}</ReactMarkdown>
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center h-[300px] text-zinc-600">
-                <div className="w-16 h-16 rounded-full bg-zinc-800/50 flex items-center justify-center mb-4">
+                <div className="w-16 h-16 rounded-full bg-nord-2/50 flex items-center justify-center mb-4">
                   <Sparkles className="w-8 h-8 text-zinc-500" />
                 </div>
                 <p>Upload an image and hit solve to see the magic happen.</p>

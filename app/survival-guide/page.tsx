@@ -103,21 +103,21 @@ export default function SurvivalGuide() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white p-6 md:p-12 font-sans selection:bg-zinc-9002/30">
+    <div className="min-h-screen bg-black text-white p-6 md:p-12 font-sans selection:bg-nord-12/30">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-zinc-9002/20 rounded-xl border border-white/10 shrink-0">
-              <BookOpen className="w-8 h-8 text-zinc-300" />
+            <div className="p-3 bg-nord-12/20 rounded-xl border border-nord-2 shrink-0">
+              <BookOpen className="w-8 h-8 text-nord-4" />
             </div>
             <div>
               <h1 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-red-500">
                 Night-Before Survival Guide
               </h1>
-              <p className="text-sm md:text-base text-zinc-400">Upload your textbook or syllabus and get a 10-page crash course.</p>
+              <p className="text-sm md:text-base text-nord-4">Upload your textbook or syllabus and get a 10-page crash course.</p>
             </div>
           </div>
-          <button onClick={() => router.push("/")} className="w-full md:w-auto px-4 py-2 bg-zinc-900 hover:bg-zinc-800 rounded-lg text-sm text-zinc-300 transition-colors">
+          <button onClick={() => router.push("/")} className="w-full md:w-auto px-4 py-2 bg-nord-1 hover:bg-nord-2 rounded-lg text-sm text-nord-4 transition-colors">
             Back to Dashboard
           </button>
         </div>
@@ -126,7 +126,7 @@ export default function SurvivalGuide() {
           {/* Upload Section */}
           <div className="flex flex-col gap-6">
             <div 
-              className="border-2 border-dashed border-zinc-700 hover:border-white/20/50 bg-zinc-900/50 rounded-2xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 min-h-[300px]"
+              className="border-2 border-dashed border-zinc-700 hover:border-nord-3/50 bg-nord-1/50 rounded-2xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 min-h-[300px]"
               onClick={() => fileInputRef.current?.click()}
             >
               <input 
@@ -139,8 +139,8 @@ export default function SurvivalGuide() {
               
               {file ? (
                 <div className="flex flex-col items-center gap-4">
-                  <div className="w-20 h-20 bg-zinc-9002/10 rounded-2xl flex items-center justify-center border border-white/20/20">
-                    <FileText className="w-10 h-10 text-zinc-300" />
+                  <div className="w-20 h-20 bg-nord-12/10 rounded-2xl flex items-center justify-center border border-nord-3/20">
+                    <FileText className="w-10 h-10 text-nord-4" />
                   </div>
                   <div>
                     <h3 className="font-medium text-zinc-200 line-clamp-1 break-all px-4">{file.name}</h3>
@@ -149,8 +149,8 @@ export default function SurvivalGuide() {
                 </div>
               ) : (
                 <>
-                  <div className="w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center mb-4">
-                    <UploadCloud className="w-8 h-8 text-zinc-400" />
+                  <div className="w-16 h-16 bg-nord-2 rounded-full flex items-center justify-center mb-4">
+                    <UploadCloud className="w-8 h-8 text-nord-4" />
                   </div>
                   <h3 className="text-lg font-medium text-zinc-200 mb-2">Upload PDF</h3>
                   <p className="text-sm text-zinc-500">
@@ -187,7 +187,7 @@ export default function SurvivalGuide() {
             <button
               onClick={handleGenerateCramSheet}
               disabled={loading}
-              className="w-full py-4 px-6 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-xl font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed border border-white/20/20"
+              className="w-full py-4 px-6 bg-nord-2 hover:bg-zinc-700 text-nord-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed border border-nord-3/20"
             >
               <Zap className="w-5 h-5" />
               Generate 24-Hour Cram Sheet (From Weak Topics)
@@ -202,9 +202,9 @@ export default function SurvivalGuide() {
           </div>
 
           {/* Guide Section */}
-          <div className="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-6 lg:p-10 min-h-[500px]">
+          <div className="bg-nord-1/80 border border-zinc-800 rounded-2xl p-6 lg:p-10 min-h-[500px]">
             <h3 className="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2 border-b border-zinc-800 pb-4">
-              <BookOpen className="w-5 h-5 text-zinc-300" />
+              <BookOpen className="w-5 h-5 text-nord-4" />
               Your Survival Guide
             </h3>
             
@@ -214,12 +214,12 @@ export default function SurvivalGuide() {
                 <p className="animate-pulse">Reading document & writing guide...</p>
               </div>
             ) : guide ? (
-              <div className="text-zinc-300 leading-relaxed space-y-4 [&>h1]:text-2xl [&>h1]:font-bold [&>h1]:text-white [&>h1]:mt-8 [&>h1]:mb-4 [&>h2]:text-xl [&>h2]:font-bold [&>h2]:text-zinc-300 [&>h2]:mt-8 [&>h2]:mb-3 [&>h2]:border-b [&>h2]:border-zinc-800 [&>h2]:pb-2 [&>h3]:text-lg [&>h3]:font-bold [&>h3]:text-white [&>h3]:mt-6 [&>h3]:mb-2 [&>p]:mb-4 [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:mb-4 [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:mb-4 [&>li]:mb-2 [&>strong]:text-zinc-400 [&>code]:bg-zinc-800 [&>code]:text-orange-300 [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded [&>pre]:bg-zinc-950 [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:mb-4 [&>pre>code]:bg-transparent [&>pre>code]:text-zinc-300 [&>pre>code]:p-0">
+              <div className="text-nord-4 leading-relaxed space-y-4 [&>h1]:text-2xl [&>h1]:font-bold [&>h1]:text-white [&>h1]:mt-8 [&>h1]:mb-4 [&>h2]:text-xl [&>h2]:font-bold [&>h2]:text-nord-4 [&>h2]:mt-8 [&>h2]:mb-3 [&>h2]:border-b [&>h2]:border-zinc-800 [&>h2]:pb-2 [&>h3]:text-lg [&>h3]:font-bold [&>h3]:text-white [&>h3]:mt-6 [&>h3]:mb-2 [&>p]:mb-4 [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:mb-4 [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:mb-4 [&>li]:mb-2 [&>strong]:text-nord-4 [&>code]:bg-nord-2 [&>code]:text-orange-300 [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded [&>pre]:bg-zinc-950 [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:mb-4 [&>pre>code]:bg-transparent [&>pre>code]:text-nord-4 [&>pre>code]:p-0">
                 <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{guide}</ReactMarkdown>
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center h-[300px] text-zinc-600">
-                <div className="w-16 h-16 rounded-full bg-zinc-800/50 flex items-center justify-center mb-4">
+                <div className="w-16 h-16 rounded-full bg-nord-2/50 flex items-center justify-center mb-4">
                   <BookOpen className="w-8 h-8 text-zinc-500" />
                 </div>
                 <p>Upload a PDF textbook and let the AI do the heavy lifting.</p>

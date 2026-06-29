@@ -15,8 +15,8 @@ export default function SyllabusMapper({ topics }: { topics: TopicNode[] }) {
 
     return (
       <div key={topic.id} className={`ml-${level * 6} mt-4`}>
-        <div className={`flex items-center gap-3 p-3 rounded-xl border ${isMastered ? 'bg-green-500/10 border-green-500/30' : isWeak ? 'bg-red-500/10 border-red-500/30' : 'bg-glass-surface border-glass-border'}`}>
-          {isMastered ? <CheckCircle2 className="w-5 h-5 text-green-400" /> : isWeak ? <AlertCircle className="w-5 h-5 text-red-400" /> : <Network className="w-5 h-5 text-zinc-400" />}
+        <div className={`flex items-center gap-3 p-3 rounded-xl border ${isMastered ? 'bg-green-500/10 border-green-500/30' : isWeak ? 'bg-red-500/10 border-red-500/30' : 'bg-nord-1 border-nord-3'}`}>
+          {isMastered ? <CheckCircle2 className="w-5 h-5 text-green-400" /> : isWeak ? <AlertCircle className="w-5 h-5 text-red-400" /> : <Network className="w-5 h-5 text-nord-4" />}
           <div className="flex-1">
             <h4 className={`font-medium ${isMastered ? 'text-green-200' : isWeak ? 'text-red-200' : 'text-white'}`}>{topic.name}</h4>
             <div className="w-full h-1.5 bg-black/40 rounded-full mt-2 overflow-hidden">
@@ -30,7 +30,7 @@ export default function SyllabusMapper({ topics }: { topics: TopicNode[] }) {
         </div>
         
         {topic.children && topic.children.length > 0 && (
-          <div className="border-l-2 border-glass-border ml-6 pl-4 mt-2">
+          <div className="border-l-2 border-nord-3 ml-6 pl-4 mt-2">
             {topic.children.map(child => renderTopic(child, level + 1))}
           </div>
         )}

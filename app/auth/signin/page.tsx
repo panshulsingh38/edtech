@@ -14,10 +14,10 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="min-h-screen bg-oled-black text-white overflow-hidden relative selection:bg-electric-blue/30 flex items-center justify-center font-sans">
+    <div className="min-h-screen bg-nord-0 text-white overflow-hidden relative selection:bg-nord-14/30 flex items-center justify-center font-sans">
       {/* Background Gradients */}
-      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-electric-blue/10 hidden pointer-events-none" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-white/10/10 hidden pointer-events-none" />
+      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-nord-8/10 hidden pointer-events-none" />
+      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-nord-2/10 hidden pointer-events-none" />
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-overlay"></div>
 
       <motion.div 
@@ -34,7 +34,7 @@ export default function SignInPage() {
               initial={{ rotate: -10 }}
               animate={{ rotate: 0 }}
               transition={{ duration: 1, type: "spring" }}
-              className="w-16 h-16 rounded-2xl bg-electric-blue/20 flex items-center justify-center border border-electric-blue/30 mb-8 shadow-[0_0_30px_rgba(99,102,241,0.3)]"
+              className="w-16 h-16 rounded-2xl bg-nord-8/20 flex items-center justify-center border border-nord-8/30 mb-8 shadow-[0_0_30px_rgba(99,102,241,0.3)]"
             >
               <Sparkles className="w-8 h-8 text-white" />
             </motion.div>
@@ -42,7 +42,7 @@ export default function SignInPage() {
             <h1 className="text-4xl font-bold text-white mb-4 tracking-tight">
               Welcome to MagicTest
             </h1>
-            <p className="text-zinc-400 mb-10 leading-relaxed text-lg">
+            <p className="text-nord-4 mb-10 leading-relaxed text-lg">
               Unlock your ultimate study arsenal. Sign in to generate AI study guides and join multiplayer lobbies.
             </p>
 
@@ -75,9 +75,9 @@ export default function SignInPage() {
             </div>
 
             <div className="mt-8 text-sm text-gray-500 flex items-center justify-center gap-2">
-              <span className="w-8 h-[1px] bg-white/[0.06]"></span>
+              <span className="w-8 h-[1px] bg-nord-2"></span>
               Secured by NextAuth
-              <span className="w-8 h-[1px] bg-white/[0.06]"></span>
+              <span className="w-8 h-[1px] bg-nord-2"></span>
             </div>
           </div>
         </div>

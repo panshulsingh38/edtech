@@ -55,20 +55,20 @@ export default async function DashboardPage() {
     <div className="w-full max-w-6xl mx-auto p-6 pt-12 pb-24">
       {/* Gamification Dashboard Header */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        <div className="p-6 rounded-3xl bg-glass-surface border border-glass-border flex items-center justify-between">
+        <div className="p-6 rounded-3xl bg-nord-1 border border-nord-3 flex items-center justify-between">
           <div>
-            <p className="text-zinc-400 font-medium mb-1">Current Streak</p>
+            <p className="text-nord-4 font-medium mb-1">Current Streak</p>
             <div className="flex items-baseline gap-2">
-              <span className="text-4xl font-bold text-zinc-300">{userProfile?.streak || 0}</span>
-              <span className="text-zinc-300/50">days</span>
+              <span className="text-4xl font-bold text-nord-4">{userProfile?.streak || 0}</span>
+              <span className="text-nord-4/50">days</span>
             </div>
           </div>
           <div className="text-5xl">🔥</div>
         </div>
 
-        <div className="p-6 rounded-3xl bg-glass-surface border border-glass-border flex items-center justify-between">
+        <div className="p-6 rounded-3xl bg-nord-1 border border-nord-3 flex items-center justify-between">
           <div>
-            <p className="text-zinc-400 font-medium mb-1">Target Exam</p>
+            <p className="text-nord-4 font-medium mb-1">Target Exam</p>
             {daysUntilExam !== null ? (
               <div className="flex items-baseline gap-2">
                 <span className="text-4xl font-bold text-emerald-400">{daysUntilExam > 0 ? daysUntilExam : 0}</span>
@@ -76,19 +76,19 @@ export default async function DashboardPage() {
               </div>
             ) : (
               <form action="/api/user/exam-date" method="POST" className="mt-2 flex items-center gap-2">
-                <input type="date" name="examDate" className="bg-black/50 border border-glass-border rounded-lg p-2 text-sm text-zinc-400" required />
-                <button type="submit" className="px-4 py-2 bg-electric-blue rounded-lg text-sm font-medium hover:bg-electric-blue">Set</button>
+                <input type="date" name="examDate" className="bg-black/50 border border-nord-3 rounded-lg p-2 text-sm text-nord-4" required />
+                <button type="submit" className="px-4 py-2 bg-nord-14 rounded-lg text-sm font-medium hover:bg-nord-14">Set</button>
               </form>
             )}
           </div>
           <div className="text-5xl">🎯</div>
         </div>
 
-        <div className="p-6 rounded-3xl bg-glass-surface border border-glass-border flex items-center justify-between">
+        <div className="p-6 rounded-3xl bg-nord-1 border border-nord-3 flex items-center justify-between">
           <div>
-            <p className="text-zinc-400 font-medium mb-1">Insights Remaining</p>
+            <p className="text-nord-4 font-medium mb-1">Insights Remaining</p>
             <div className="flex items-baseline gap-2">
-              <span className="text-4xl font-bold text-zinc-300">{userProfile?.insights || 0}</span>
+              <span className="text-4xl font-bold text-nord-4">{userProfile?.insights || 0}</span>
             </div>
           </div>
           <div className="text-5xl">🧠</div>
@@ -98,13 +98,13 @@ export default async function DashboardPage() {
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-white mb-4">Study Modes</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Link href="/snap-and-solve" className="group p-6 rounded-3xl bg-gradient-to-br from-indigo-900/40 to-purple-900/40 border border-electric-blue/30 hover:border-indigo-400 transition-all flex items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-electric-blue/20 flex items-center justify-center">
+          <Link href="/snap-and-solve" className="group p-6 rounded-3xl bg-gradient-to-br from-indigo-900/40 to-purple-900/40 border border-nord-8/30 hover:border-indigo-400 transition-all flex items-center gap-4">
+            <div className="w-14 h-14 rounded-2xl bg-nord-8/20 flex items-center justify-center">
               <Camera className="w-7 h-7 text-white group-hover:scale-110 transition-transform" />
             </div>
             <div>
               <h3 className="text-xl font-bold text-white mb-1">Snap & Solve</h3>
-              <p className="text-zinc-400/70 text-sm">Take a picture of a math or science problem and get an instant step-by-step solution.</p>
+              <p className="text-nord-4/70 text-sm">Take a picture of a math or science problem and get an instant step-by-step solution.</p>
             </div>
           </Link>
           
@@ -125,24 +125,24 @@ export default async function DashboardPage() {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
             My Tests
           </h1>
-          <p className="text-lg text-zinc-400">Review your past generated study materials.</p>
+          <p className="text-lg text-nord-4">Review your past generated study materials.</p>
         </div>
       </div>
 
       {tests.length === 0 ? (
-        <div className="text-center py-20 border border-white/5 rounded-3xl bg-glass-surface backdrop-blur-sm">
+        <div className="text-center py-20 border border-white/5 rounded-3xl bg-nord-1 backdrop-blur-sm">
           <BookOpen className="w-16 h-16 text-gray-600 mx-auto mb-6" />
           <h3 className="text-2xl font-semibold text-white mb-2">
             {!session ? "Sign in to view your tests" : "No tests found"}
           </h3>
-          <p className="text-zinc-400 mb-8 max-w-sm mx-auto">
+          <p className="text-nord-4 mb-8 max-w-sm mx-auto">
             {!session 
               ? "When you sign up, all your generated tests will be saved here."
               : "Upload a PDF document to generate your first Magic Test!"}
           </p>
           <Link 
             href="/"
-            className="px-8 py-4 rounded-xl bg-electric-blue hover:bg-electric-blue text-white font-medium transition-all"
+            className="px-8 py-4 rounded-xl bg-nord-14 hover:bg-nord-14 text-white font-medium transition-all"
           >
             Create a Test
           </Link>
@@ -152,15 +152,15 @@ export default async function DashboardPage() {
           {tests.map((test) => (
             <div 
               key={test.id} 
-              className="group p-6 rounded-3xl bg-glass-surface border border-glass-border hover:bg-white/[0.06] hover:border-electric-blue/50 transition-all duration-300 flex flex-col"
+              className="group p-6 rounded-3xl bg-nord-1 border border-nord-3 hover:bg-nord-2 hover:border-nord-14/50 transition-all duration-300 flex flex-col"
             >
               <div className="flex items-start justify-between mb-4">
-                <div className="w-12 h-12 rounded-2xl bg-electric-blue/20 flex items-center justify-center border border-electric-blue/30">
+                <div className="w-12 h-12 rounded-2xl bg-nord-8/20 flex items-center justify-center border border-nord-8/30">
                   <FileText className="w-6 h-6 text-white" />
                 </div>
               </div>
               <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 flex-1">{test.title}</h3>
-              <div className="flex items-center gap-4 text-sm text-zinc-400 mb-4">
+              <div className="flex items-center gap-4 text-sm text-nord-4 mb-4">
                 <span>{test._count.questions} questions</span>
                 <span>•</span>
                 <span>{formatDistanceToNow(test.createdAt, { addSuffix: true })}</span>
@@ -169,7 +169,7 @@ export default async function DashboardPage() {
               <div className="flex flex-col gap-2 mt-auto">
                 <Link 
                   href={`/?testId=${test.id}`}
-                  className="w-full flex items-center justify-center gap-2 py-2 bg-electric-blue hover:bg-electric-blue text-white rounded-lg text-sm font-medium transition-colors"
+                  className="w-full flex items-center justify-center gap-2 py-2 bg-nord-14 hover:bg-nord-14 text-white rounded-lg text-sm font-medium transition-colors"
                 >
                   Take Test <ArrowRight className="w-4 h-4" />
                 </Link>

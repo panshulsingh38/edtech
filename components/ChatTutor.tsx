@@ -87,7 +87,7 @@ export default function ChatTutor({ testId }: ChatTutorProps) {
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(true)}
         className={cnlocal(
-          "fixed bottom-8 right-8 w-16 h-16 rounded-full bg-gradient-to-r from-electric-blue to-electric-blue-dark text-white shadow-[0_0_30px_rgba(99,102,241,0.5)] flex items-center justify-center z-50 print:hidden",
+          "fixed bottom-8 right-8 w-16 h-16 rounded-full bg-gradient-to-r from-nord-14 to-nord-14 text-white shadow-[0_0_30px_rgba(99,102,241,0.5)] flex items-center justify-center z-50 print:hidden",
           isOpen ? "hidden" : "flex"
         )}
       >
@@ -102,12 +102,12 @@ export default function ChatTutor({ testId }: ChatTutorProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="fixed bottom-8 right-8 w-[90vw] md:w-[400px] h-[600px] max-h-[80vh] bg-zinc-900/95 backdrop-blur-xl border border-glass-border rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden print:hidden"
+            className="fixed bottom-8 right-8 w-[90vw] md:w-[400px] h-[600px] max-h-[80vh] bg-nord-1/95 backdrop-blur-xl border border-nord-3 rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden print:hidden"
           >
             {/* Chat Header */}
-            <div className="h-16 border-b border-glass-border flex items-center justify-between px-6 bg-glass-surface shrink-0">
+            <div className="h-16 border-b border-nord-3 flex items-center justify-between px-6 bg-nord-1 shrink-0">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-electric-blue/20 flex items-center justify-center border border-electric-blue/50">
+                <div className="w-8 h-8 rounded-full bg-nord-8/20 flex items-center justify-center border border-nord-14/50">
                   <Sparkles className="w-4 h-4 text-white" />
                 </div>
                 <div className="flex flex-col">
@@ -127,7 +127,7 @@ export default function ChatTutor({ testId }: ChatTutorProps) {
               </div>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="text-zinc-400 hover:text-white transition-colors p-2 hover:bg-white/[0.06] rounded-full"
+                className="text-nord-4 hover:text-white transition-colors p-2 hover:bg-nord-2 rounded-full"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -146,8 +146,8 @@ export default function ChatTutor({ testId }: ChatTutorProps) {
                   <div className={cnlocal(
                     "max-w-[85%] rounded-2xl px-5 py-3 text-sm leading-relaxed shadow-sm",
                     msg.role === 'user' 
-                      ? "bg-electric-blue text-white rounded-br-none" 
-                      : "bg-white/[0.06] text-white border border-white/5 rounded-bl-none prose prose-invert prose-sm max-w-none prose-p:leading-relaxed prose-pre:bg-black/50"
+                      ? "bg-nord-14 text-white rounded-br-none" 
+                      : "bg-nord-2 text-white border border-white/5 rounded-bl-none prose prose-invert prose-sm max-w-none prose-p:leading-relaxed prose-pre:bg-black/50"
                   )}>
                     {msg.role === 'user' ? (
                       <span className="whitespace-pre-wrap font-sans">{msg.content}</span>
@@ -164,16 +164,16 @@ export default function ChatTutor({ testId }: ChatTutorProps) {
               ))}
               {isLoading && (
                 <div className="flex w-full justify-start">
-                  <div className="max-w-[85%] rounded-2xl px-5 py-4 bg-glass-surface border border-white/5 rounded-bl-none flex items-center gap-2">
+                  <div className="max-w-[85%] rounded-2xl px-5 py-4 bg-nord-1 border border-white/5 rounded-bl-none flex items-center gap-2">
                     <Loader2 className="w-4 h-4 text-white animate-spin" />
-                    <span className="text-sm text-zinc-400">Thinking...</span>
+                    <span className="text-sm text-nord-4">Thinking...</span>
                   </div>
                 </div>
               )}
               <div ref={messagesEndRef} />
             </div>
 
-            <div className="p-4 border-t border-glass-border bg-black/20 shrink-0">
+            <div className="p-4 border-t border-nord-3 bg-black/20 shrink-0">
               <div className="flex items-center gap-2 mb-2">
                 <button
                   type="button"
@@ -182,7 +182,7 @@ export default function ChatTutor({ testId }: ChatTutorProps) {
                     "text-xs px-2 py-1 rounded border flex items-center gap-1 transition-colors",
                     isTranspiling 
                       ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/50" 
-                      : "bg-glass-surface text-zinc-400 border-glass-border hover:bg-white/[0.06]"
+                      : "bg-nord-1 text-nord-4 border-nord-3 hover:bg-nord-2"
                   )}
                 >
                   <Code2 className="w-3 h-3" /> Transpile Code to Math Proof
@@ -193,13 +193,13 @@ export default function ChatTutor({ testId }: ChatTutorProps) {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder={isTranspiling ? "Paste your JavaScript/Python code here..." : "Ask a question about the document..."}
-                  className="flex-1 bg-glass-surface border border-glass-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-gray-500 min-h-[46px] max-h-[150px] font-mono resize-y"
+                  className="flex-1 bg-nord-1 border border-nord-3 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-gray-500 min-h-[46px] max-h-[150px] font-mono resize-y"
                   rows={isTranspiling ? 3 : 1}
                 />
                 <button
                   type="submit"
                   disabled={!input.trim() || isLoading}
-                  className="h-[46px] w-[46px] flex items-center justify-center rounded-xl bg-electric-blue hover:bg-electric-blue text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all shrink-0"
+                  className="h-[46px] w-[46px] flex items-center justify-center rounded-xl bg-nord-14 hover:bg-nord-14 text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all shrink-0"
                 >
                   <Send className="w-5 h-5" />
                 </button>
