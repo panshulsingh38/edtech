@@ -14,7 +14,7 @@ export default function Header() {
   useEffect(() => setMounted(true), []);
 
   return (
-    <header className="w-full border-b border-nord-3 bg-[#13131a]/80 backdrop-blur-md sticky top-0 z-50 print:hidden">
+    <header className="w-full border-b border-glass-border bg-[#13131a]/80 backdrop-blur-md sticky top-0 z-50 print:hidden">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">
           <div className="relative w-8 h-8 flex items-center justify-center">
@@ -32,15 +32,15 @@ export default function Header() {
             href="/"
             className={pathname === '/' 
               ? "text-white px-3 py-2 text-sm font-medium transition-colors" 
-              : "text-nord-4 hover:text-white px-3 py-2 text-sm font-medium transition-colors"}
+              : "text-zinc-400 hover:text-white px-3 py-2 text-sm font-medium transition-colors"}
           >
             New Test
           </Link>
           <Link 
             href="/dashboard"
             className={pathname?.startsWith('/dashboard') 
-              ? "flex items-center gap-2 bg-nord-8/20 border border-nord-8/30 text-nord-8 px-4 py-2 rounded-full text-sm font-medium transition-all" 
-              : "flex items-center gap-2 bg-nord-1/50 hover:bg-nord-2/50 border border-nord-3 text-nord-5 hover:text-white px-4 py-2 rounded-full text-sm font-medium transition-all"}
+              ? "flex items-center gap-2 bg-electric-blue/20 border border-electric-blue/30 text-white px-4 py-2 rounded-full text-sm font-medium transition-all" 
+              : "flex items-center gap-2 bg-glass-surface hover:bg-white/[0.06] border border-glass-border text-zinc-400 hover:text-white px-4 py-2 rounded-full text-sm font-medium transition-all"}
           >
             <LayoutDashboard className="w-4 h-4" />
             Dashboard
@@ -49,7 +49,7 @@ export default function Header() {
           {mounted && (
             <button
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="p-2 rounded-full bg-nord-1/50 hover:bg-nord-2/50 border border-nord-3 text-nord-5 hover:text-white transition-all ml-2"
+              className="p-2 rounded-full bg-glass-surface hover:bg-white/[0.06] border border-glass-border text-zinc-400 hover:text-white transition-all ml-2"
             >
               {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>

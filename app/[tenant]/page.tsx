@@ -19,7 +19,7 @@ export default async function TenantPage({ params }: { params: { tenant: string 
   return (
     <div className="min-h-screen text-white flex flex-col" style={{ backgroundColor: '#0a0a0f' }}>
       {/* Dynamic Header */}
-      <header className="px-8 py-6 flex items-center justify-between border-b border-nord-3" style={{ borderBottomColor: `${tenant.themeColor || '#4f46e5'}30` }}>
+      <header className="px-8 py-6 flex items-center justify-between border-b border-glass-border" style={{ borderBottomColor: `${tenant.themeColor || '#4f46e5'}30` }}>
         <div className="flex items-center gap-3">
           <div className="p-3 rounded-xl border" style={{ backgroundColor: `${tenant.themeColor || '#4f46e5'}20`, borderColor: `${tenant.themeColor || '#4f46e5'}30` }}>
             <Building2 className="w-8 h-8" style={{ color: tenant.themeColor || '#4f46e5' }} />
@@ -36,16 +36,16 @@ export default async function TenantPage({ params }: { params: { tenant: string 
           <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight">
             Welcome to the <span style={{ color: tenant.themeColor || '#4f46e5' }}>{tenant.name}</span> Assessment Platform
           </h2>
-          <p className="text-nord-4 text-lg max-w-2xl mx-auto">
+          <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
             Access your courses, complete assignments, and track your performance in real-time.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-12">
           {tenant.tests.map(test => (
-            <div key={test.id} className="p-6 rounded-2xl bg-nord-1/50 border border-nord-3 hover:border-white/20 transition-all flex flex-col h-full">
+            <div key={test.id} className="p-6 rounded-2xl bg-glass-surface border border-glass-border hover:border-white/20 transition-all flex flex-col h-full">
               <h3 className="text-xl font-bold mb-2">{test.title}</h3>
-              <p className="text-nord-4 text-sm mb-6 flex-1">
+              <p className="text-zinc-400 text-sm mb-6 flex-1">
                 Required assessment assigned by {tenant.name} faculty.
               </p>
               <Link 
@@ -59,7 +59,7 @@ export default async function TenantPage({ params }: { params: { tenant: string 
           ))}
           
           {tenant.tests.length === 0 && (
-            <div className="col-span-full p-12 text-center border-2 border-dashed border-nord-3 rounded-2xl text-gray-500">
+            <div className="col-span-full p-12 text-center border-2 border-dashed border-glass-border rounded-2xl text-gray-500">
               No assessments are currently active for this institution.
             </div>
           )}

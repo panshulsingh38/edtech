@@ -62,12 +62,12 @@ export default function SnapAndSolve() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white p-6 md:p-12 font-sans selection:bg-nord-9/30">
+    <div className="min-h-screen bg-black text-white p-6 md:p-12 font-sans selection:bg-white/10/30">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-nord-9/20 rounded-xl border border-nord-9/30 shrink-0">
-              <Camera className="w-8 h-8 text-nord-9" />
+            <div className="p-3 bg-white/10/20 rounded-xl border border-white/10 shrink-0">
+              <Camera className="w-8 h-8 text-zinc-300" />
             </div>
             <div>
               <h1 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
@@ -85,7 +85,7 @@ export default function SnapAndSolve() {
           {/* Upload Section */}
           <div className="flex flex-col gap-6">
             <div 
-              className="border-2 border-dashed border-zinc-700 hover:border-nord-9/50 bg-zinc-900/50 rounded-2xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 min-h-[300px]"
+              className="border-2 border-dashed border-zinc-700 hover:border-white/20/50 bg-zinc-900/50 rounded-2xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 min-h-[300px]"
               onClick={() => fileInputRef.current?.click()}
             >
               <input 
@@ -140,13 +140,13 @@ export default function SnapAndSolve() {
           {/* Solution Section */}
           <div className="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-6 lg:p-10 min-h-[500px]">
             <h3 className="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2 border-b border-zinc-800 pb-4">
-              <Sparkles className="w-5 h-5 text-nord-9" />
+              <Sparkles className="w-5 h-5 text-zinc-300" />
               Step-by-Step Solution
             </h3>
             
             {loading ? (
               <div className="flex flex-col items-center justify-center h-[300px] text-zinc-500">
-                <Loader2 className="w-10 h-10 animate-spin mb-4 text-nord-15" />
+                <Loader2 className="w-10 h-10 animate-spin mb-4 text-zinc-300" />
                 <p className="animate-pulse">Breaking down the concepts...</p>
               </div>
             ) : solution ? (

@@ -105,98 +105,66 @@ export default function Home() {
   }, [session]);
 
   return (
-    <main className="min-h-screen bg-nord-0 text-white overflow-hidden relative selection:bg-nord-8/30">
+    <main className="min-h-screen bg-oled-black text-white overflow-hidden relative selection:bg-electric-blue/30">
       {/* Solid Clean Background for Nord Theme */}
       <div className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-5"></div>
 
-      {/* Top Navigation */}
-      <div className="absolute top-6 right-6 md:top-10 md:right-10 z-50 flex items-center gap-4 flex-wrap justify-end">
-        
-        {/* Gamification Stats */}
-        <div className="hidden sm:flex items-center gap-3">
-          <Link href="/leaderboard" className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-nord-1/50 border border-nord-3 backdrop-blur-md cursor-pointer hover:bg-nord-2/50 transition-colors">
-            <Trophy className="w-4 h-4 text-yellow-400" />
-            <span className="text-sm font-bold text-white">Rank</span>
+      {/* Centered Pill Navigation */}
+      <div className="absolute top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center">
+        <div className="flex items-center gap-4 bg-zinc-900/60 backdrop-blur-xl border border-glass-border px-6 py-3 rounded-full shadow-2xl">
+          <Link href="/analytics" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">
+            Analytics
           </Link>
-          <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-nord-1/50 border border-nord-3 backdrop-blur-md">
-            <Flame className="w-4 h-4 text-orange-500" />
-            <span className="text-sm font-bold text-white">{streak}</span>
-          </div>
-          <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-nord-1/50 border border-nord-3 backdrop-blur-md">
-            <Zap className="w-4 h-4 text-yellow-400" />
-            <span className="text-sm font-bold text-white">{xp} XP</span>
-          </div>
-          <div 
-            onClick={() => setIsPaywallOpen(true)}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-nord-1/50 border border-nord-3 backdrop-blur-md cursor-pointer hover:bg-nord-2/50 hover:border-nord-15/50 transition-all group"
-            title="Refill Insights"
-          >
-            <Diamond className="w-4 h-4 text-nord-15 group-hover:scale-110 transition-transform" />
-            <span className="font-bold text-white text-lg drop-shadow-md">
-              {/* @ts-ignore */}
-              {session?.user?.role === 'ADMIN' ? '∞' : insights !== null ? insights : '...'}
-            </span>
-            <div className="ml-1 w-5 h-5 rounded-full bg-nord-15/20 flex items-center justify-center text-nord-15 group-hover:bg-nord-15 group-hover:text-white transition-colors">
-              <span className="text-sm font-bold leading-none mb-0.5">+</span>
+          <div className="w-[1px] h-4 bg-glass-border"></div>
+          <Link href="/snap-and-solve" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">
+            Snap & Solve
+          </Link>
+          <div className="w-[1px] h-4 bg-glass-border"></div>
+          <Link href="/survival-guide" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">
+            Survival Guide
+          </Link>
+
+          {/* Gamification Dropdown/Group */}
+          <div className="w-[1px] h-4 bg-glass-border"></div>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5 cursor-pointer hover:text-electric-blue transition-colors">
+              <Flame className="w-3.5 h-3.5" />
+              <span className="text-sm font-bold">{streak}</span>
+            </div>
+            <div className="flex items-center gap-1.5 cursor-pointer hover:text-electric-blue transition-colors">
+              <Zap className="w-3.5 h-3.5" />
+              <span className="text-sm font-bold">{xp}</span>
+            </div>
+            <div 
+              onClick={() => setIsPaywallOpen(true)}
+              className="flex items-center gap-1.5 cursor-pointer text-electric-blue hover:text-white transition-colors"
+              title="Refill Insights"
+            >
+              <Diamond className="w-3.5 h-3.5" />
+              <span className="text-sm font-bold">
+                {/* @ts-ignore */}
+                {session?.user?.role === 'ADMIN' ? '∞' : insights !== null ? insights : '...'}
+              </span>
             </div>
           </div>
 
-          {/* @ts-ignore */}
-          {session?.user?.role === 'ADMIN' && (
-            <button 
-              onClick={() => {
-                setInsights(999);
-                localStorage.setItem('magic_insights', '999');
-              }}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-nord-1/50 border border-nord-3 backdrop-blur-md cursor-pointer hover:bg-nord-2/50 transition-colors"
-              title="Admin Backdoor: Click to refill!"
-            >
-              <Diamond className="w-4 h-4 text-nord-15" />
-              <span className="text-sm font-bold text-white">Refill</span>
-            </button>
-          )}
-
+          <div className="w-[1px] h-4 bg-glass-border"></div>
           {session ? (
-            <div className="flex items-center gap-3 bg-nord-1/50 border border-nord-3 px-2 py-1.5 rounded-full pr-4">
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => signOut()}>
               {session.user?.image ? (
-                <img src={session.user.image} alt="User" className="w-8 h-8 rounded-full border border-white/20" />
+                <img src={session.user.image} alt="User" className="w-6 h-6 rounded-full" />
               ) : (
-                <div className="w-8 h-8 rounded-full bg-nord-8/20 flex items-center justify-center">
-                  <User className="w-4 h-4 text-nord-8" />
+                <div className="w-6 h-6 rounded-full bg-electric-blue/20 flex items-center justify-center">
+                  <User className="w-3 h-3 text-electric-blue" />
                 </div>
               )}
-              <span className="text-sm font-medium">{session.user?.name?.split(' ')[0]}</span>
-              <button onClick={() => signOut()} className="ml-2 text-xs text-red-400 hover:text-red-300 font-medium">Sign Out</button>
             </div>
           ) : (
-            <Link href="/auth/signin" className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white text-black font-bold hover:bg-gray-200 transition-colors shadow-lg">
+            <Link href="/auth/signin" className="text-sm font-medium text-electric-blue hover:text-white transition-colors">
               Sign In
             </Link>
           )}
         </div>
-
-
-        <Link 
-          href="/analytics" 
-          className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-nord-1/50 hover:bg-nord-2/50 border border-nord-3 backdrop-blur-md text-white font-medium transition-all duration-200"
-        >
-          <BarChart3 className="w-4 h-4 text-nord-8" />
-          <span className="hidden sm:inline">Analytics</span>
-        </Link>
-        <Link 
-          href="/snap-and-solve" 
-          className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-nord-9/10 hover:bg-nord-9/20 border border-nord-9/30 backdrop-blur-md text-nord-4 font-medium transition-all duration-200 shadow-[0_0_15px_rgba(168,85,247,0.15)]"
-        >
-          <Camera className="w-4 h-4 text-nord-9" />
-          <span className="hidden sm:inline">Snap & Solve</span>
-        </Link>
-        <Link 
-          href="/survival-guide" 
-          className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-nord-12/10 hover:bg-nord-12/20 border border-nord-12/30 backdrop-blur-md text-nord-4 font-medium transition-all duration-200 shadow-[0_0_15px_rgba(249,115,22,0.15)]"
-        >
-          <BookOpen className="w-4 h-4 text-nord-12" />
-          <span className="hidden sm:inline">Survival Guide</span>
-        </Link>
       </div>
 
       <div className="max-w-6xl mx-auto px-6 py-16 lg:py-24 relative z-10">
@@ -210,17 +178,17 @@ export default function Home() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-center mb-16"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-nord-1/50 border border-nord-3 backdrop-blur-md mb-6">
-                <Sparkles className="w-4 h-4 text-nord-8" />
-                <span className="text-sm font-medium text-nord-4">Next-Gen AI Testing Engine</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-glass-border backdrop-blur-md mb-6">
+                <Sparkles className="w-4 h-4 text-electric-blue" />
+                <span className="text-sm font-medium text-zinc-400">Next-Gen AI Testing Engine</span>
               </div>
-              <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+              <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 text-white">
                 Transform Documents into <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-nord-7 via-nord-8 to-nord-9">
+                <span className="text-white">
                   Interactive Knowledge
                 </span>
               </h1>
-              <p className="max-w-2xl mx-auto text-lg md:text-xl text-nord-4 font-light">
+              <p className="max-w-2xl mx-auto text-lg md:text-xl text-zinc-400 font-light">
                 Upload your course materials, PDFs, or images, and our advanced neural engine will instantly synthesize a beautifully structured, interactive assessment.
               </p>
             </motion.div>

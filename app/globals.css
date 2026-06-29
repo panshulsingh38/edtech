@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #eceff4; /* nord6 */
-  --foreground: #2e3440; /* nord0 */
+  --background: #ffffff;
+  --foreground: #111111;
 }
 
 @theme inline {
@@ -11,28 +11,21 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   
-  --color-nord-0: #2e3440;
-  --color-nord-1: #3b4252;
-  --color-nord-2: #434c5e;
-  --color-nord-3: #4c566a;
-  --color-nord-4: #d8dee9;
-  --color-nord-5: #e5e9f0;
-  --color-nord-6: #eceff4;
-  --color-nord-7: #8fbcbb;
-  --color-nord-8: #88c0d0;
-  --color-nord-9: #81a1c1;
-  --color-nord-10: #5e81ac;
-  --color-nord-11: #bf616a;
-  --color-nord-12: #d08770;
-  --color-nord-13: #ebcb8b;
-  --color-nord-14: #a3be8c;
-  --color-nord-15: #b48ead;
+  /* Minimalist Apple/Linear Palette */
+  --color-electric-blue: #0070F3;
+  --color-electric-blue-dark: #0051a2;
+  --color-oled-black: #000000;
+  --color-glass-surface: rgba(255, 255, 255, 0.03);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --color-zinc-900: #18181b;
+  --color-zinc-800: #27272a;
+  --color-zinc-400: #a1a1aa;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #2e3440; /* nord0 */
-    --foreground: #d8dee9; /* nord4 */
+    --background: #000000; /* OLED Black */
+    --foreground: #ffffff; /* Pure White */
   }
 }
 

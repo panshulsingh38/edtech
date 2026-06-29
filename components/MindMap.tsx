@@ -88,14 +88,14 @@ export default function MindMap({ testData }: MindMapProps) {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full aspect-video rounded-3xl overflow-hidden border border-nord-3 bg-nord-0 relative shadow-2xl">
-      <div className="absolute top-4 left-4 z-10 bg-black/50 backdrop-blur-md px-4 py-2 rounded-full border border-nord-3 flex items-center gap-4 text-sm font-medium">
-        <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-nord-8"></div> Core</div>
-        <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-nord-15"></div> Question</div>
+    <div ref={containerRef} className="w-full aspect-video rounded-3xl overflow-hidden border border-glass-border bg-oled-black relative shadow-2xl">
+      <div className="absolute top-4 left-4 z-10 bg-black/50 backdrop-blur-md px-4 py-2 rounded-full border border-glass-border flex items-center gap-4 text-sm font-medium">
+        <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-electric-blue"></div> Core</div>
+        <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-zinc-9005"></div> Question</div>
         <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-emerald-500"></div> Answer</div>
       </div>
       
-      <div className="absolute bottom-4 left-4 z-10 bg-black/50 backdrop-blur-md px-4 py-2 rounded-full border border-nord-3 text-nord-4 text-sm">
+      <div className="absolute bottom-4 left-4 z-10 bg-black/50 backdrop-blur-md px-4 py-2 rounded-full border border-glass-border text-zinc-400 text-sm">
         Drag to rotate • Scroll to zoom
       </div>
 

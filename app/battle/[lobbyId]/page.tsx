@@ -68,26 +68,26 @@ export default function BattlePage() {
     }, 1000);
   };
 
-  if (!lobby) return <div className="min-h-screen bg-nord-0 flex items-center justify-center text-white">Loading Lobby...</div>;
+  if (!lobby) return <div className="min-h-screen bg-oled-black flex items-center justify-center text-white">Loading Lobby...</div>;
 
   const me = lobby.players.find((p: any) => p.id === playerId);
   const isFinished = currentQuestionIdx >= lobby.test.questions.length;
   const sortedPlayers = [...lobby.players].sort((a, b) => b.score - a.score);
 
   return (
-    <div className="min-h-screen bg-nord-0 text-white p-6 pt-24 font-sans selection:bg-nord-8/30">
+    <div className="min-h-screen bg-oled-black text-white p-6 pt-24 font-sans selection:bg-electric-blue/30">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center gap-4 mb-8 justify-center">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center shadow-xl shadow-red-500/20">
             <Swords className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-4xl font-bold text-nord-6">
+          <h1 className="text-4xl font-bold text-white">
             Quiz Battle
           </h1>
         </div>
 
         {!playerId && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-md mx-auto bg-nord-1 p-8 rounded-3xl border border-nord-3 shadow-2xl">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-md mx-auto bg-zinc-900 p-8 rounded-3xl border border-glass-border shadow-2xl">
             <h2 className="text-2xl font-bold mb-6 text-center">Join Lobby</h2>
             <form onSubmit={handleJoin} className="space-y-4">
               <input 
@@ -95,10 +95,10 @@ export default function BattlePage() {
                 placeholder="Enter your nickname..." 
                 value={playerName}
                 onChange={(e) => setPlayerName(e.target.value)}
-                className="w-full bg-nord-0 border border-nord-3 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-nord-8 transition-colors"
+                className="w-full bg-oled-black border border-glass-border rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electric-blue transition-colors"
                 maxLength={15}
               />
-              <button type="submit" className="w-full bg-gradient-to-r from-indigo-600 to-nord-10 hover:from-nord-8 hover:to-purple-500 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-lg hover:shadow-indigo-500/25">
+              <button type="submit" className="w-full bg-gradient-to-r from-indigo-600 to-electric-blue-dark hover:from-electric-blue hover:to-purple-500 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-lg hover:shadow-indigo-500/25">
                 Enter Arena
               </button>
             </form>
@@ -106,14 +106,14 @@ export default function BattlePage() {
         )}
 
         {playerId && lobby.status === 'waiting' && (
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-nord-1 p-8 rounded-3xl border border-nord-3 shadow-2xl text-center">
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-zinc-900 p-8 rounded-3xl border border-glass-border shadow-2xl text-center">
             <h2 className="text-2xl font-bold mb-2">Waiting for players...</h2>
-            <p className="text-nord-4 mb-8">Share this URL to invite friends</p>
+            <p className="text-zinc-400 mb-8">Share this URL to invite friends</p>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
               {lobby.players.map((p: any) => (
-                <div key={p.id} className="bg-nord-1/50 border border-nord-3 rounded-xl p-4 flex flex-col items-center gap-2">
-                  <div className="w-12 h-12 rounded-full bg-nord-8/20 text-nord-8 flex items-center justify-center font-bold text-xl">
+                <div key={p.id} className="bg-glass-surface border border-glass-border rounded-xl p-4 flex flex-col items-center gap-2">
+                  <div className="w-12 h-12 rounded-full bg-electric-blue/20 text-white flex items-center justify-center font-bold text-xl">
                     {p.name.charAt(0).toUpperCase()}
                   </div>
                   <span className="font-medium">{p.name}</span>
@@ -130,8 +130,8 @@ export default function BattlePage() {
         {playerId && lobby.status === 'playing' && !isFinished && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
-              <motion.div key={currentQuestionIdx} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="bg-nord-1 p-8 rounded-3xl border border-nord-3">
-                <div className="text-nord-8 font-bold tracking-widest text-sm uppercase mb-4">Question {currentQuestionIdx + 1} of {lobby.test.questions.length}</div>
+              <motion.div key={currentQuestionIdx} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="bg-zinc-900 p-8 rounded-3xl border border-glass-border">
+                <div className="text-white font-bold tracking-widest text-sm uppercase mb-4">Question {currentQuestionIdx + 1} of {lobby.test.questions.length}</div>
                 <h3 className="text-2xl font-medium mb-8 leading-relaxed">
                   {lobby.test.questions[currentQuestionIdx].questionText}
                 </h3>
@@ -143,7 +143,7 @@ export default function BattlePage() {
                       const isCorrect = opt === lobby.test.questions[currentQuestionIdx].correctAnswer;
                       const showResult = selectedOption !== null;
 
-                      let btnClass = "bg-nord-1/50 border-nord-3 text-nord-5 hover:bg-nord-2/50";
+                      let btnClass = "bg-glass-surface border-glass-border text-zinc-400 hover:bg-white/[0.06]";
                       if (showResult) {
                         if (isCorrect) btnClass = "bg-green-500/20 border-green-500 text-green-400";
                         else if (isSelected) btnClass = "bg-red-500/20 border-red-500 text-red-400";
@@ -161,25 +161,25 @@ export default function BattlePage() {
                       );
                     })
                   ) : (
-                    <div className="text-nord-4 italic">Short answer questions are not supported in multiplayer mode yet. Please wait.</div>
+                    <div className="text-zinc-400 italic">Short answer questions are not supported in multiplayer mode yet. Please wait.</div>
                   )}
                 </div>
               </motion.div>
             </div>
 
             <div className="lg:col-span-1 space-y-4">
-              <h3 className="text-xl font-bold flex items-center gap-2 mb-4"><Users className="w-5 h-5 text-nord-8" /> Leaderboard</h3>
+              <h3 className="text-xl font-bold flex items-center gap-2 mb-4"><Users className="w-5 h-5 text-white" /> Leaderboard</h3>
               {sortedPlayers.map((p: any, idx: number) => (
-                <div key={p.id} className={cn("bg-nord-1 p-4 rounded-xl border flex flex-col gap-2 transition-all", p.id === playerId ? "border-nord-8 shadow-lg" : "border-nord-3")}>
+                <div key={p.id} className={cn("bg-zinc-900 p-4 rounded-xl border flex flex-col gap-2 transition-all", p.id === playerId ? "border-electric-blue shadow-lg" : "border-glass-border")}>
                   <div className="flex justify-between items-center">
                     <span className="font-bold flex items-center gap-2">
                       {idx === 0 && <Crown className="w-4 h-4 text-yellow-500" />}
                       {p.name}
                     </span>
-                    <span className="text-nord-8 font-bold">{p.score} pts</span>
+                    <span className="text-white font-bold">{p.score} pts</span>
                   </div>
                   <div className="w-full h-2 bg-black/50 rounded-full overflow-hidden">
-                    <div className="h-full bg-nord-8 transition-all duration-500" style={{ width: `${p.progress}%` }}></div>
+                    <div className="h-full bg-electric-blue transition-all duration-500" style={{ width: `${p.progress}%` }}></div>
                   </div>
                 </div>
               ))}
@@ -188,14 +188,14 @@ export default function BattlePage() {
         )}
 
         {playerId && isFinished && (
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="bg-nord-1 p-12 rounded-3xl border border-nord-3 shadow-2xl text-center max-w-2xl mx-auto">
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="bg-zinc-900 p-12 rounded-3xl border border-glass-border shadow-2xl text-center max-w-2xl mx-auto">
             <Trophy className="w-20 h-20 text-yellow-500 mx-auto mb-6" />
             <h2 className="text-4xl font-bold mb-2 text-white">Battle Finished!</h2>
-            <p className="text-nord-4 mb-10">Here are the final standings:</p>
+            <p className="text-zinc-400 mb-10">Here are the final standings:</p>
             
             <div className="space-y-4">
               {sortedPlayers.map((p: any, idx: number) => (
-                <div key={p.id} className={cn("p-6 rounded-2xl border flex justify-between items-center text-xl", idx === 0 ? "bg-yellow-500/10 border-yellow-500/50 text-yellow-500" : "bg-nord-1/50 border-nord-3 text-nord-5")}>
+                <div key={p.id} className={cn("p-6 rounded-2xl border flex justify-between items-center text-xl", idx === 0 ? "bg-yellow-500/10 border-yellow-500/50 text-yellow-500" : "bg-glass-surface border-glass-border text-zinc-400")}>
                   <div className="flex items-center gap-4">
                     <span className="font-bold opacity-50">#{idx + 1}</span>
                     <span className="font-bold">{p.name}</span>

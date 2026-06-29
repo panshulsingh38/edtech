@@ -12,11 +12,11 @@ export default async function AnalyticsPage() {
   
   if (!session || !session.user) {
     return (
-      <div className="min-h-screen bg-nord-0 text-white p-8 md:p-16 flex items-center justify-center">
+      <div className="min-h-screen bg-oled-black text-white p-8 md:p-16 flex items-center justify-center">
         <div className="text-center">
           <Activity className="w-16 h-16 text-gray-600 mx-auto mb-6" />
           <h3 className="text-2xl font-semibold text-white mb-2">Sign in to view your Analytics</h3>
-          <Link href="/auth/signin" className="px-8 py-4 mt-6 inline-block rounded-xl bg-nord-8 hover:bg-nord-8 text-white font-medium transition-all">
+          <Link href="/auth/signin" className="px-8 py-4 mt-6 inline-block rounded-xl bg-electric-blue hover:bg-electric-blue text-white font-medium transition-all">
             Sign In
           </Link>
         </div>
@@ -80,68 +80,68 @@ export default async function AnalyticsPage() {
   });
 
   return (
-    <div className="min-h-screen bg-nord-0 text-white p-8 md:p-16">
+    <div className="min-h-screen bg-oled-black text-white p-8 md:p-16">
       <div className="max-w-5xl mx-auto space-y-12">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-nord-3 pb-8">
+        <div className="flex items-center justify-between border-b border-glass-border pb-8">
           <div>
-            <Link href="/" className="inline-flex items-center text-nord-8 hover:text-nord-8 mb-4 transition-colors font-medium">
+            <Link href="/" className="inline-flex items-center text-white hover:text-white mb-4 transition-colors font-medium">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Dashboard
             </Link>
-            <h1 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-nord-7 to-purple-400">
+            <h1 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-400">
               Brain Analytics
             </h1>
-            <p className="text-nord-4 mt-2 text-lg">Track your memory retention and spaced repetition progress.</p>
+            <p className="text-zinc-400 mt-2 text-lg">Track your memory retention and spaced repetition progress.</p>
           </div>
-          <div className="hidden md:flex items-center justify-center w-16 h-16 rounded-full bg-nord-8/20 border border-nord-8/30">
-            <BrainCircuit className="w-8 h-8 text-nord-8" />
+          <div className="hidden md:flex items-center justify-center w-16 h-16 rounded-full bg-electric-blue/20 border border-electric-blue/30">
+            <BrainCircuit className="w-8 h-8 text-white" />
           </div>
         </div>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-[#13131a] border border-white/5 p-8 rounded-3xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-nord-8/10 rounded-full blur-[40px] -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-500" />
-            <Activity className="w-8 h-8 text-nord-8 mb-4" />
-            <p className="text-nord-4 font-medium mb-1">Total Flashcard Reviews</p>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-electric-blue/10 rounded-full blur-[40px] -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-500" />
+            <Activity className="w-8 h-8 text-white mb-4" />
+            <p className="text-zinc-400 font-medium mb-1">Total Flashcard Reviews</p>
             <p className="text-4xl font-bold text-white">{totalReviews}</p>
           </div>
           
           <div className="bg-[#13131a] border border-white/5 p-8 rounded-3xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-nord-12/10 rounded-full blur-[40px] -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-500" />
-            <Flame className="w-8 h-8 text-nord-12 mb-4" />
-            <p className="text-nord-4 font-medium mb-1">Current Study Streak</p>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-zinc-9002/10 rounded-full blur-[40px] -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-500" />
+            <Flame className="w-8 h-8 text-zinc-300 mb-4" />
+            <p className="text-zinc-400 font-medium mb-1">Current Study Streak</p>
             <p className="text-4xl font-bold text-white">4 Days</p>
           </div>
 
           <div className="bg-[#13131a] border border-white/5 p-8 rounded-3xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/10 rounded-full blur-[40px] -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-500" />
             <CalendarDays className="w-8 h-8 text-green-400 mb-4" />
-            <p className="text-nord-4 font-medium mb-1">Cards Due Tomorrow</p>
+            <p className="text-zinc-400 font-medium mb-1">Cards Due Tomorrow</p>
             <p className="text-4xl font-bold text-white">{hardCount + Math.floor(goodCount / 2)}</p>
           </div>
         </div>
 
         {/* Predictive Score Matrix */}
-        <div className="bg-gradient-to-r from-nord-8/10 to-purple-500/10 border border-nord-8/20 p-8 rounded-3xl relative overflow-hidden">
+        <div className="bg-gradient-to-r from-electric-blue/10 to-purple-500/10 border border-electric-blue/20 p-8 rounded-3xl relative overflow-hidden">
           <div className="absolute top-0 right-0 p-8 opacity-20">
-            <Target className="w-32 h-32 text-nord-8" />
+            <Target className="w-32 h-32 text-white" />
           </div>
           <div className="relative z-10">
             <div className="flex items-center gap-2 mb-2">
-              <BrainCircuit className="w-5 h-5 text-nord-8" />
-              <h3 className="text-nord-8 font-bold tracking-wider uppercase text-sm">Predictive Score Model Matrix</h3>
+              <BrainCircuit className="w-5 h-5 text-white" />
+              <h3 className="text-white font-bold tracking-wider uppercase text-sm">Predictive Score Model Matrix</h3>
             </div>
             <div className="flex flex-col md:flex-row md:items-end gap-6 mt-6">
               <div>
-                <p className="text-nord-4 mb-1">Projected Exam Score Range</p>
+                <p className="text-zinc-400 mb-1">Projected Exam Score Range</p>
                 <div className="text-5xl md:text-6xl font-extrabold text-white">
                   {totalAnswers > 0 ? `${predictedScore.min} - ${predictedScore.max}` : 'N/A'}
                 </div>
               </div>
               <div className="pb-2">
-                <span className="inline-flex items-center px-3 py-1 rounded-full bg-nord-8/20 text-nord-8 text-sm font-medium border border-nord-8/30">
+                <span className="inline-flex items-center px-3 py-1 rounded-full bg-electric-blue/20 text-white text-sm font-medium border border-electric-blue/30">
                   {totalAnswers > 0 ? `Top ${100 - predictedScore.percentile}% Percentile` : 'Take tests to generate prediction'}
                 </span>
               </div>
@@ -174,17 +174,17 @@ export default async function AnalyticsPage() {
               {/* Legend */}
               <div className="grid grid-cols-3 gap-4">
                 <div className="flex flex-col border-l-4 border-blue-500 pl-4 py-1">
-                  <span className="text-nord-4 font-medium text-sm">Easy (Mastered)</span>
+                  <span className="text-zinc-400 font-medium text-sm">Easy (Mastered)</span>
                   <span className="text-2xl font-bold text-white">{easyPercent}%</span>
                   <span className="text-xs text-gray-500 mt-1">{easyCount} cards</span>
                 </div>
                 <div className="flex flex-col border-l-4 border-green-500 pl-4 py-1">
-                  <span className="text-nord-4 font-medium text-sm">Good (Learning)</span>
+                  <span className="text-zinc-400 font-medium text-sm">Good (Learning)</span>
                   <span className="text-2xl font-bold text-white">{goodPercent}%</span>
                   <span className="text-xs text-gray-500 mt-1">{goodCount} cards</span>
                 </div>
                 <div className="flex flex-col border-l-4 border-red-500 pl-4 py-1">
-                  <span className="text-nord-4 font-medium text-sm">Hard (Struggling)</span>
+                  <span className="text-zinc-400 font-medium text-sm">Hard (Struggling)</span>
                   <span className="text-2xl font-bold text-white">{hardPercent}%</span>
                   <span className="text-xs text-gray-500 mt-1">{hardCount} cards</span>
                 </div>
