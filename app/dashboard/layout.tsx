@@ -1,9 +1,21 @@
 import Link from 'next/link';
-import { Search, Bell, LayoutDashboard, BookOpen, FileText, GraduationCap, Folder, Settings } from 'lucide-react';
+import { Search, Bell } from 'lucide-react';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 import SidebarNav from '@/components/SidebarNav';
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const session = await getServerSession(authOptions);
+  
+  const userName = session?.user?.name || 'Guest User';
+  const initials = userName
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .substring(0, 2)
+    .toUpperCase();
+
   return (
     <div className="min-h-screen bg-nord-0 flex">
       {/* Sidebar */}
@@ -37,10 +49,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <span className="absolute top-0 right-0 w-2 h-2 bg-nord-11 rounded-full border border-nord-1"></span>
             </button>
             <div className="flex items-center gap-3 cursor-pointer">
-              <div className="w-9 h-9 rounded-full bg-nord-14 flex items-center justify-center text-nord-0 font-bold text-sm">
-                JD
-              </div>
-              <span className="text-nord-6 font-medium text-sm">Jane Doe</span>
+              {session?.user?.image ? (
+                <img src={session.user.image} alt={userName} className="w-9 h-9 rounded-full object-cover border border-nord-2" />
+              ) : (
+                <div className="w-9 h-9 rounded-full bg-nord-14 flex items-center justify-center text-nord-0 font-bold text-sm">
+                  {initials}
+                </div>
+              )}
+              <span className="text-nord-6 font-medium text-sm">{userName}</span>
             </div>
           </div>
         </header>
