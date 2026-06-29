@@ -13,6 +13,10 @@ export default function Header() {
 
   useEffect(() => setMounted(true), []);
 
+  if (pathname?.startsWith('/dashboard')) {
+    return null;
+  }
+
   return (
     <header className="w-full border-b border-nord-3 bg-[#13131a]/80 backdrop-blur-md sticky top-0 z-50 print:hidden">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">

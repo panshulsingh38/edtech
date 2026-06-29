@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { Search, Bell, LayoutDashboard, BookOpen, FileText, GraduationCap, Folder, Settings } from 'lucide-react';
 
+import SidebarNav from '@/components/SidebarNav';
+
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-nord-0 flex">
@@ -12,32 +14,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </Link>
         </div>
 
-        <nav className="flex-1 px-4 py-4 space-y-2">
-          <Link href="/dashboard" className="flex items-center gap-3 px-4 py-3 bg-nord-1 rounded-xl text-nord-14 font-medium">
-            <LayoutDashboard className="w-5 h-5" />
-            Dashboard
-          </Link>
-          <Link href="#" className="flex items-center gap-3 px-4 py-3 text-nord-4 hover:bg-nord-1 hover:text-nord-6 rounded-xl transition-colors">
-            <BookOpen className="w-5 h-5" />
-            My Courses
-          </Link>
-          <Link href="#" className="flex items-center gap-3 px-4 py-3 text-nord-4 hover:bg-nord-1 hover:text-nord-6 rounded-xl transition-colors">
-            <FileText className="w-5 h-5" />
-            Assignments
-          </Link>
-          <Link href="#" className="flex items-center gap-3 px-4 py-3 text-nord-4 hover:bg-nord-1 hover:text-nord-6 rounded-xl transition-colors">
-            <GraduationCap className="w-5 h-5" />
-            Grades
-          </Link>
-          <Link href="#" className="flex items-center gap-3 px-4 py-3 text-nord-4 hover:bg-nord-1 hover:text-nord-6 rounded-xl transition-colors">
-            <Folder className="w-5 h-5" />
-            Resources
-          </Link>
-          <Link href="#" className="flex items-center gap-3 px-4 py-3 text-nord-4 hover:bg-nord-1 hover:text-nord-6 rounded-xl transition-colors">
-            <Settings className="w-5 h-5" />
-            Settings
-          </Link>
-        </nav>
+        <SidebarNav />
       </aside>
 
       {/* Main Content Area */}
