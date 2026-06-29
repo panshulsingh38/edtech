@@ -71,7 +71,7 @@ export default async function DashboardPage() {
                         <span className="text-sm text-nord-4 font-medium">{test._count.questions} Questions</span>
                         <span className="text-xs text-nord-3">{formatDistanceToNow(new Date(test.createdAt))} ago</span>
                       </div>
-                      <Link href={`/${test.id}`} className="block">
+                      <Link href={`/?testId=${test.id}`} className="block">
                         <button className="w-full py-2.5 bg-nord-14 hover:bg-[#b5d09f] text-nord-0 font-semibold rounded-xl transition-colors">
                           Resume Lesson
                         </button>
