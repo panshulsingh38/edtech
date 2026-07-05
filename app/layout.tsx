@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,36 +12,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Aether Learning | Turn Any Document into an Interactive Study Path",
-  description: "Upload your PDFs, notes, or lecture slides. Our AI instantly generates personalized flashcards, practice quizzes, and interactive modules to help you master the material.",
-  openGraph: {
-    title: "Aether Learning | Turn Any Document into an Interactive Study Path",
-    description: "Upload your PDFs, notes, or lecture slides. Our AI instantly generates personalized flashcards, practice quizzes, and interactive modules to help you master the material.",
-    url: "https://aetherlearning.com",
-    siteName: "Aether Learning",
-    images: [
-      {
-        url: "/distillation-pod.png",
-        width: 1200,
-        height: 630,
-        alt: "Aether Learning Distillation Pod",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Aether Learning",
-    description: "Turn Any Document into an Interactive Study Path",
-    images: ["/distillation-pod.png"],
-  },
+  title: "Aether Learning",
+  description: "AI-powered personalized learning platform",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -57,7 +30,8 @@ export const viewport = {
   themeColor: "#0a0a0a",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 5,
+  maximumScale: 1,
+  userScalable: false
 };
 
 import Header from "@/components/Header";
@@ -73,7 +47,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300">
         <ThemeProvider
