@@ -24,6 +24,14 @@ export async function getTestById(testId: string) {
   };
 }
 
+export async function getUserInsights(userId: string) {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { insights: true }
+  });
+  return user?.insights ?? 0;
+}
+
 // MULTIPLAYER LOBBY ACTIONS
 
 export async function createLobby(testId: string) {

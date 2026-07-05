@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import FileUpload from '@/components/FileUpload';
 import TestEnvironment from '@/components/TestEnvironment';
 import { QuestionSet } from '@/lib/ai-engine';
-import { getTestById } from '@/app/actions';
+import { getTestById, getUserInsights } from '@/app/actions';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, BarChart3, Zap, Flame, Trophy, User, Camera, BookOpen } from 'lucide-react';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 export default function Home() {
   const [testData, setTestData] = useState<QuestionSet | null>(null);
   const [testId, setTestId] = useState<string | null>(null);
-  const [xp, setXp] = useState<number>(0);
+  const [insights, setInsights] = useState<number>(0);
   const [streak, setStreak] = useState<number>(0);
   
   const { data: session } = useSession();
@@ -47,28 +47,19 @@ export default function Home() {
 
     // Load xp, and streak
 
-    const storedXp = localStorage.getItem('magic_xp');
-    if (storedXp !== null) setXp(parseInt(storedXp, 10));
+    // Fetch user insights from backend if logged in
+    if (session?.user?.id) {
+      getUserInsights(session.user.id).then(count => {
+        setInsights(count);
+      });
+    }
 
     const storedStreak = localStorage.getItem('magic_streak');
     if (storedStreak !== null) {
       setStreak(parseInt(storedStreak, 10));
     } else {
-      setStreak(1); // default to 1 day streak for new users
+      setStreak(1);
     }
-
-    // Listen for XP gain events from Flashcards
-    const handleGainXp = (e: any) => {
-      const amount = e.detail?.amount || 10;
-      setXp(prev => {
-        const newXp = prev + amount;
-        localStorage.setItem('magic_xp', newXp.toString());
-        return newXp;
-      });
-    };
-
-    window.addEventListener('gain-xp', handleGainXp);
-    return () => window.removeEventListener('gain-xp', handleGainXp);
   }, [session]);
 
   return (
@@ -98,10 +89,10 @@ export default function Home() {
               <Flame className="w-3.5 h-3.5" />
               <span className="text-sm font-bold">{streak}</span>
             </div>
-            <div className="flex items-center gap-1.5 cursor-pointer text-nord-13 hover:text-yellow-300 transition-colors">
+            <Link href="/dashboard/upgrade" className="flex items-center gap-1.5 cursor-pointer text-nord-13 hover:text-yellow-300 transition-colors">
               <Zap className="w-3.5 h-3.5" />
-              <span className="text-sm font-bold">{xp}</span>
-            </div>
+              <span className="text-sm font-bold">{insights}</span>
+            </Link>
           </div>
 
           <div className="w-[1px] h-4 bg-nord-3"></div>
