@@ -48,8 +48,8 @@ export default function Home() {
     // Load xp, and streak
 
     // Fetch user insights from backend if logged in
-    if (session?.user?.id) {
-      getUserInsights(session.user.id).then(count => {
+    if (session?.user && (session.user as any).id) {
+      getUserInsights((session.user as any).id).then(count => {
         setInsights(count);
       });
     }
